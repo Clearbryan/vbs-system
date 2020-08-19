@@ -1,0 +1,156 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/analytics'">Reports</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">all</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="btn-group mb-0" data-toggle="buttons">
+  <a class="btn btn-outline-primary" [routerLink]="['/user/analytics/report', report.id]"
+    [queryParams]="{name:report.name}">
+    <p></p>
+    <i class="fas fa-chart-pie"></i> Summary
+  </a>
+  <a class="btn btn-outline-primary active" [routerLink]="['/user/analytics/report/call-detail-record', report.id]"
+    [queryParams]="{name:report.name}">
+    <p></p>
+    <i class="fas fa-info-circle"></i> Call Detail Record
+  </a>
+</div>
+
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-12 py-3">
+      <h5>Campaign name: {{report.name}}</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 equel-grid">
+      <div class="grid">
+        <div>
+          <div style="float: left;">
+            <span><small><b>First Call: </b> </small><small>{{report.start_date}}, {{report.calltime}}</small> -
+              <small><b>Last Call:
+                </b>
+              </small><small>28 July 2020, 12:15
+                pm</small></span>
+            <br>
+            <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Cost: </b>
+              </small><small>R 1000</small></span>
+          </div>
+          <div style="float: right;" class="mb-2">
+            <div class="mt-2" style="float: left;">
+              <label>Filter by</label>
+              <ul class="nav">
+                <li class="ml-1 mb-1 mr-1 mt-1">
+                  <select class="form-control" [(ngModel)]="searchOption" name="searchOption">
+                    <option [value]="searchString" *ngFor="let searchString of searchStrings">{{searchString}}
+                    </option>
+                  </select>
+                </li>
+                <li class="ml-1 mb-1 mr-1 mt-1">
+                  <input type="search" (input)="search($event)" class="form-control" placeholder="search">
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <div class="grib-body">
+          <div class="item-wrapper">
+            <div class="table-responsive">
+              <table class="table info-table table-striped">
+                <thead class="">
+                  <tr>
+                    <th>Call Date</th>
+                    <th>Duration </th>
+                    <th>Bill/sec </th>
+                    <th>Caller Id</th>
+                    <th>Response</th>
+                    <th>Cost </th>
+                    <th>Phone Number</th>
+                    <th>Dispostion</th>
+                  </tr>
+                </thead>
+                <tbody [hidden]="!noSearch">
+                  <tr *ngFor="let survey of report._campaign | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{survey.calldate}}</td>
+                    <td>{{survey.duration}}</td>
+                    <td>{{survey.billsec}}</td>
+                    <td>{{survey.callerid}}</td>
+                    <td>
+                      {{survey.disposition}}
+                      <!-- <div>
+                                  <div class="row">
+                                    <div class="col-4">
+                                      <span class="text-success"><b>Yes</b></span>
+                                    </div>
+                                    <div class="col-4">
+            
+                                    </div>
+                                    <div class="col-4">
+            
+                                    </div>
+                                  </div>
+                                </div> -->
+                    </td>
+                    <td>cell</td>
+                    <td>{{survey.contact}}</td>
+                    <td>
+                      {{survey.disposition}}
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody [hidden]="noSearch">
+                  <tr *ngFor="let survey of filteredReports | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{survey.calldate}}</td>
+                    <td>{{survey.duration}}</td>
+                    <td>{{survey.billsec}}</td>
+                    <td>{{survey.callerid}}</td>
+                    <td>
+                      {{survey.disposition}}
+                      <!-- <div>
+                                  <div class="row">
+                                    <div class="col-4">
+                                      <span class="text-success"><b>Yes</b></span>
+                                    </div>
+                                    <div class="col-4">
+            
+                                    </div>
+                                    <div class="col-4">
+            
+                                    </div>
+                                  </div>
+                                </div> -->
+                    </td>
+                    <td>cell</td>
+                    <td>{{survey.contact}}</td>
+                    <td>
+                      {{survey.disposition}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><br>
+            <p class="text-right">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

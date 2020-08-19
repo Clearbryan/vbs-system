@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dnc'">Dnc List</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">all</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-lg-12 equel-grid">
+      <div class="grid">
+        <div class="grid-body">
+          <div class="item-wrapper">
+            <div class="text-right">
+              <div class="btn btn-primary btn-sm has-icon mb-2" [routerLink]="'/user/dnc/add'">
+                <i class="fas fa-plus -plus-outline"></i>Add
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table info-table table-striped">
+                <thead class="">
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date Created</th>
+                    <th>Total Contacts</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dnc of dnc | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{dnc.name}}</td>
+                    <td>{{dnc.description}}</td>
+                    <td>{{dnc.created_date}}</td>
+                    <td>{{dnc.total}}</td>
+                    <td>
+                      <a [routerLink]="['/user/dnc/view', dnc.id]"><i class="fas fa-eye mr-2 ml-2 text-primary"
+                          title="view"></i></a>
+                      <a><i class="fas fa-download mr-2 ml-2 text-success" title="download"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <p class="text-right">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

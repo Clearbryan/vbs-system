@@ -1,0 +1,87 @@
+.phone_wraper {
+  margin-top: 0px !important;
+  background-color: #ecedf1;
+}
+
+.phone {
+  position: relative;
+  border: 10px solid #000;
+  background-color: #fff;
+  /* margin-left: 3px;
+    margin-right: 3px; */
+  margin: auto;
+  border-radius: 30px;
+  width: 320px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+}
+
+.phone .screen {
+  height: 280px;
+  border-radius: 50px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 7px;
+
+
+}
+
+.phone .pad {
+  padding-right: 10px;
+  padding-left: 10px;
+  min-height: 250px;
+  margin-left: 20px;
+  margin-right: 10px;
+  min-width: 280px;
+  /* border: 1px solid #f1f1f1; */
+  border-radius: 7px;
+}
+
+.u-pad {
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  /* min-width: 350px; */
+}
+
+.number {
+  min-width: 60px;
+  min-height: 60px;
+  font-size: 10px;
+  border-radius: 100px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  padding: 7px 7px;
+
+  /* width: 50px;
+    height: 50px;
+    padding: 7px 10px;
+    border-radius: 25px;
+    font-size: 10px;
+    text-align: center; */
+
+}
+
+
+.btn-circle.btn-xl {
+  width: 70px;
+  /* background-color: #000; */
+  height: 70px;
+  padding: 10px 16px;
+  border: 5px solid #f1f1f1;
+  border-radius: 35px;
+  font-size: 12px;
+  text-align: center;
+  /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
+}
+
+.phone .speaker {
+  position: relative;
+  top: -10px;
+  width: 110px;
+  height: 30px;
+  color: #000;
+  border: 1 px solid #000;
+  border-radius: 6px;
+  background-color: #000;
+}

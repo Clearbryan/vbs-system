@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/ivr'">Dnc List</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">add</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Ivr Menu successfully added!</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Ooops... an error occured!</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-lg-6 equel-grid">
+      <div class="grid">
+        <div class="grid-body">
+          <div class="item-wrapper">
+            <div class="text-right">
+              <!-- <div class="btn btn-primary has-icon mb-2" [routerLink]="'/user/audio/add'">
+                    <i class="fas fa-plus -plus-outline"></i>Add
+                  </div> -->
+            </div>
+
+            <form>
+              <div class="form-group">
+                <label>Ivr Name</label>
+                <input type="text" class="form-control" [(ngModel)]="name" placeholder="IVR menu name"
+                  (mouseleave)="check()" name="name">
+                <small class="form-text">enter the ivr menu name.</small>
+              </div>
+              <div class="form-group">
+                <label>Ivr Description</label>
+                <input type="text" class="form-control" placeholder="IVR menu description" (mouseleave)="check()"
+                  name="desc" [(ngModel)]="desc">
+                <small class="form-text">enter the ivr menu description.</small>
+              </div>
+              <div class="form-group">
+                <label>Ivr audio</label>
+                <select [(ngModel)]="audio" name="audio" class="form-control">
+                  <option [value]="audio.id" *ngFor="let audio of audios">{{audio.name}}
+                  </option>
+                </select>
+                <small class="form-text">select ivr menu audio.</small>
+              </div>
+              <hr>
+              <div class="row" [hidden]="noresponses">
+                <div class="col">
+                  <div class="" *ngFor="let response of responses">
+                    <label><strong>Selected Key: {{response.key}}</strong></label>
+                    <input type="text" class="form-control" name="respo" [(ngModel)]="response.value">
+                    <small>click to edit response</small>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-6">
+                    <div >
+                      <div class="" *ngFor="let response of responses">
+                        <label><strong>Selected Key: {{response.key}}</strong></label>
+                        <input type="text" class="form-control" name="respo" [(ngModel)]="response.value">
+                        <small>click to edit response</small>
+                      </div>
+                    </div>
+                    <br>
+      
+                  </div> -->
+              <div class="text-left">
+                <button class="btn btn-primary" (click)="submitIvr()"> <i class="fas fa-plus"></i> Add Key
+                  Associations</button>
+
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 equel-grid">
+      <div class="phone text-center">
+        <div class="text-center">
+          <p class="btn btn-sm speaker">......</p>
+        </div>
+
+        <div class="screen">
+          <div>
+
+            <div class="mr-3">
+
+            </div>
+            <br>
+            <div [hidden]="!getForm" class="hiddenForm mt-5">
+              <div class="form-group f">
+                <label for="exampleInputEmail1">
+                  <h6>Selected Key: {{keyName}}</h6>
+                </label>
+                <textarea rows="7" type="text" name="keyValue" [(ngModel)]="keyValue" (change)="value($event)"
+                  placeholder="type response here meaning eg: Call me now" class="form-control">
+                    </textarea>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pad mb-2 mt-2">
+          <br>
+          <div class="u-pad px-2 mb-2">
+            <li class="btn btn-light number" (click)="openForm(key.name, key.value)" *ngFor="let key of keyNames">
+              <p class="btn-circle">{{key.name}}</p>
+              <!-- <div class="btn btn-rounded social-icon-btn button-transparent">
+
+              </div> -->
+            </li>
+          </div>
+          <div class="submit-btn text-center mt-2 mb-2">
+            <div class="btn btn-rounded social-icon-btn button-transparent">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

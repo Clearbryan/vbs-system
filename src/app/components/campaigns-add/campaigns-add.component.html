@@ -1,0 +1,284 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/campaigns'">Audio</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">add</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-lg-12 equel-grid">
+      <div class="grid">
+        <div class="grid-body">
+          <div class="item-wrapper">
+            <div class="text-right">
+              <!-- <div class="btn btn-primary has-icon mb-2" [routerLink]="'/user/audio/add'">
+                  <i class="fas fa-plus -plus-outline"></i>Add
+                </div> -->
+            </div>
+
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">General</li>
+                  </ol>
+                </div>
+                <hr>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Campaign Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Campaign name"
+                      [(ngModel)]="name">
+                    <small id="name" class="form-text">give your campaign a descriptive name</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" name="description" placeholder="Campaign Description"
+                      [(ngModel)]="description">
+                    <small id="name" class="form-text">enter a short description about the campaign</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Caller ID</label>
+                    <select class="form-control" name="callerid" [(ngModel)]="callerid">
+                      <option>0876550535</option>
+                    </select>
+                    <small id="fileName" class="form-text">select caller id</small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Select lead file</label>
+                    <select class="form-control" name="phonebook" [(ngModel)]="phonebook">
+                      <option [value]="contact.name" *ngFor="let contact of contacts">{{contact.name}}</option>
+                    </select>
+                    <small id="lead" class="form-text">select lead file</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Select IVR menu</label>
+                    <select class="form-control" name="survey" [(ngModel)]="survey">
+                      <option [value]="survey.name" *ngFor="let survey of surveys">{{survey.name}}</option>
+                    </select>
+                    <small id="lead" class="form-text">select IVR menu</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>DNC list</label>
+                    <select class="form-control" name="dnc" [(ngModel)]="dnc">
+                      <option [value]="dnc.name" *ngFor="let dnc of dncList">{{dnc.name}}</option>
+                    </select>
+                    <small id="lead" class="form-text">select DNC List</small>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Advanced Settings</li>
+                  </ol>
+                </div>
+                <hr>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Maximum retries</label>
+                    <input class="form-control" name="maxretry" [(ngModel)]="maxretry" type="number"
+                      placeholder="Maximum call retry times">
+                    <small id="lead" class="form-text"></small>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Interval</label>
+                    <input class="form-control" name="intervalretries" [(ngModel)]="intervalretries" type="number"
+                      placeholder="Time taken between call retry">
+                    <small id="lead" class="form-text"></small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Retry On Disposition</label>
+                    <div class="row">
+                      <div class="col-2">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" name="voice" (change)="onRetryChange($event)"
+                              type="checkbox">
+                            <span class="form-check-sign">voice</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" name="busy" (change)="onRetryChange($event)" type="checkbox"
+                              value="">
+                            <span class="form-check-sign">busy</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" name="failed" (change)="onRetryChange($event)"
+                              type="checkbox" value="">
+                            <span class="form-check-sign">failed</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" name="noanswer" (change)="onRetryChange($event)"
+                              type="checkbox" value="">
+                            <span class="form-check-sign">no answer</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" name="congestion" (change)="onRetryChange($event)"
+                              type="checkbox" value="">
+                            <span class="form-check-sign">congestion</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Maximum Call Duration</label>
+                    <input class="form-control" type="number" placeholder="Maximum Call Duration">
+                    <small id="lead" class="form-text"></small>
+                  </div>
+                </div>
+                <!-- <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Dialer Timeout</label>
+                    <input class="form-control" name="calltimeout" [(ngModel)]="calltimeout" type="number"
+                      placeholder="Maximum Time Before Dialer Timeout">
+                    <small id="lead" class="form-text"></small>
+                  </div>
+                </div> -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Completed Calls Target</label>
+                    <input class="form-control" type="number" name="target" [(ngModel)]="target"
+                      placeholder="Number of completed calls to reach before stopping the campaign (0: unlimited)">
+                    <small id="lead" class="form-text"></small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Frequency</label>
+                    <input class="form-control" type="number" name="frequency" [(ngModel)]="frequency"
+                      placeholder="Calls per minute">
+                    <small id="lead" class="form-text"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+                <!-- <div class="col-md-2">
+                      <div class="form-group">
+                        <label>Call Completion</label><br>
+                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="default">
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label>Voicemail Detection</label><br>
+                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="default">
+                      </div>
+                    </div> -->
+              </div>
+              <br>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Schedule</li>
+                  </ol>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Start Date</label><br>
+                    <input type="datetime-local" name="start_date" [(ngModel)]="start_date" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>End Date</label><br>
+                    <input type="datetime-local" class="form-control" name="end_date" [(ngModel)]="end_date">
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="container-fluid">
+                  <div class="col-md-5 offset-7">
+                    <div class="ml-auto">
+                      <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Camapign successfully! addded</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Ooops... an error occured!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div [hidden]="!textTospeech">
+                <div class="form-group">
+                  <label for="comment">Text message</label>
+                  <textarea class="form-control" id="comment" rows="3" placeholder="Enter message text here"></textarea>
+                </div>
+              </div>
+
+
+              <div class="text-right mb-3">
+                <button class="btn btn-primary" (click)="saveCampaign()"><i class="fas fa-save"></i> save
+                  campaign</button>
+              </div>
+
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

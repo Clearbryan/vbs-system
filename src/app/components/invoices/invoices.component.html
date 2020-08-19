@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/accounts/invoices'">accounts</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">invoices</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-lg-12 equel-grid">
+      <div class="grid">
+
+        <div class="grid-body">
+          <div class="item-wrapper">
+            <div class="text-left col-4 px-4">
+              <input type="search" class="form-control" [disabled]="!search" placeholder="search">
+            </div>
+            <br>
+
+            <div class="text-center" [hidden]="isInvoices">
+              <div><i class="fas fa-inbox fa-5x"></i></div>
+              <p>You don't have any invoices yet</p>
+
+            </div>
+            <div class="table-responsive text-center" [hidden]="!isInvoices">
+
+              <div class="table-responsive text-center">
+                <table class="table table-bordered table-striped">
+                  <thead class="">
+                    <tr>
+                      <th>Invoice #</th>
+                      <th>Created </th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      <th>Status </th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let invoice of invoices">
+                      <!-- <td>{{invoice_number}}</td>
+                      <td>{{created}}</td>
+                      <td>{{quantity}}</td>
+                      <td>{{total}}</td>
+                      <td>{{status}}</td> -->
+                      <td>
+                        <a [routerLink]="['/']"><i class="fas fa-eye mr-2 ml-2 text-primary" title="view"></i>
+                        </a>
+                        <a [routerLink]="['/']"><i class="fas fa-file-download mr-2 ml-2 text-success"
+                            title="download"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-right">Total: 1</p>
+
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/campaigns'">Campaigns</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">all</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="row">
+
+  <div class="col-md-5 offset-7">
+    <div class="ml-auto">
+      <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{successMessage}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{failureMessage}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-lg-12 equel-grid">
+      <div class="grid">
+        <div class="grid-body">
+          <div class="item-wrapper">
+            <div class="mb-2">
+              <div class="mt-2" style="float: left;">
+                <label>Filter by</label>
+                <ul class="nav">
+                  <li class="ml-1 mb-1 mr-1 mt-1">
+                    <select class="form-control" [(ngModel)]="searchOption" name="searchOption">
+                      <option [value]="searchString" *ngFor="let searchString of searchStrings">{{searchString}}
+                      </option>
+                    </select>
+                  </li>
+                  <li class="ml-1 mb-1 mr-1 mt-1">
+                    <input type="search" (input)="search($event)" class="form-control" placeholder="search">
+                  </li>
+
+                </ul>
+              </div>
+              <div class="mt-2" style="float: right;">
+                <div class="btn btn-primary btn-sm has-icon mb-2" [routerLink]="'/user/campaigns/add'">
+                  <i class="fas fa-plus -plus-outline"></i>Add
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table info-table table-striped">
+                <thead class="text-center">
+                  <tr>
+                    <th>Name</th>
+                    <th>Start date</th>
+                    <th>Phonebook</th>
+                    <th>Survey</th>
+                    <th>Participants</th>
+                    <th>Total Contacts</th>
+                    <th>Progress</th>
+                    <th>Live calls</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody [hidden]="noSearch" class="text-center">
+                  <tr *ngFor="let campaign of filteredCamps | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{campaign.name}}</td>
+                    <td>{{campaign.start_date}}</td>
+                    <td>{{campaign.phonebook}}</td>
+                    <td>{{campaign.survey}}</td>
+                    <td>{{campaign.replies}}</td>
+                    <td>{{campaign.contacts}}</td>
+                    <td>
+                      <span>
+                        <p>{{campaign.progress}}</p>
+                        <div class="progress">
+                          <div class="progress-bar" [ngClass]="{color: campaign.color}" role="progressbar"
+                            [ngStyle]="{'width': campaign.progress}" [title]="campaign.progress">
+                          </div>
+                        </div>
+                      </span>
+                    </td>
+                    <td>{{campaign.calls}}</td>
+                    <td>
+                      <a [hidden]="!campaign.paused"
+                        (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
+                          class="fas fa-play text-primary" title="start campaign"></i></a>
+                      <a [hidden]="!campaign.started"
+                        (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
+                          class="fas fa-pause mr-1 ml-1 text-warning" title="pause campaign"></i></a>
+                      <a [hidden]="!campaign.started"
+                        (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
+                          class="fas fa-stop mr-1 ml-1 text-danger" title="stop campaign"></i></a>
+                      <a [hidden]="!campaign_ended"><i class="fas fa-apple-alt mr-1 ml-1 text-dark"
+                          title="ended"></i></a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/user/campaigns/edit', campaign.id]"><i
+                          class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></i></a>
+                      <a><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
+                      <a><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
+                      <a><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
+                          title="send test call using this campaign"></i></a>
+                      <a [routerLink]="['/user/campaigns/report', campaign.id]"><i
+                          class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
+                      <a (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
+                          title="delete campaign"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody [hidden]="!noSearch" class="text-center">
+                  <tr *ngFor="let campaign of camps | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{campaign.name}}</td>
+                    <td>{{campaign.start_date}}</td>
+                    <td>{{campaign.phonebook}}</td>
+                    <td>{{campaign.survey}}</td>
+                    <td>{{campaign.replies}}</td>
+                    <td>{{campaign.contacts}}</td>
+                    <td>
+                      <span>
+                        <p>{{campaign.progress}}</p>
+                        <div class="progress">
+                          <div [class]="campaign.color" role="progressbar" [ngStyle]="{'width': campaign.progress}"
+                            [title]="campaign.progress">
+                          </div>
+                        </div>
+                      </span>
+                    </td>
+                    <td>{{campaign.calls}}</td>
+                    <td>
+                      <a [hidden]="!campaign.paused"
+                        (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
+                          class="fas fa-play mr-1 mr-1 mb-1 mt-1 text-primary" title="start campaign"></i></a>
+                      <a [hidden]="!campaign.started"
+                        (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
+                          class="fas fa-pause mr-1 ml-1 text-warning" title="pause campaign"></i></a>
+                      <a [hidden]="!campaign.started"
+                        (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
+                          class="fas fa-stop mr-1 ml-1 text-danger" title="stop campaign"></i></a>
+                      <a [hidden]="!campaign_ended"><i class="fas fa-apple-alt mr-1 ml-1 text-dark"
+                          title="ended"></i></a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/user/campaigns/edit', campaign.id]"><i
+                          class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></i></a>
+                      <a><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
+                      <a><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
+                      <a><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
+                          title="send test call using this campaign"></i></a>
+                      <a [routerLink]="['/user/campaigns/report', campaign.id]"><i
+                          class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
+                      <a (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
+                          title="delete campaign"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <p class="text-right">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

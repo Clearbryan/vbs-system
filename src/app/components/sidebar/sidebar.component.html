@@ -1,0 +1,82 @@
+<div class="sidebar">
+  <div class="user-profile">
+    <div class="display-avatar animated-avatar">
+      <img class="profile-img img-lg rounded-circle"
+        src="https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png"
+        alt="profile image">
+    </div>
+    <div class="info-wrapper">
+      <p class="user-name">Welcome: Username </p>
+      <span>
+        <p>Balance</p>
+        <h6 [class]="balanceColor"><strong>ZAR {{user.balance}}</strong></h6>
+        <a class="badge badge-success btn-sm" [routerLink]="'/user/accounts/purchase'">Buy Credit</a>
+      </span>
+    </div>
+  </div>
+  <ul class="navigation-menu">
+    <li>
+      <a [routerLink]="'/user/dashboard'">
+        <span class="link-title">Dashboard</span>
+        <i class="fas fa-home link-icon"></i>
+      </a>
+    </li>
+    <li>
+      <a data-toggle="collapse" href="#phonebooks" aria-expanded="false">
+        <span class="link-title">Phonebook</span>
+        <i class="fas fa-address-book link-icon"></i>
+      </a>
+      <ul class="collapse navigation-submenu" id="phonebooks">
+        <li>
+          <a [routerLink]="'/user/phonebook'">Contacts</a>
+        </li>
+        <li>
+          <a [routerLink]="'/user/dnc'">Dnc</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#billings" data-toggle="collapse" aria-expanded="false">
+        <span class="link-title">Billing</span>
+        <i class="fas fa-credit-card link-icon"></i>
+      </a>
+      <ul class="collapse navigation-submenu" id="billings">
+        <li>
+          <a [routerLink]="'/user/accounts/invoices'">Invoices</a>
+        </li>
+        <li>
+          <a [routerLink]="'/user/accounts/statements'">Statements</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a [routerLink]="'/user/analytics'">
+        <span class="link-title">Analytics</span>
+        <i class="far fa-chart-bar link-icon"></i>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/user/audio'">
+        <span class="link-title">Audio</span>
+        <i class="fas fa-music link-icon"></i>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/user/ivr'">
+        <span class="link-title">Ivr Menu</span>
+        <i class="fas fa-phone-volume link-icon"></i>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/user/campaigns'">
+        <span class="link-title">Campaigns</span>
+        <i class="fas fa-broadcast-tower link-icon"></i>
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-upgrade-banner">
+
+    <p class="fas fa-power-off fa-2x text-primary" (click)="logout()"></p>
+  </div>
+
+</div>
