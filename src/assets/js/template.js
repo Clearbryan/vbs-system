@@ -76,7 +76,7 @@ function purchaseBanner() {
     $("body").prepend('\
           <div class= "item-purchase-banner">\
             <p class="font-weight-medium banner-text">Upgrade to Premium For More Pro Features</p>\
-              <a href = "http://www.uxcandy.co/product/label-pro-admin-template/" target = "_blank" class = "banner-button btn btn-primary btn-icon" > \
+              <a href = "" target = "_blank" class = "banner-button btn btn-primary btn-icon" > \
                 <i class="mdi mdi-cart mr-2"></i>Buy Now\
               </a>\
               <span class="toggler-close"><i class="mdi mdi-close"></i></span>\

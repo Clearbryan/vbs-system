@@ -52,17 +52,5 @@ export class AudioComponent implements OnInit {
 
   }
 
-  // edit audio
-  edit(id) {
-    this.audioService.editAudio(id, this.name, this.file, this.file).subscribe((response) => {
-      console.log(response);
-
-    }, error => {
-      // handle error
-      console.log(error)
-    })
-
-  }
-
 
 }

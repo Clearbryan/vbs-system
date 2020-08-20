@@ -6,11 +6,12 @@
         alt="profile image">
     </div>
     <div class="info-wrapper">
-      <p class="user-name">Welcome: Username </p>
+      <p class="user-name">Welcome: </p>
+      <p>Email: </p>
       <span>
         <p>Balance</p>
         <h6 [class]="balanceColor"><strong>ZAR {{user.balance}}</strong></h6>
-        <a class="badge badge-success btn-sm" [routerLink]="'/user/accounts/purchase'">Buy Credit</a>
+        <a class="badge badge-primary btn-sm" [routerLink]="'/user/accounts/purchase'">Buy Credit</a>
       </span>
     </div>
   </div>
@@ -18,7 +19,7 @@
     <li>
       <a [routerLink]="'/user/dashboard'">
         <span class="link-title">Dashboard</span>
-        <i class="fas fa-home link-icon"></i>
+        <i class="fas fa-tachometer-alt link-icon"></i>
       </a>
     </li>
     <li>

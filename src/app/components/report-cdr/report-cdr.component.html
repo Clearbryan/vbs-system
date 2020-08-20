@@ -8,22 +8,26 @@
         <li class="breadcrumb-item">
           <a [routerLink]="'/user/analytics'">Reports</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">all</li>
+        <li class="breadcrumb-item active" aria-current="page">{{report.name}}</li>
       </ol>
     </nav>
   </div>
 </div>
 
 <div class="btn-group mb-0" data-toggle="buttons">
-  <a class="btn btn-outline-primary" [routerLink]="['/user/analytics/report', report.id]"
+  <a class="btn btn-outline-primary " [routerLink]="['/user/analytics/report', report.id]"
     [queryParams]="{name:report.name}">
     <p></p>
-    <i class="fas fa-chart-pie"></i> Summary
+    <i class="fas fa-chart-pie mr-2"></i> Summary
   </a>
   <a class="btn btn-outline-primary active" [routerLink]="['/user/analytics/report/call-detail-record', report.id]"
     [queryParams]="{name:report.name}">
     <p></p>
-    <i class="fas fa-info-circle"></i> Call Detail Record
+    <i class="fas fa-info-circle mr-2"></i> Call Detail Record
+  </a>
+  <a class="btn btn-outline-primary" [routerLink]="['/user/campaigns']">
+    <p></p>
+    <i class="fas fa-backward mr-2"></i> All Campaigns
   </a>
 </div>
 

@@ -47,9 +47,14 @@ export class ReportCdrComponent implements OnInit {
       // console.log(this.report)
       const filteredSearch = this.report._campaign.filter((report, i, arr) => {
         if (this.searchOption === 'Number') {
-          if (arr[i].contact.includes(searchString)) {
-            return true
+          if (arr[i].contact !== null) {
+            if (arr[i].contact.includes(searchString)) {
+              return true
+            }
+          } else {
+            return false
           }
+          
         }
         else if (this.searchOption === 'Date') {
           if (arr[i].calldate.includes(searchString)) {

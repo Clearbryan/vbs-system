@@ -19,7 +19,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.post('http://102.130.122.124/api/audio/', formData, httpOptions);
+    return this.http.post('http://102.130.121.230/api/audio/', formData, httpOptions);
   }
 
   // get all audio
@@ -30,7 +30,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.get('http://102.130.122.124/api/campaign/', httpOptions)
+    return this.http.get('http://102.130.121.230/api/campaign/', httpOptions)
   }
 
   // save campaign
@@ -55,7 +55,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.post('http://102.130.122.124/api/campaign/', formData, httpOptions);
+    return this.http.post('http://102.130.121.230/api/campaign/', formData, httpOptions);
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -68,7 +68,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.put(`http://102.130.122.124/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -81,7 +81,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.put(`http://102.130.122.124/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -94,7 +94,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.put(`http://102.130.122.124/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
 
 }

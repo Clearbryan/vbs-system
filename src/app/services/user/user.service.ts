@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${localStorage.getItem('token')}`,
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -10,36 +16,27 @@ export class UserService {
 
   // user login
   userLogin(username, password) {
-    return this.http.post('http://102.130.122.124/api/login/', {
+    return this.http.post('http://102.130.121.230/api/login/', {
       headers: {
         'Content-type': 'application/json'
       },
-
       username: username,
       password: password
-
     })
   }
 
   // user logout
   logoutUser() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`,
-      })
-    };
-    return this.http.post('http://102.130.122.124/api/logout/', {}, httpOptions)
+    return this.http.post('http://102.130.121.230/api/logout/', {}, httpOptions)
   }
 
   // get user details
   getUserBalance() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`,
-      })
-    };
-    return this.http.get('http://102.130.122.124/api/balance/', httpOptions)
+    return this.http.get('http://102.130.121.230/api/balance/', httpOptions)
+  }
+
+  // get company info
+  getCompanyInfo() {
+    return this.http.get('http://102.130.121.230/api/billing/', httpOptions)
   }
 }

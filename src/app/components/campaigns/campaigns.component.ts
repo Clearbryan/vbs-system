@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 
@@ -28,20 +28,15 @@ export class CampaignsComponent implements OnInit {
   failureMessage: String
   p: number = 1
   test: any
+  active: Boolean = false
 
   styles: any = {}
 
   constructor(private campaignService: CampaignService, private router: Router, private activeRouter: ActivatedRoute) {
 
   }
+ 
 
-  public get camps(): [] {
-    return this.campaigns
-  }
-
-  public get filteredCamps(): [] {
-    return this.filteredCampaigns
-  }
 
   ngOnInit(): void {
     this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
@@ -93,12 +88,14 @@ export class CampaignsComponent implements OnInit {
         })
       })
       this.campaigns = campaigns
+      
     }, error => {
       // handle error
       console.log(error)
     })
   }
 
+  
 
   // handle search
   search(e) {
@@ -141,8 +138,8 @@ export class CampaignsComponent implements OnInit {
       setTimeout(() => {
         this.success = false
         this.successMessage = ""
-        this.router.navigate(['/user/analytics/report', id])
-      }, 6000)
+        this.router.navigate(['/user/campaigns/active', id])
+      }, 2000)
     }, error => {
       console.log(error)
       this.failure = true

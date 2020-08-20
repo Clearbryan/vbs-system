@@ -1,3 +1,5 @@
+import { CampaignCdrComponent } from './components/campaign-cdr/campaign-cdr.component';
+import { LandingComponent } from './landing/landing.component';
 import { AudioEditComponent } from './components/audio-edit/audio-edit.component';
 import { PhonebookViewComponent } from './components/phonebook-view/phonebook-view.component';
 import { PhonebookEditComponent } from './components/phonebook-edit/phonebook-edit.component';
@@ -48,7 +50,8 @@ const routes: Routes = [
       { path: 'campaigns', component: CampaignsComponent },
       { path: 'campaigns/add', component: CampaignsAddComponent },
       { path: 'campaigns/edit/:id', component: CampaignEditComponent },
-      { path: 'campaigns/report/:id', component: CampaignReportComponent },
+      { path: 'campaigns/active/:id', component: CampaignReportComponent },
+      { path: 'campaigns/active/call-record/:id', component: CampaignCdrComponent },
       { path: 'phonebook', component: PhonebookComponent },
       { path: 'phonebook/add', component: PhonebookAddComponent },
       { path: 'phonebook/edit/:id', component: PhonebookEditComponent },
@@ -68,7 +71,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

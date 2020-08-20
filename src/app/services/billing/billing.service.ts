@@ -16,22 +16,22 @@ export class BillingService {
 
   // get orders
   getInvoices() {
-    return this.http.get('http://102.130.122.124/api/invoice/', httpOptions);
+    return this.http.get('http://102.130.121.230/api/invoice/', httpOptions);
   }
 
   // get all statements
   getAllStatements() {
-    return this.http.get('http://102.130.122.124/api/statement/', httpOptions);
+    return this.http.get('http://102.130.121.230/api/statement/', httpOptions);
   }
 
   // get billing information
   getAllBillingInfo() {
-    return this.http.get(`http://102.130.122.124/api/billing/`, httpOptions)
+    return this.http.get(`http://102.130.121.230/api/billing/`, httpOptions)
   }
 
   // update billing information
   updateBillingInfo(data) {
-    return this.http.post(`http://102.130.122.124/api/billing/`, data, httpOptions)
+    return this.http.post(`http://102.130.121.230/api/billing/`, data, httpOptions)
 
   }
 }

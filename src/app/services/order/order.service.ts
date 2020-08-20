@@ -24,11 +24,11 @@ export class OrderService {
       description: description
 
     }
-    return this.http.post('http://102.130.122.124/api/stats/', JSON.stringify(body), httpOptions);
+    return this.http.post('http://102.130.121.230/api/stats/', JSON.stringify(body), httpOptions);
   }
 
   // get orders
   getProducts() {
-    return this.http.get('http://102.130.122.124/api/package/', httpOptions);
+    return this.http.get('http://102.130.121.230/api/package/', httpOptions);
   }
 }

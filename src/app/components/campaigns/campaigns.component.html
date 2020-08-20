@@ -80,7 +80,7 @@
                   </tr>
                 </thead>
                 <tbody [hidden]="noSearch" class="text-center">
-                  <tr *ngFor="let campaign of filteredCamps | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <tr *ngFor="let campaign of filteredCampaigns; trackBy:filteredCampaigns.progress | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td>{{campaign.name}}</td>
                     <td>{{campaign.start_date}}</td>
                     <td>{{campaign.phonebook}}</td>
@@ -118,7 +118,7 @@
                       <a><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
                       <a><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
                           title="send test call using this campaign"></i></a>
-                      <a [routerLink]="['/user/campaigns/report', campaign.id]"><i
+                      <a [routerLink]="['/user/analytics/report', campaign.id ]" [queryParams]="{name:campaign.name}"><i
                           class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
                       <a (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
                           title="delete campaign"></i></a>
@@ -126,7 +126,7 @@
                   </tr>
                 </tbody>
                 <tbody [hidden]="!noSearch" class="text-center">
-                  <tr *ngFor="let campaign of camps | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <tr *ngFor="let campaign of campaigns | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td>{{campaign.name}}</td>
                     <td>{{campaign.start_date}}</td>
                     <td>{{campaign.phonebook}}</td>
@@ -164,7 +164,7 @@
                       <a><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
                       <a><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
                           title="send test call using this campaign"></i></a>
-                      <a [routerLink]="['/user/campaigns/report', campaign.id]"><i
+                      <a [routerLink]="['/user/analytics/report', campaign.id ]" [queryParams]="{name:campaign.name}"><i
                           class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
                       <a (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
                           title="delete campaign"></i></a>

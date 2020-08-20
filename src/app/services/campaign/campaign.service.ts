@@ -19,12 +19,17 @@ export class CampaignService {
     let formData = new FormData()
     formData.append('audio_file', file)
     formData.append('name', name)
-    return this.http.post('http://102.130.122.124/api/audio/', formData, httpOptions);
+    return this.http.post('http://102.130.121.230/api/audio/', formData, httpOptions);
   }
 
   // get all audio
   getAllCampaigns() {
-    return this.http.get('http://102.130.122.124/api/campaign/', httpOptions)
+    return this.http.get('http://102.130.121.230/api/campaign/', httpOptions)
+  }
+
+  // get single campaign
+  getSinglecampaign(id) {
+    return this.http.get(`http://102.130.121.230/api/campaign/${id}/`, httpOptions)
   }
 
   // save campaign
@@ -44,7 +49,7 @@ export class CampaignService {
     formData.append('retry_on', retry_on)
     formData.append('dnc', dnc)
 
-    return this.http.post('http://102.130.122.124/api/campaign/', formData, httpOptions);
+    return this.http.post('http://102.130.121.230/api/campaign/', formData, httpOptions);
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -53,7 +58,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.122.124/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -62,7 +67,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.122.124/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -71,11 +76,16 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.122.124/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
 
   // delete campaign
   deleteCampaign(id) {
-    return this.http.delete(`http://102.130.122.124/api/campaign/${id}/`, httpOptions)
+    return this.http.delete(`http://102.130.121.230/api/campaign/${id}/`, httpOptions)
+  }
+
+  // edit campaign
+  editCampaign(id, data) {
+    return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, data, httpOptions)
   }
 }

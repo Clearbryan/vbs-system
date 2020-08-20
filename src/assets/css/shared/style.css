@@ -5282,7 +5282,7 @@ a.badge:focus {
 
 .badge-primary {
   color: #fff;
-  background-color: #696ffb;
+  background: linear-gradient(to right, #9fc2df, #156ed4);
 }
 
 a.badge-primary:hover,

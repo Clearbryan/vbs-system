@@ -1,0 +1,35 @@
+<header class="showcase">
+  <div class="showcase-top">
+    <a href="#" class="btn-rounded">Create Account</a>
+    
+  </div>
+<div class="showcase-content">
+      <form>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="far fa-user mr-2 ml-2 text-primary"></i></div>
+          </div>
+          <input type="text" name="username" [(ngModel)]="username" class="form-control form-control-lg" required autofocus
+            placeholder="username">
+        </div>
+        <br>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-lock mr-2 ml-2 text-primary"></i></div>
+          </div>
+          <input type="password" name="password" [(ngModel)]="password" class="form-control form-control-lg" required
+            placeholder="username">
+        </div>
+        <br>
+        <div class="form-group">
+          <div class="col-auto">
+            <button class="btn btn-rounded btn-block" style="background: linear-gradient(to right, #9fc2df, #156ed4);" (click)="login()"><i class="fas fa-lock-open"></i>
+              Log
+              in</button>
+          </div>
+        </div>
+      </form>
+</div>
+  
+ 
+</header>

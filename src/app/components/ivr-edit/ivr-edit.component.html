@@ -6,9 +6,12 @@
           <a [routerLink]="'/user/dashboard'">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-          <a [routerLink]="'/user/ivr'">Dnc List</a>
+          <a [routerLink]="'/user/ivr'">Ivr Menu</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">edit</li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/user/ivr/edit', survey.id]">edit</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{survey.name}}</li>
       </ol>
     </nav>
   </div>
@@ -88,7 +91,7 @@
 
   </div>
   <div class="text-right">
-    <button class="btn btn-primary" (click)="submitIvr(survey.id)"> <i class="fas fa-plus"></i> Add Key
+    <button class="btn btn-primary" (click)="submitIvr(survey.id)"> <i class="fas fa-plus mr-2"></i> Add Key
       Associations</button>
   </div>
 </div>

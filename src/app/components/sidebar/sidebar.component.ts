@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { UserService } from './../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,10 +10,20 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   user: any = {}
   balanceColor: String = ''
+  data: {} = {}
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    // get company info
+    this.userService.getCompanyInfo().subscribe((details: any) => {
+      this.data = details[0]
+    }, error => {
+      // handle error
+      console.log(error)
+    })
+
+    console.log(this.data[0])
     this.userService.getUserBalance().subscribe((response: any) => {
       console.log(response)
       this.user = response[0]

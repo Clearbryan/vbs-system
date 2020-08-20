@@ -19,16 +19,16 @@ export class DncService {
       name: name,
       description: description
     }
-    return this.http.post('http://102.130.122.124/api/dnc/', JSON.stringify(body), httpOptions);
+    return this.http.post('http://102.130.121.230/api/dnc/', JSON.stringify(body), httpOptions);
   }
 
   // get all DNC 
   getAllDnc() {
-    return this.http.get('http://102.130.122.124/api/dnc/', httpOptions)
+    return this.http.get('http://102.130.121.230/api/dnc/', httpOptions)
   }
 
   // get dnc leads
   getDncContacts(id) {
-    return this.http.get(`http://102.130.122.124/api/dnc/${id}/`, httpOptions)
+    return this.http.get(`http://102.130.121.230/api/dnc/${id}/`, httpOptions)
   }
 }

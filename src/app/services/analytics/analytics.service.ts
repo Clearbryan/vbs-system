@@ -16,11 +16,11 @@ export class AnalyticsService {
 
   // get all audio
   getAllReports() {
-    return this.http.get('http://102.130.122.124/api/analytics/', httpOptions)
+    return this.http.get('http://102.130.121.230/api/analytics/', httpOptions)
   }
 
   // get single report 
   getSingleReport(id) {
-    return this.http.get(`http://102.130.122.124/api/analytics/${id}/`, httpOptions)
+    return this.http.get(`http://102.130.121.230/api/analytics/${id}/`, httpOptions)
   }
 }

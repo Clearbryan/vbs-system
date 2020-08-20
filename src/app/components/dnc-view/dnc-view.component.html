@@ -8,6 +8,9 @@
         <li class="breadcrumb-item">
           <a [routerLink]="'/user/dnc'">Dnc List</a>
         </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/user/dnc/view', dncContact.id]">view</a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">{{dncContact.name}}</li>
       </ol>
     </nav>

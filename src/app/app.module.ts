@@ -10,6 +10,7 @@ import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoginComponent } from './components/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +51,10 @@ import { DncViewComponent } from './components/dnc-view/dnc-view.component';
 import { AudioEditComponent } from './components/audio-edit/audio-edit.component';
 import { CampaignsRunningComponent } from './components/campaigns-running/campaigns-running.component';
 import { CampaignsStopedComponent } from './components/campaigns-stoped/campaigns-stoped.component';
+import { CampaignQuickReportComponent } from './campaign-quick-report/campaign-quick-report.component';
+import { LandingComponent } from './landing/landing.component';
+import { CampaignCdrComponent } from './components/campaign-cdr/campaign-cdr.component';
+import { AccountCreateComponent } from './components/account-create/account-create.component';
 
 
 @NgModule({
@@ -88,7 +93,11 @@ import { CampaignsStopedComponent } from './components/campaigns-stoped/campaign
     DncViewComponent,
     AudioEditComponent,
     CampaignsRunningComponent,
-    CampaignsStopedComponent
+    CampaignsStopedComponent,
+    CampaignQuickReportComponent,
+    LandingComponent,
+    CampaignCdrComponent,
+    AccountCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +116,8 @@ import { CampaignsStopedComponent } from './components/campaigns-stoped/campaign
     DncService,
     IvrService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
 
 
 

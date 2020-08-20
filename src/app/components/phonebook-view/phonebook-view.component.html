@@ -1,1 +1,88 @@
-<p>phonebook-view works!</p>
+<div class="row">
+    <div class="viewport-header">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb has-arrow">
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/user/dashboard'">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/user/phonebook'">Phonebook</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/user/phonebook/view', phonebook.id]">View</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{phonebook.name}}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  
+  <div class="content-viewport">
+    <div class="row" [hidden]="!success">
+      <div class="col-lg-5 col-md-6 col-sm-12 equel-grid">
+        <div class="grid">
+          <div class="grid-body">
+            <div class="d-flex mt-5 mb-3">
+              <h5 class="mb-0">Phonebook Details</h5>
+            </div>
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <p class="text-black">Phonebook Name</p>
+              <p class="text-gray">{{phonebook.name}}</p>
+            </div>
+            <div class="d-flex justify-content-between border-bottom py-2">
+              <p class="text-black">Date Created</p>
+              <p class="text-gray">{{phonebook.created_on}}</p>
+            </div>
+            <div class="d-flex justify-content-between pt-2">
+              <p class="text-black">Description</p>
+              <p class="text-gray">{{phonebook.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-12 equel-grid">
+        <div class="grid widget-revenue-card">
+          <div class="grid-body d-flex flex-column h-100">
+            <div class="d-flex mt-5 mb-3">
+              <h5 class="mb-0">Contacts</h5>
+            </div>
+            <div class="table-responsive ">
+              <table class="table info-table table-striped">
+                <thead class="">
+                  <tr>
+                    <th>Total Contacts</th>
+                    <th>Duplicates</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                      <td>{{phonebook.total}}</td>
+                      <td>{{phonebook.duplicates}}</td>
+                  </tr>
+                  
+                  <!-- <tr *ngFor="let dnc of dnc | paginate: { itemsPerPage: 10, currentPage: p }">
+                    
+                  </tr> -->
+                </tbody>
+              </table>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center mt-5" [hidden]="success">
+        <div class="col-md-6 offset-3">
+            <div class="error_2">
+                <div class="container inner-wrapper">
+                  <h1 class="display-1 error-heading">{{error.status}}</h1>
+                  <h2 class="error-code">{{error.statusText}}</h2>
+                  <p class="error-message">{{error.message}}</p>
+                  <a [routerLink]="'/user/dashboard'" class="btn btn-primary"> <i class="fas fa-backward mr-2"></i> Back to dashboard</a>
+                </div>
+              </div>
+        </div>
+    </div>
+  </div>
+  
