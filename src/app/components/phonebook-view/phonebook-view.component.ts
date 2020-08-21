@@ -12,7 +12,7 @@ export class PhonebookViewComponent implements OnInit {
   phonebookId: Number = null
   phonebook: any = {}
   error: any = {}
-  success: Boolean = false
+  success: Boolean = true
 
   constructor(private phonebookService: PhonebookService,private dncService: DncService, private activeRoute: ActivatedRoute) { }
 

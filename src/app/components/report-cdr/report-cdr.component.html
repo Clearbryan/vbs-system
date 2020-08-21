@@ -13,8 +13,8 @@
     </nav>
   </div>
 </div>
-
-<div class="btn-group mb-0" data-toggle="buttons">
+<div>
+<div class="btn-group mb-0" data-toggle="buttons" [hidden]="!active">
   <a class="btn btn-outline-primary " [routerLink]="['/user/analytics/report', report.id]"
     [queryParams]="{name:report.name}">
     <p></p>
@@ -32,12 +32,12 @@
 </div>
 
 <div class="content-viewport">
-  <div class="row">
+  <div class="row" [hidden]="!active">
     <div class="col-12 py-3">
       <h5>Campaign name: {{report.name}}</h5>
     </div>
   </div>
-  <div class="row">
+  <div class="row" [hidden]="!active">
     <div class="col-lg-12 equel-grid">
       <div class="grid">
         <div>
@@ -94,7 +94,7 @@
                     <td>{{survey.billsec}}</td>
                     <td>{{survey.callerid}}</td>
                     <td>
-                      {{survey.disposition}}
+                      {{survey.dst}}
                       <!-- <div>
                                   <div class="row">
                                     <div class="col-4">
@@ -123,7 +123,7 @@
                     <td>{{survey.billsec}}</td>
                     <td>{{survey.callerid}}</td>
                     <td>
-                      {{survey.disposition}}
+                      {{survey.dst}}
                       <!-- <div>
                                   <div class="row">
                                     <div class="col-4">
@@ -154,7 +154,19 @@
         </div>
       </div>
     </div>
-
-
   </div>
+  <div class="row text-center mt-5" [hidden]="active">
+    <div class="col-md-6 offset-3">
+        <div class="error_2">
+            <div class="container inner-wrapper">
+              <h1 class="display-1 error-heading">{{error.status}}</h1>
+              <h2 class="error-code">{{error.statusText}}</h2>
+              <p class="error-message">{{error.message}}</p>
+              <br>
+              <a [routerLink]="'/user/dashboard'" class="btn btn-primary"> <i class="fas fa-backward mr-2"></i> Back to dashboard</a>
+            </div>
+          </div>
+    </div>
+</div>
+</div>
 </div>

@@ -17,59 +17,78 @@
   </div>
 </div>
 
-<div class="btn-group mb-0" data-toggle="buttons">
-  <a class="btn btn-outline-primary active" [routerLink]="['/user/campaigns/active', report.id]"
-    [queryParams]="{name:report.name}">
-    <p></p>
-    <i class="fas fa-chart-pie mr-2"></i> Summary
-  </a>
-  <a class="btn btn-outline-primary" [routerLink]="['/user/campaigns/active/call-record', report.id]"
-    [queryParams]="{name:report.name}">
-    <p></p>
-    <i class="fas fa-info-circle mr-2"></i> Call Detail Record
-  </a>
-</div>
 
-<div class="content-viewport">
-  <div class="row">
-    <div class="col-12 py-3">
-      <h5>Campaign name: {{report.name}}</h5>
-    </div>
+  <div class="btn-group mb-0" data-toggle="buttons" [hidden]="!active">
+    <a class="btn btn-outline-primary active" [routerLink]="['/user/campaigns/active', report.id]"
+      [queryParams]="{name:report.name}">
+      <p></p>
+      <i class="fas fa-chart-pie mr-2"></i> Summary
+    </a>
+    <a class="btn btn-outline-primary" [routerLink]="['/user/campaigns/active/call-record', report.id]"
+      [queryParams]="{name:report.name}">
+      <p></p>
+      <i class="fas fa-info-circle mr-2"></i> Call Detail Record
+    </a>
   </div>
-  <div class="row">
-    <div class="col-lg-12 equel-grid">
-      <div class="grid">
-        <div class="text-left">
-          <span><small><b>First Call: </b> </small><small>{{report.start_date}}, {{report.calltime}}</small> -
-            <small><b>Last Call:
-              </b>
-            </small><small>28 July 2020, 12:15
-              pm</small></span>
-          <br>
-          <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Cost: </b>
-            </small><small>R 1000</small></span>
-        </div>
+  
+  <div class="content-viewport">
+    <div class="row" [hidden]="!active">
+      <div class="col-12 py-3">
+        <h5>Campaign name: {{report.name}}</h5>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="grid">
-        <div class="grid-body">
-          <h2 class="grid-title">Progress Status: {{report.progress+ '%'}}</h2>
-          <div class="item-wrapper">
-            <canvas [id]="doughnutChartId" width="600" height="400">{{doughnutchart}}</canvas>
+    <div class="row" [hidden]="!active">
+      <div class="col-lg-12 equel-grid">
+        <div class="grid">
+          <div class="text-left">
+            <span><small><b>First Call: </b> </small><small>{{report.start_date}}, {{report.calltime}}</small> -
+              <small><b>Last Call:
+                </b>
+              </small><small>28 July 2020, 12:15
+                pm</small></span>
+            <br>
+            <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Cost: </b>
+              </small><small>R 1000</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="grid">
+          <div class="grid-body">
+            <h2 class="grid-title">Progress Status: {{report.progress+ '%'}}</h2>
+            <div class="item-wrapper">
+              <canvas [id]="doughnutChartId" width="600" height="400">{{doughnutchart}}</canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="grid">
+          <div class="grid-body">
+            <h2 class="grid-title">Calls by replies</h2>
+            <div class="item-wrapper">
+              <canvas [id]="pieChartId" width="600" height="400">{{piechart}}</canvas>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="grid">
-        <div class="grid-body">
-          <h2 class="grid-title">Calls by replies</h2>
-          <div class="item-wrapper">
-            <canvas [id]="pieChartId" width="600" height="400">{{piechart}}</canvas>
-          </div>
-        </div>
+
+    <div class="row text-center mt-5" [hidden]="active">
+      <div class="col-md-6 offset-3">
+          <div class="error_2">
+              <div class="error_2">
+                <div class="container inner-wrapper">
+                  <h1 class="display-1 error-heading">404</h1>
+                  <h2 class="error-code">Not Found</h2>
+                  <p class="error-message">Ooops... it appears you tried to access analytics of a live campaign but the campaign is not active.</p>
+                  <br>
+                  <a [routerLink]="'/user/campaigns'" class="btn btn-primary"> <i class="fas fa-backward mr-2"></i> Back to campaigns</a>
+                  <a [routerLink]="['/user/analytics/report', reportId]" class="btn btn-primary"> Go to reports <i class="fas fa-forward ml-2"></i> </a>
+                </div>
+              </div>
+            </div>
       </div>
-    </div>
   </div>
-</div>
+  </div>
+  

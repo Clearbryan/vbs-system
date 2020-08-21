@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 
@@ -9,8 +9,8 @@ import { CampaignService } from 'src/app/services/campaign/campaign.service';
 })
 export class CampaignsComponent implements OnInit {
 
-  campaigns: any = []
-  filteredCampaigns: any = []
+  @Input()campaigns: any = []
+  @Input()filteredCampaigns: any = []
   campaign_ended: Boolean = false
   campaign_pause: Boolean = false
   campaign_start: Boolean = false
@@ -35,18 +35,21 @@ export class CampaignsComponent implements OnInit {
   constructor(private campaignService: CampaignService, private router: Router, private activeRouter: ActivatedRoute) {
 
   }
- 
 
+  ngOnInit() {
+    setTimeout(() => {
+      console.log(this.campaigns)
+    }, 5000)
+ }
 
-  ngOnInit(): void {
+  ngDoCheck(): void {
     this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
-      console.log(campaigns)
       campaigns.map((res: any, i, arr) => {
-        res.end_date = new Date(res.end_date).toDateString()
-        res.expirationdate = new Date(res.expirationdate).toDateString()
+        //res.end_date = new Date(res.end_date).toDateString()
+        //res.expirationdate = new Date(res.expirationdate).toDateString()
         res.start_date = new Date(res.start_date).toDateString()
-        res.updated_date = new Date(res.updated_date).toDateString()
-        res.created_date = new Date(res.created_date).toDateString()
+        //res.updated_date = new Date(res.updated_date).toDateString()
+        //res.created_date = new Date(res.created_date).toDateString()
         campaigns.filter((state, i, arr) => {
           if (arr[i].progress <= 25) {
             arr[i].progress = `${arr[i].progress}%`
@@ -70,12 +73,14 @@ export class CampaignsComponent implements OnInit {
 
         campaigns.filter((cam, i, arr) => {
           if (arr[i].status === 2) {
-            console.log(arr[i].name)
             arr[i].paused = true
             return
           } else if (arr[i].status === 1) {
             if (arr[i].progress === `100%`) {
               arr[i].paused = true
+              return
+            } else {
+              arr[i].started = true
               return
             }
           } else if (arr[i].status === 3) {
@@ -88,14 +93,14 @@ export class CampaignsComponent implements OnInit {
         })
       })
       this.campaigns = campaigns
-      
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.failureMessage = error.message
     })
+    
   }
-
-  
 
   // handle search
   search(e) {
@@ -134,12 +139,12 @@ export class CampaignsComponent implements OnInit {
     this.campaignService.startCampaign(id, 1, name, phonebook).subscribe((res: any) => {
       console.log(res)
       this.success = true
-      this.successMessage = "Campaign started successfully."
+      this.successMessage = "Campaign started successfully. Page will redirect to live analytics shortly."
       setTimeout(() => {
         this.success = false
         this.successMessage = ""
         this.router.navigate(['/user/campaigns/active', id])
-      }, 2000)
+      }, 15000)
     }, error => {
       console.log(error)
       this.failure = true
@@ -150,7 +155,6 @@ export class CampaignsComponent implements OnInit {
       }, 2000)
     })
   }
-
 
   // pause campaign
   pauseCampaign(id, name, phonebook) {

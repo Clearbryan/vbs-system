@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="btn-group mb-0" data-toggle="buttons">
+<div class="btn-group mb-0" data-toggle="buttons" [hidden]="!active">
   <a class="btn btn-outline-primary active " [routerLink]="['/user/analytics/report', report.id]"
     [queryParams]="{name:report.name}">
     <p></p>
@@ -32,12 +32,12 @@
 </div>
 
 <div class="content-viewport">
-  <div class="row">
+  <div class="row" [hidden]="!active">
     <div class="col-12 py-3">
       <h5>Campaign name: {{report.name}}</h5>
     </div>
   </div>
-  <div class="row">
+  <div class="row" [hidden]="!active">
     <div class="col-lg-12 equel-grid">
       <div class="grid">
         <div class="text-left">
@@ -73,4 +73,21 @@
       </div>
     </div>
   </div>
+
+  <div class="row text-center mt-5" [hidden]="active">
+    <div class="col-md-6 offset-3">
+        <div class="error_2">
+              <div class="error_2">
+                <div class="container inner-wrapper">
+                  <h1 class="display-1 error-heading">404</h1>
+                  <h2 class="error-code">Not Found</h2>
+                  <p class="error-message">Ooops... it appears you tried to access analytics of a live campaign but the campaign is not active.</p>
+                  <br>
+                  <a [routerLink]="'/user/campaigns'" class="btn btn-primary"> <i class="fas fa-backward mr-2"></i> Back to campaigns</a>
+                  <a [routerLink]="['/user/analytics/report', reportId]" class="btn btn-primary"> Go to reports <i class="fas fa-forward ml-2"></i> </a>
+                </div>
+              </div>
+            </div>
+    </div>
+</div>
 </div>

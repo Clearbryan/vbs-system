@@ -24,7 +24,6 @@ import { AccountsComponent } from './components/accounts/accounts.component';
 import { AccountsPurchaseComponent } from './components/accounts-purchase/accounts-purchase.component';
 import { AudioComponent } from './components/audio/audio.component';
 import { AudioAddComponent } from './components/audio-add/audio-add.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { PhonebookComponent } from './components/phonebook/phonebook.component';
 import { PhonebookAddComponent } from './components/phonebook-add/phonebook-add.component';
 import { DncComponent } from './components/dnc/dnc.component';
@@ -49,8 +48,6 @@ import { PhonebookEditComponent } from './components/phonebook-edit/phonebook-ed
 import { PhonebookViewComponent } from './components/phonebook-view/phonebook-view.component';
 import { DncViewComponent } from './components/dnc-view/dnc-view.component';
 import { AudioEditComponent } from './components/audio-edit/audio-edit.component';
-import { CampaignsRunningComponent } from './components/campaigns-running/campaigns-running.component';
-import { CampaignsStopedComponent } from './components/campaigns-stoped/campaigns-stoped.component';
 import { CampaignQuickReportComponent } from './campaign-quick-report/campaign-quick-report.component';
 import { LandingComponent } from './landing/landing.component';
 import { CampaignCdrComponent } from './components/campaign-cdr/campaign-cdr.component';
@@ -69,7 +66,6 @@ import { AccountCreateComponent } from './components/account-create/account-crea
     AccountsPurchaseComponent,
     AudioComponent,
     AudioAddComponent,
-    BreadcrumbComponent,
     PhonebookComponent,
     PhonebookAddComponent,
     DncComponent,
@@ -92,8 +88,6 @@ import { AccountCreateComponent } from './components/account-create/account-crea
     PhonebookViewComponent,
     DncViewComponent,
     AudioEditComponent,
-    CampaignsRunningComponent,
-    CampaignsStopedComponent,
     CampaignQuickReportComponent,
     LandingComponent,
     CampaignCdrComponent,

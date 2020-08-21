@@ -75,7 +75,7 @@ export class IvrAddComponent implements OnInit {
     let response = new Set()
     let preRes = {
       key: this.keyName,
-      value: e.target.value
+      value: e.target.value,
     }
     response.add(preRes)
     response.forEach((entry) => {

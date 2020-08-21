@@ -11,7 +11,8 @@ import { Chart } from 'chart.js';
 })
 export class CampaignReportComponent implements OnInit {
   reportId: Number
-  report: any = []
+  report: any = {}
+  active: Boolean = null
   piechart: any = []
   pieChartId: String = "piechart"
   doughnutchart: any = []
@@ -25,89 +26,58 @@ export class CampaignReportComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params: Params) => {
       this.reportId = Number(params.id)
-    })
-    // get single report data
-    this.reportService.getAllReports().subscribe((report: any) => {
-      report.filter((report, i, arr) => {
-        console.log(arr)
-        arr.map((report, i, arr) => {
-          arr[i].calltime = new Date(arr[i].start_date).toLocaleTimeString()
-          arr[i].start_date = new Date(arr[i].start_date).toDateString()
-        })
-        if (arr[i].id === this.reportId) {
-          this.report = report
-        }
-      })
-      this.piechart = new Chart(`${this.pieChartId}`, {
-        type: 'pie',
-        data: {
-          labels: [`Calls`, `Replies`, `Minutes`],
-          datasets: [{
-            label: 'Replies, Calls, Minutes',
-            data: [this.report.calls, this.report.replies, this.report.minutes],
-            backgroundColor: [
-              'rgba(74, 71, 158, 1)',
-              '#A27DCA',
-              '#7D9ECA'
-
-
-            ],
-            borderColor: [
-              '#7D9ECA',
-              '#7D9ECA',
-              'rgba(74, 71, 158, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      })
-
-    }, error => {
-      console.log(error)
-    })
-
-    // get single report
-    this.reportService.getSingleReport(this.reportId).subscribe((data: any) => {
-      console.log(data)
-      // doghnut chart
-      this.doughnutchart = new Chart(`${this.doughnutChartId}`, {
-        type: 'doughnut',
-        data: {
-          labels: [`progress status`],
-          datasets: [{
-            data: [data.progress]
-          }],
-          backgroundColor: 'green',
-          borderColor: [
-            'rgba(255, 99, 132, 1)'
-          ]
-        },
-        borderWidth: 1,
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-
-      })
-    }, error => {
-        // handle error
-        console.log(error)
-    })
+  })
+  // get single report
+  this.reportService.getSingleReport(this.reportId).subscribe((data: any) => {
+    this.active = true
+    this.report = data
+  }, error => {
+      // handle error
+      this.active = false
+  })
+    
   }
+
+  ngDoCheck(): void {
+    if (this.active) {
+      setTimeout(() => {
+        console.log(this.report)
+        if (this.report.progress < 100) {
+        // doghnut chart
+        this.doughnutchart = new Chart(`${this.doughnutChartId}`, {
+          type: 'pie',
+          data: {
+            labels: [`progress status`],
+            datasets: [{
+              data: [this.report.progress ]
+            }],
+            backgroundColor: 'green',
+            borderColor: [
+              'rgba(255, 99, 132, 1)'
+            ]
+          },
+          borderWidth: 1,
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+    
+        })
+        }
+      }, 5000)
+    
+    }
+    else {
+      this.active = false
+    }
+         
+  }
+
 
   //search
   search(e) {

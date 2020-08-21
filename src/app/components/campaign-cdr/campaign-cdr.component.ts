@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 
@@ -9,8 +9,8 @@ import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 })
 export class CampaignCdrComponent implements OnInit {
 
-  report: any = []
-  filteredReports: any = []
+  @Input()report: any = []
+  @Input()filteredReports: any = []
   reportId: Number
   searchOption: String = "Search by"
   searchStrings: any = ["Number", "Date", "Disposition"]
@@ -20,11 +20,7 @@ export class CampaignCdrComponent implements OnInit {
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute) { }
   p: number = 1;
 
-  ngOnInit(): void {
-
-    this.activeRoute.params.subscribe((params: Params) => {
-      this.reportId = Number(params.id)
-    })
+  ngDoCheck(): void {
     // get single report data
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
       if (report.id === this.reportId) {
@@ -38,6 +34,14 @@ export class CampaignCdrComponent implements OnInit {
     }, error => {
       console.log(error)
     })
+    
+  }
+
+  ngOnInit(): void {
+    this.activeRoute.params.subscribe((params: Params) => {
+      this.reportId = Number(params.id)
+    })
+    
   }
 
   search(e) {

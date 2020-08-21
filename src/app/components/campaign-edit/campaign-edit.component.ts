@@ -69,7 +69,7 @@ export class CampaignEditComponent implements OnInit {
     // get single campaign
     this.campaignService.getSinglecampaign(this.campaignId).subscribe((campaign: any) => {
       this._campaign = campaign
-      console.log(campaign)
+      // console.log(campaign)
     }, error => {
         // handle error
         console.log(error)

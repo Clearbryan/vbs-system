@@ -10661,7 +10661,7 @@ h1.page-heading,
 }
 
 .text-primary {
-  color: #696ffb !important;
+  color: linear-gradient(to right, #9fc2df, #156ed4) !important;
 }
 
 a.text-primary:hover,

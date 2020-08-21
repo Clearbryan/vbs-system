@@ -15,18 +15,17 @@ export class ReportCdrComponent implements OnInit {
   searchOption: String = "Search by"
   searchStrings: any = ["Number", "Date", "Disposition"]
   noSearch: Boolean = true
+  active: Boolean = true
+  error: any = {}
 
 
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute) { }
   p: number = 1;
 
-  ngOnInit(): void {
-
-    this.activeRoute.params.subscribe((params: Params) => {
-      this.reportId = Number(params.id)
-    })
-    // get single report data
-    this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+  ngDoCheck(): void {
+     // get single report data
+     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+      this.active = true
       if (report.id === this.reportId) {
         report._campaign.map((_report, i, arr) => {
           _report.calldate = new Date(_report.calldate).toDateString()
@@ -34,10 +33,20 @@ export class ReportCdrComponent implements OnInit {
         })
         this.report = report
       }
-      // console.log(this.report._campaign)
+      console.log(this.report)
     }, error => {
-      console.log(error)
+        console.log(error)
+        this.active = false
+        this.error = error
     })
+  }
+
+  ngOnInit(): void {
+
+    this.activeRoute.params.subscribe((params: Params) => {
+      this.reportId = Number(params.id)
+    })
+   
   }
 
   search(e) {
