@@ -20,7 +20,11 @@ export class CampaignCdrComponent implements OnInit {
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute) { }
   p: number = 1;
 
-  ngDoCheck(): void {
+  ngOnInit(): void {
+
+    this.activeRoute.params.subscribe((params: Params) => {
+      this.reportId = Number(params.id)
+    })
     // get single report data
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
       if (report.id === this.reportId) {
@@ -37,12 +41,10 @@ export class CampaignCdrComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
-    this.activeRoute.params.subscribe((params: Params) => {
-      this.reportId = Number(params.id)
-    })
+  // ngOnInit(): void {
+   
     
-  }
+  // }
 
   search(e) {
     let searchString = e.target.value

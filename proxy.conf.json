@@ -1,0 +1,10 @@
+{
+    "/api": {
+      "target": "https://test.oppwa.com/vi/checkouts",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }

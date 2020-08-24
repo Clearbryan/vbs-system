@@ -16,15 +16,23 @@ export class OrderService {
 
 
   // add new dnc
-  purchaseCredits(title, price, slug, description) {
-    const body = {
-      title: title,
-      price: price,
-      slug: slug,
-      description: description
-
+  purchaseCredits(price) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer OGE4Mjk0MTc0ZTczNWQwYzAxNGU3OGNmMjY2YjE3OTR8cXl5ZkhDTjgzZQ==',
+        'Access-Control-Allow-Origin': '*'
+      })
+     
     }
-    return this.http.post('http://102.130.121.230/api/stats/', JSON.stringify(body), httpOptions);
+    const body = {
+      port: 443,
+      entityId:'8a8294174e735d0c014e78cf26461790',
+      amount: `${price}`,
+      currency:'ZAR',
+      paymentType: 'DB' 
+    }
+    return this.http.post('https://test.oppwa.com/v1/checkouts/', body, options);
   }
 
   // get orders

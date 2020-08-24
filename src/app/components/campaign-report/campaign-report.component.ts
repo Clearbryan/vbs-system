@@ -1,8 +1,9 @@
 import { CdrService } from './../../services/cdr/cdr.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { Chart } from 'chart.js';
+import { interval, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-campaign-report',
@@ -11,10 +12,14 @@ import { Chart } from 'chart.js';
 })
 export class CampaignReportComponent implements OnInit {
   reportId: Number
-  report: any = {}
+  @Input() report: any = {}
+  stuff: any = []
   active: Boolean = null
+  barchart: any = null
+  barchartId: String = "barchart"
   piechart: any = []
   pieChartId: String = "piechart"
+
   doughnutchart: any = []
   doughnutChartId: String = "doghnutchart"
 
@@ -24,39 +29,40 @@ export class CampaignReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.activeRoute.params.subscribe((params: Params) => {
       this.reportId = Number(params.id)
-  })
-  // get single report
-  this.reportService.getSingleReport(this.reportId).subscribe((data: any) => {
-    this.active = true
-    this.report = data
-  }, error => {
-      // handle error
-      this.active = false
-  })
-    
-  }
+    })
 
-  ngDoCheck(): void {
-    if (this.active) {
-      setTimeout(() => {
-        console.log(this.report)
-        if (this.report.progress < 100) {
-        // doghnut chart
-        this.doughnutchart = new Chart(`${this.doughnutChartId}`, {
-          type: 'pie',
+    this.reportService.getSingleReport(this.reportId).subscribe((data: any) => {
+      // this.active = true
+      console.log(data)
+      data.start_date = new Date(data.start_date).toDateString()
+      this.report = data
+
+      setInterval(() => {
+        this.report = data
+
+        this.piechart = new Chart(`${this.pieChartId}`, {
+          
+          type: 'bar',
           data: {
-            labels: [`progress status`],
+            labels: [`Calls`, 'Replies'],
             datasets: [{
-              data: [this.report.progress ]
-            }],
-            backgroundColor: 'green',
-            borderColor: [
-              'rgba(255, 99, 132, 1)'
-            ]
+              label: '# of Replies',
+              data: [data.calls, data.replies],
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
+    
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+            }]
           },
-          borderWidth: 1,
           options: {
             scales: {
               yAxes: [{
@@ -66,22 +72,16 @@ export class CampaignReportComponent implements OnInit {
               }]
             }
           }
-    
         })
-        }
-      }, 5000)
-    
-    }
-    else {
-      this.active = false
-    }
-         
+   }, 10000)
+   
+    }, error => {
+        // handle error
+        this.active = false
+        console.log(error)
+    })
   }
 
-
-  //search
-  search(e) {
-
-  }
+ 
 
 }

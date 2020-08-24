@@ -76,10 +76,10 @@
         <div class="grid-body">
           <div class="item-wrapper">
             <form>
-              <div *ngFor="let survey of surveyData" class="form-group">
+              <div *ngFor="let survey of surveyData; let i = index;" class="form-group">
                 <label>Key: {{survey.key}}</label>
-                <input type="text" class="form-control" [(ngModel)]="survey.value" [value]="survey.value"
-                  placeholder="IVR menu name" (mouseleave)="check()" name="name">
+                <input type="text" class="form-control" [(ngModel)]="survey.value" name="survey{{i}}"
+                  placeholder="IVR menu name" (mouseleave)="check()">
                 <small class="form-text">enter the ivr menu name.</small>
               </div>
             </form>

@@ -16,56 +16,43 @@ export class ReportSingleComponent implements OnInit {
   report: any = {}
   _report: any = []
   piechart: any = []
+  linechart: any = []
+  lineChartId: String = "linechart"
+  doughnut: any = []
+  doughnutChartId: String = "doughnut"
   pieChartId: String = "piechart"
 
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute, private router: Router) {
 
   }
 
-  ngDoCheck(): void {
-   
-  }
-
   ngOnInit(): void {
+
     this.activeRoute.params.subscribe((params: Params) => {
       this.reportId = Number(params.id)
     })
 
-       // get single report data
-       this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
-        this.active = true
-        
+    this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
         report.start_date = new Date(report.start_date).toDateString()
         report.calltime = new Date(report.start_date).toLocaleString()
+        report.minutes = report.minutes / 60
         this.report = report
-        
-        // convert time
-        report._campaign.filter((report, i, arr) => {
-          arr.map((report, i, arr) => {
-            arr[i].calltime = new Date(arr[i].calldate).toLocaleTimeString()
-            arr[i].calldate = new Date(arr[i].calldate).toDateString()
-          })
-          if (arr[i].id === this.reportId) {
-            this._report = report._campaign
-          }
-        })
-        console.log(this.report)
-  
-        this.piechart = new Chart(`${this.pieChartId}`, {
-          type: 'bar',
+      console.log(report)
+        // create doughnut chart
+        this.doughnut = new Chart(`${this.doughnutChartId}`, {
+          type: 'doughnut',
           data: {
-            labels: [`Calls`, 'Replies'],
+            labels: ['Answer', 'Busy', 'Voicemail', 'Congestion', 'Failed', 'No Answer'],
             datasets: [{
               label: '# of Replies',
-              data: [this.report.calls, this.report.replies],
+              data: [10, 23, 25, 90, 33, 51 ],
               backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 99, 132, 0.2)'
-  
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
+                'purple',
+                'green',
+                'blue',
+                'yellow',
+                'brown',
+                'pink'
               ],
               borderWidth: 1
             }]
@@ -80,15 +67,70 @@ export class ReportSingleComponent implements OnInit {
             }
           }
         })
-        
-      }, error => {
-          this.active = false
-          this.error = error
+      
+      // create piechart
+      this.piechart = new Chart(`${this.pieChartId}`, {
+        type: 'pie',
+        data: {
+          labels: ['Pressed 9', 'Pressed 5', 'Pressed 1'],
+          datasets: [{
+            label: '# of Replies',
+            data: [90, 51, 21 ],
+            backgroundColor: [
+              'green',
+              'blue',
+              'yellow'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
       })
-    // console.log(this.report)
-  }
-  //search
-  search(e) {
+
+      this.linechart = new Chart(`${this.lineChartId}`, {
+          
+        type: 'line',
+        data: {
+          labels: [`7:00 am`, '8:00 am', '9am:00 ', '10:00 am', '11:00 am'],
+          datasets: [{
+            label: '# of Replies',
+            data: [10, 12, 34, 99, 29],
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 99, 132, 0.2)'
+  
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      })
+
+
+     }, error => {
+      this.active = false
+      this.error = error
+  })
 
   }
 }

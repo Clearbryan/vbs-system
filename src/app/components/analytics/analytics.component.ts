@@ -23,7 +23,7 @@ export class AnalyticsComponent implements OnInit {
 
   }
 
-  ngDoCheck(): void {
+  ngOnInit(): void {
     this.analyticsService.getAllReports().subscribe((response: any) => {
       response.map((res) => {
         res.start_date = new Date(res.start_date).toDateString()
@@ -35,9 +35,9 @@ export class AnalyticsComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
     
-  }
+  // }
 
   // search
   search(e) {

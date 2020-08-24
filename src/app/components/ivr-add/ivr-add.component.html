@@ -72,9 +72,9 @@
               <hr>
               <div class="row" [hidden]="noresponses">
                 <div class="col">
-                  <div class="" *ngFor="let response of responses">
+                  <div class="" *ngFor="let response of responses; let i = index;">
                     <label><strong>Selected Key: {{response.key}}</strong></label>
-                    <input type="text" class="form-control" name="respo" [(ngModel)]="response.value">
+                    <input type="text" class="form-control" [(ngModel)]="response.value" name="response{{i}}">
                     <small>click to edit response</small>
                   </div>
                 </div>

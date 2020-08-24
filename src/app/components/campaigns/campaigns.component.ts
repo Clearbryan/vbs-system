@@ -28,6 +28,7 @@ export class CampaignsComponent implements OnInit {
   failureMessage: String
   p: number = 1
   test: any
+  counter: Number
   active: Boolean = false
 
   styles: any = {}
@@ -37,10 +38,14 @@ export class CampaignsComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      console.log(this.campaigns)
-    }, 5000)
- }
+    
+  }
+
+//   ngOnChanges() {
+//     setTimeout(() => {
+//       console.log(this.campaigns)
+//     }, 5000)
+//  }
 
   ngDoCheck(): void {
     this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
@@ -135,16 +140,22 @@ export class CampaignsComponent implements OnInit {
 
   // start campaign
   startCampaign(id, name, phonebook) {
+    
     console.log(id)
     this.campaignService.startCampaign(id, 1, name, phonebook).subscribe((res: any) => {
       console.log(res)
       this.success = true
-      this.successMessage = "Campaign started successfully. Page will redirect to live analytics shortly."
+      // for (let c = 30; c <= 30; c--) {
+      //   setInterval(() => {
+      //     this.counter = c
+      //   }, 1000)
+      // }
+      this.successMessage = `Just finishing up setting your campaign! Campaign will start in ${this.counter}.`
       setTimeout(() => {
         this.success = false
         this.successMessage = ""
         this.router.navigate(['/user/campaigns/active', id])
-      }, 15000)
+      }, 30000)
     }, error => {
       console.log(error)
       this.failure = true
