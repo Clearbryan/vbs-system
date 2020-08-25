@@ -46,6 +46,7 @@
                 <i class="fas fa-plus -plus-outline"></i>Add
               </div>
             </div>
+            
             <div class="table-responsive">
               <table class="table info-table table-striped">
                 <thead class="">
@@ -70,6 +71,8 @@
                         title="edit"></a>
                       <a (click)="delete(phonebook.id)"><i class="fas fa-trash mr-2 ml-2 text-danger"
                           title="delete"></i></a>
+                      <a [routerLink]="['/user/phonebook/add/leads', phonebook.id]"><i
+                        class="fas fa-plus mr-2 ml-2 text-primary" title="add leads"></i></a> 
                       <a><i class="fas fa-download mr-2 ml-2 text-success" title="download"></i></a>
                     </td>
                   </tr>

@@ -15,6 +15,9 @@ export class PhonebookAddComponent implements OnInit {
   file: any;
   success: Boolean = false;
   failure: Boolean = false;
+  uploading: Boolean
+  uploaded: Boolean
+  progressResult: any  = {}
 
   constructor(private router: Router, private http: HttpClient, private contactsService: PhonebookService) {
 
@@ -34,10 +37,34 @@ export class PhonebookAddComponent implements OnInit {
     this.contactsService.addContact(this.filename, this.filedesc, this.file).subscribe((response: any) => {
       console.log(response)
       this.success = true;
-      setTimeout(() => {
-        this.success = false
-        this.router.navigate(['user/phonebook'])
-      }, 2000)
+      // check progress
+      setInterval(() => {
+        this.contactsService.progress(response.id).subscribe((progress: any) => {
+          if (progress.status === 'PROGRESS') {
+            this.uploading = true
+            const res = JSON.parse(progress.result)
+            res.percent = `${res.percent}%`
+            this.progressResult = res
+            return
+            
+          } 
+          if (progress.status === 'SUCCESS') {
+            this.uploaded = true
+            this.uploading = false
+            setTimeout(() => {
+              this.success = false
+              this.uploaded = false
+              this.router.navigate(['user/phonebook'])
+   
+            }, 3000)
+            return
+          }
+       }, error => {
+           // handle progress error
+           console.log(error)
+       })
+         
+       }, 2000)
 
     }, error => {
 

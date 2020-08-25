@@ -1,3 +1,4 @@
+import { AddLeadsComponent } from './components/add-leads/add-leads.component';
 import { CampaignCdrComponent } from './components/campaign-cdr/campaign-cdr.component';
 import { LandingComponent } from './landing/landing.component';
 import { AudioEditComponent } from './components/audio-edit/audio-edit.component';
@@ -55,6 +56,7 @@ const routes: Routes = [
       { path: 'phonebook', component: PhonebookComponent },
       { path: 'phonebook/add', component: PhonebookAddComponent },
       { path: 'phonebook/edit/:id', component: PhonebookEditComponent },
+      { path: 'phonebook/add/leads/:id', component: AddLeadsComponent },
       { path: 'phonebook/view/:id', component: PhonebookViewComponent },
       { path: 'dnc', component: DncComponent },
       { path: 'dnc/add', component: DncAddComponent },

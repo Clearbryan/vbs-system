@@ -7,10 +7,9 @@
     </div>
     <div class="info-wrapper">
       <p class="user-name">Welcome: </p>
-      <p>Email: </p>
       <span>
         <p>Balance</p>
-        <h6 [class]="balanceColor"><strong>ZAR {{user.balance}}</strong></h6>
+        <h6 [class]="balanceColor"><strong>Min: {{user.minutes}}</strong></h6>
         <a class="badge badge-primary btn-sm" [routerLink]="'/user/accounts/purchase'">Buy Credit</a>
       </span>
     </div>
@@ -64,7 +63,7 @@
     </li>
     <li>
       <a [routerLink]="'/user/ivr'">
-        <span class="link-title">Ivr Menu</span>
+        <span class="link-title">Survey</span>
         <i class="fas fa-phone-volume link-icon"></i>
       </a>
     </li>
@@ -76,8 +75,10 @@
     </li>
   </ul>
   <div class="sidebar-upgrade-banner">
-
-    <p class="fas fa-power-off fa-2x text-primary" (click)="logout()"></p>
+    <a [routerLink]="''" class="fas fa-power-off fa-2x text-primary" (click)="logout()"> </a>
+  </div>
+  <div class="text-center">
+    <span>Logout</span>
   </div>
 
 </div>

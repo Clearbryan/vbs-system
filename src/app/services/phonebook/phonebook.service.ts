@@ -32,7 +32,7 @@ export class PhonebookService {
 
   // get leads in a specified phonebook
   getLeads(id) {
-    return this.http.get(`http://102.130.121.230/api/leads/${id}`, httpOptions)
+    return this.http.get(`http://102.130.121.230/api/phonebook/${id}/leads`, httpOptions)
   }
 
   // get single phonebook
@@ -53,4 +53,17 @@ export class PhonebookService {
   deletePhoneBook(id) {
     return this.http.delete(`http://102.130.121.230/api/phonebook/${id}/`, httpOptions)
   }
+
+  // get progress 
+  progress(id) {
+    return this.http.get(`http://102.130.121.230/api/phonebook/${id}/progress/`, httpOptions) 
+  }
+
+  // add lead
+  addLead(id, lead) {
+    let formData = new FormData()
+    formData.append('file', lead)
+    return this.http.post(`http://102.130.121.230/api/phonebook/${id}/append/`, formData, httpOptions) 
+  }
+  
 }

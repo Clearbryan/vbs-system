@@ -57,11 +57,11 @@ export class PurchaseComponent implements OnInit {
 
   // proceed to checkout
   async checkout() {
-    this.orderService.purchaseCredits(this.order_total).subscribe((response: any) => {
-      console.log(response)
-    }, error => {
-      console.log(error)
-    })
+    // this.orderService.purchaseCredits(this.order_total).subscribe((response: any) => {
+    //   console.log(response)
+    // }, error => {
+    //   console.log(error)
+    // })
   }
 
   // run this on credit input

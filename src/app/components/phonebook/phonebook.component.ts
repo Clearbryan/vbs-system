@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterContentInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PhonebookService } from 'src/app/services/phonebook/phonebook.service';
 
 @Component({
@@ -7,18 +7,30 @@ import { PhonebookService } from 'src/app/services/phonebook/phonebook.service';
   templateUrl: './phonebook.component.html',
   styleUrls: ['./phonebook.component.css']
 })
-export class PhonebookComponent implements OnInit {
+export class PhonebookComponent implements OnInit, AfterContentInit {
 
-  phonebooks: any = []
+  @Input()phonebooks: any = []
   success: Boolean = false
   failure: Boolean = false
   p: number = 1
+  id: Number = null
+  taskId: any = null
+  uploading: Boolean
+  progressResult: any = {}
 
-  constructor(private router: Router, private contactsService: PhonebookService) { }
+  constructor(private router: Router, private contactsService: PhonebookService, private activeRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  // ngAfterContentInit(): void {
+  //   setInterval(() => {
+      
+  //   }, 10000)
+  // }
+
+
+  ngAfterContentInit() {
+    // check progress
     this.contactsService.getAllContacts().subscribe((response: any) => {
-      console.log(response)
+      // console.log(response)
       response.map((res: any) => {
         res.created_on = new Date(res.created_on).toDateString()
       })
@@ -27,7 +39,14 @@ export class PhonebookComponent implements OnInit {
       // handle error
       console.log(error)
     })
+  }
 
+  ngOnInit(): void {
+
+    this.activeRoute.queryParams.subscribe((params: Params) => {
+      this.id = Number(params.id)
+    })
+    
   }
 
   // delete phonebook

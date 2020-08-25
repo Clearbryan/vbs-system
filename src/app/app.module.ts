@@ -52,6 +52,7 @@ import { CampaignQuickReportComponent } from './campaign-quick-report/campaign-q
 import { LandingComponent } from './landing/landing.component';
 import { CampaignCdrComponent } from './components/campaign-cdr/campaign-cdr.component';
 import { AccountCreateComponent } from './components/account-create/account-create.component';
+import { AddLeadsComponent } from './components/add-leads/add-leads.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { AccountCreateComponent } from './components/account-create/account-crea
     CampaignQuickReportComponent,
     LandingComponent,
     CampaignCdrComponent,
-    AccountCreateComponent
+    AccountCreateComponent,
+    AddLeadsComponent
   ],
   imports: [
     BrowserModule,
