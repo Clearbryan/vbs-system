@@ -69,8 +69,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "nexis-vb-app:build",
-            "proxyConfig": "./proxy.conf.json"
+            "browserTarget": "nexis-vb-app:build"
           },
           "configurations": {
             "production": {
