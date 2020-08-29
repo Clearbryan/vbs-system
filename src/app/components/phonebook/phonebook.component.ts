@@ -12,6 +12,8 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
   @Input()phonebooks: any = []
   success: Boolean = false
   failure: Boolean = false
+  errorMessage: String = ""
+  successMessage: String = ""
   p: number = 1
   id: Number = null
   taskId: any = null
@@ -28,23 +30,37 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
 
 
   ngAfterContentInit() {
-    // check progress
-    this.contactsService.getAllContacts().subscribe((response: any) => {
-      // console.log(response)
-      response.map((res: any) => {
-        res.created_on = new Date(res.created_on).toDateString()
-      })
-      this.phonebooks = response
-    }, error => {
-      // handle error
-      console.log(error)
-    })
+   
   }
 
   ngOnInit(): void {
 
     this.activeRoute.queryParams.subscribe((params: Params) => {
       this.id = Number(params.id)
+    }, error => {
+      this.failure = true
+      this.errorMessage = error.message
+      setTimeout(() => {
+        this.failure = false
+        this.errorMessage = ""
+      }, 2000)
+    })
+     // check progress
+     this.contactsService.getAllContacts().subscribe((response: any) => {
+      console.log(response)
+      response.map((res: any) => {
+        res.created_on = new Date(res.created_on).toDateString()
+      })
+      this.phonebooks = response
+    }, error => {
+      // handle error
+         console.log(error)
+         this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
     
   }
@@ -53,17 +69,20 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
   delete(id) {
     this.contactsService.deletePhoneBook(id).subscribe((status: any) => {
       this.success = true;
+      this.successMessage = "Phonebook successfully deleted"
       setTimeout(() => {
+        this.successMessage = ""
         this.success = false
       }, 2000)
     }, error => {
       // handle error
       console.log(error)
       this.failure = true
-      setTimeout(() => {
-        this.failure = false
-      }, 2000)
-
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   }

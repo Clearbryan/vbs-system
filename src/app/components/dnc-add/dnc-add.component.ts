@@ -14,6 +14,8 @@ export class DncAddComponent implements OnInit {
   description: String = '';
   success: Boolean = false
   failure: Boolean = false
+  errorMessage: String = ""
+  successMessage: String = ""
 
   ngOnInit(): void {
   }
@@ -22,6 +24,7 @@ export class DncAddComponent implements OnInit {
     this.dncService.addDnc(this.name, this.description).subscribe((response) => {
       console.log(response);
       this.success = true;
+      this.successMessage = "Dnc List successfully added"
       setTimeout(() => {
         this.router.navigate(['/user/dnc'])
         this.success = false;
@@ -29,11 +32,12 @@ export class DncAddComponent implements OnInit {
     }, error => {
       // handle error
       console.log(error)
-      this.failure = true;
-
-      setTimeout(() => {
-        this.failure = false
-      }, 2000)
+      this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 

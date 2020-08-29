@@ -1,3 +1,20 @@
+// $(function () {
+//     $('#sidebarToggler').on('click', function () {
+//       $('#sidebar').toggleClass('active');
+//   });
+// })()
+  
+// $(function () {
+//     $(function(){           
+//         if (!Modernizr.inputtypes.date) {
+//             $('input[type=date]').datepicker({
+//                   dateFormat : 'yy-mm-dd'
+//                 }
+//              );
+//         }
+//     });
+// })()
+
 $(function () {
     "use strict";
     var StatsLineOptions = {

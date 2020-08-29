@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 const httpOptions = {
   headers: new HttpHeaders({
-    //'Content-Type': 'application/json',
+    'Content-Type': 'application/json',
     'Authorization': `Token ${localStorage.getItem('token')}`
   })
 };
@@ -14,29 +14,40 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-
-  // add new dnc
-  purchaseCredits(price) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer OGE4Mjk0MTc0ZTczNWQwYzAxNGU3OGNmMjY2YjE3OTR8cXl5ZkhDTjgzZQ==',
-        'Access-Control-Allow-Origin': '*'
-      })
-     
-    }
-    const body = {
-      port: 443,
-      entityId:'8a8294174e735d0c014e78cf26461790',
-      amount: `${price}`,
-      currency:'ZAR',
-      paymentType: 'DB' 
-    }
-    return this.http.post('https://test.oppwa.com/v1/checkouts/', body, options);
-  }
-
   // get orders
   getProducts() {
     return this.http.get('http://102.130.121.230/api/package/', httpOptions);
+  }
+
+  // create order
+  order(amount, credits, packageId) {
+    let body = {
+      amount: amount,
+      package: packageId,
+      quantity: credits
+    }
+    return this.http.post('http://102.130.121.230/api/order/', body, httpOptions)
+  }
+
+  // // get checkout id
+  // checkout(id) {
+  //   return this.http.post(`http://102.130.121.230/api/order/${id}/checkout/`, {
+  //     headers: {
+  //     'Authorization': 'Token e0f2350e5051b8707959895e14eae7e7f67640b2ed13bdc1bd54cc0535bc687e'
+  //   }})
+  // }
+
+  // get single order
+  getOrder(id) {
+    return this.http.get(`http://102.130.121.230/api/order/${id}/`, httpOptions)
+  }
+
+  checkout(id) {
+    return this.http.post(`http://102.130.121.230/api/order/${id}/checkout/`, {}, httpOptions)
+  }
+
+  // payment 
+  makePayment(id) {
+    return this.http.get(`http://102.130.121.230/api/order/${id}/payment/`, httpOptions)
   }
 }

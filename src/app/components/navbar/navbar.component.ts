@@ -11,6 +11,10 @@ export class NavbarComponent implements OnInit {
 
   platform: any = {};
   user: any = {};
+  failure: Boolean
+  success: Boolean
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(
     private router: Router,
@@ -18,6 +22,8 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.platform.date = new Date().toDateString()
+    this.platform.time = new Date().toLocaleTimeString()
 
   }
 
@@ -25,12 +31,17 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.userService.logoutUser().subscribe((status) => {
       localStorage.removeItem('token')
-      console.log('Logged out', status)
       this.router.navigate(['/'], { fragment: "loggedout" })
 
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 

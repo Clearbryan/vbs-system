@@ -15,20 +15,19 @@ export class PurchaseComponent implements OnInit {
   creditCost: Number = 0;
   total: Number = 0
   order_total: Number = 0;
+  packageId: Number = null
+  orderCreated: Boolean = false
+  sucessMessage: String = ""
+  success: Boolean
+  failure: Boolean
+  errorMessage: String = ""
+
 
   // to delete hard coded data
-  packages: any = [
-    // { min: 0, max: 499, prize: 0.61 },
-    // { min: 500, max: 999, prize: 0.56 },
-    // { min: 1000, max: 4999, prize: 0.53 },
-    // { min: 5000, max: 9999, prize: 0.45 },
-    // { min: 10000, max: 14999, prize: 0.46 },
-    // { min: 15000, max: 19999, prize: 0.34 },
-    // { min: 'over ', max: 20000, prize: `Contact us` }
-  ]
+  packages: any = []
   // disable proceed button if credits < 500
   get valid() {
-    if (this.credits < 500) {
+    if (this.credits <= 50 || this.credits > 30000 ) {
       return false
     } else {
       return true
@@ -50,18 +49,43 @@ export class PurchaseComponent implements OnInit {
       this.packages = order
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   }
 
   // proceed to checkout
-  async checkout() {
-    // this.orderService.purchaseCredits(this.order_total).subscribe((response: any) => {
-    //   console.log(response)
-    // }, error => {
-    //   console.log(error)
-    // })
+  order() {
+    
+    this.orderService.order(this.order_total, this.credits, this.packageId).subscribe((order: any) => {
+      const orderId = order.id
+      this.success = true
+      this.sucessMessage = "Order created, continue to checkout"
+      setTimeout(() => {
+        this.router.navigate(['/user/accounts/checkout', orderId])
+        this.success = false
+        this.sucessMessage = ""
+      }, 2000)
+    }, error => {
+        // handle error
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
+    })
+  }
+
+  checkout() {
+
   }
 
   // run this on credit input
@@ -69,7 +93,8 @@ export class PurchaseComponent implements OnInit {
     this.packages.filter((pack, i, arr) => {
       let val = this.credits
       if (val <= arr[i].maximum && val >= arr[i].minimum) {
-        arr[i].bgcolor = '#6CCB8E'
+        this.packageId = pack.id
+        arr[i].bgcolor = '#7FB7EC'
         arr[i].textcolor = 'transparent'
         let cost;
         cost = Number(val) * Number(arr[i].price)

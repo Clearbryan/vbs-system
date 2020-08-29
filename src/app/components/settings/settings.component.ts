@@ -11,6 +11,8 @@ export class SettingsComponent implements OnInit {
   details: any = {}
   success: Boolean = false
   failure: Boolean = false
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(private billingService: BillingService) { }
 
@@ -20,7 +22,13 @@ export class SettingsComponent implements OnInit {
       this.details = data[0]
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 
@@ -31,7 +39,13 @@ export class SettingsComponent implements OnInit {
       console.log(res)
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 

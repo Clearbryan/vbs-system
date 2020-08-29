@@ -11,6 +11,10 @@ export class AnalyticsComponent implements OnInit {
   reports: any = []
   searchStrings: any = ["Name", "Date"]
   searchOption: String = ""
+  success: Boolean
+  failure: Boolean
+  successMessage: String = ""
+  errorMessage: String = ""
   p: number = 1
 
 
@@ -30,14 +34,16 @@ export class AnalyticsComponent implements OnInit {
       })
       this.reports = response
     }, error => {
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
     
   }
-
-  // ngOnInit(): void {
-    
-  // }
 
   // search
   search(e) {

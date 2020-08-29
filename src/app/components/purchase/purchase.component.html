@@ -14,6 +14,28 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{sucessMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="content-viewport">
   <div class="row">
     <div class="col-lg-7 col-md-12 equel-grid">
@@ -40,17 +62,17 @@
               <tbody>
                 <tr *ngFor="let package of packages;"
                   [style]="{'background-color': package.bgcolor, 'color': package.textcolor}">
-                  <td>{{package.name}}</td>
+                  <td>{{package.name | titlecase |  slice:0:25}}</td>
                   <td>{{package.minimum}} - {{package.maximum}}</td>
-                  <td>{{package.price}}</td>
+                  <td> {{ package.price | currency:'ZAR '}}</td>
                 </tr>
               </tbody>
             </table>
             <br>
             <div class="text-right mb-3">
-              <button class="btn btn-primary" [disabled]="!valid" (click)="checkout()"><i
-                  class="fas fa-arrow-right mr-2"></i>
-                Proceed to checkout</button>
+              <button class="btn btn-primary" [disabled]="!valid" (click)="order()"><i
+                  class="fas fa-plus mr-2"></i>
+                Add to cart</button>
             </div>
           </div>
 
@@ -82,3 +104,5 @@
 
   </div>
 </div>
+
+

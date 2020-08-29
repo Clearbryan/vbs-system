@@ -13,6 +13,8 @@ export class IvrAddComponent implements OnInit {
 
   success: Boolean = false
   failure: Boolean = false
+  errorMessage: String = ""
+  successMessage: String = ""
   response: any = {}
   audios: any = []
   audioFile: String;
@@ -65,7 +67,13 @@ export class IvrAddComponent implements OnInit {
       this.audios = audio
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   };
@@ -123,17 +131,21 @@ export class IvrAddComponent implements OnInit {
     console.log(this.responses)
     this.ivrService.submitIvrMenu(this.name, this.desc, this.audio, JSON.stringify(this.responses)).subscribe((response: any) => {
       this.success = true;
+      this.successMessage = "Survey menu added successfully"
       setTimeout(() => {
-        this.router.navigate(['/user/ivr'])
+        this.successMessage = ""
         this.success = false
+        this.router.navigate(['/user/ivr'])
       }, 2000)
     }, error => {
       // handle error
       console.log(error)
-      this.failure = true;
+      this.failure = true
+      this.errorMessage = error.message
       setTimeout(() => {
         this.failure = false
-      }, 1500)
+        this.errorMessage = ""
+      }, 2000)
     })
 
   }

@@ -12,6 +12,10 @@ export class DncComponent implements OnInit {
   dnc: any = []
   p: number = 1
   dncId: Number = null
+  failure: Boolean
+  success: Boolean
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(private dncService: DncService, private activeRoute: ActivatedRoute) { }
 
@@ -25,7 +29,13 @@ export class DncComponent implements OnInit {
 
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   }

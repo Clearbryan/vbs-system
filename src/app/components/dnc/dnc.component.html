@@ -14,6 +14,28 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="content-viewport">
   <div class="row">
     <div class="col-lg-12 equel-grid">
@@ -38,13 +60,15 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let dnc of dnc | paginate: { itemsPerPage: 10, currentPage: p }">
-                    <td>{{dnc.name}}</td>
-                    <td>{{dnc.description}}</td>
+                    <td>{{dnc.name | titlecase |  slice:0:25}}</td>
+                    <td>{{dnc.description | titlecase |  slice:0:25}}</td>
                     <td>{{dnc.created_date}}</td>
                     <td>{{dnc.total}}</td>
                     <td>
-                      <a [routerLink]="['/user/dnc/view', dnc.id]"><i class="fas fa-eye mr-2 ml-2 text-primary"
+                      <a [routerLink]="['/user/dnc/view', dnc.id]"><i class="fas fa-eye mr-2 ml-2 text-success"
                           title="view"></i></a>
+                          <a [routerLink]="['/user/dnc/add/lead', dnc.id]"><i class="fas fa-plus mr-2 ml-2 text-primary"
+                            title="add lead"></i></a>
                       <a><i class="fas fa-download mr-2 ml-2 text-success" title="download"></i></a>
                     </td>
                   </tr>

@@ -2143,6 +2143,8 @@ select.form-control:focus::-ms-value {
   border-radius: 0.2rem;
 }
 
+
+
 .form-control-lg {
   height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
@@ -14677,6 +14679,8 @@ table.info-table tr th.actions {
   text-align: center;
   background-position: center 20%;
 }
+
+
 
 .sidebar-upgrade-banner .upgrade-btn {
   background: linear-gradient(135deg, #6B73FF 10%, #000DFF 100%);

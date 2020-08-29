@@ -46,6 +46,8 @@ export class CampaignEditComponent implements OnInit {
   textTospeech: Boolean;
   toAudio: Boolean;
   leads: Boolean
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(
     private router: Router,
@@ -73,6 +75,14 @@ export class CampaignEditComponent implements OnInit {
     }, error => {
         // handle error
         console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
+
+
     })
 
 
@@ -82,7 +92,13 @@ export class CampaignEditComponent implements OnInit {
       this.surveys = response
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
     // get all phonebooks
@@ -91,7 +107,13 @@ export class CampaignEditComponent implements OnInit {
       this.contacts = contacts;
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
     // get all dncs
@@ -108,7 +130,13 @@ export class CampaignEditComponent implements OnInit {
       console.log(audios);
       this.audios = audios
     }, error => {
-      console.log(error);
+        console.log(error);
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 
@@ -155,9 +183,11 @@ export class CampaignEditComponent implements OnInit {
         // handle error
         console.log(error)
         this.failure = true
+        this.errorMessage = error.message
         setTimeout(() => {
           this.failure = false
-        }, 1500)
+          this.errorMessage = ""
+        }, 2000)
       })
     } else {
       this.retry_on = this.retry_on.toString().trim()
@@ -166,15 +196,18 @@ export class CampaignEditComponent implements OnInit {
         this.success = true
         setTimeout(() => {
           this.success = false
+          this.successMessage = "Audio edited successfully"
           this.router.navigate(['/user/campaigns'])
         }, 2000)
       }, error => {
         // handle error
         console.log(error)
         this.failure = true
+        this.errorMessage = error.message
         setTimeout(() => {
           this.failure = false
-        }, 1500)
+          this.errorMessage = ""
+        }, 2000)
       })
     }
   }

@@ -13,6 +13,9 @@ export class PhonebookViewComponent implements OnInit {
   phonebook: any = {}
   error: any = {}
   success: Boolean = true
+  failure: Boolean
+  successMessage: String = ""
+  errorMessage: String = ""
 
   constructor(private phonebookService: PhonebookService,private dncService: DncService, private activeRoute: ActivatedRoute) { }
 
@@ -20,6 +23,13 @@ export class PhonebookViewComponent implements OnInit {
     // get phonebook id
     this.activeRoute.params.subscribe((params: Params) => {
       this.phonebookId = Number(params.id)
+    }, error => {
+      this.failure = true
+      this.errorMessage = error.message
+      setTimeout(() => {
+        this.failure = false
+        this.errorMessage = ""
+      }, 2000)
     })
 
     this.phonebookService.getPhonebook(this.phonebookId).subscribe((phonebook: any) => {
@@ -30,8 +40,12 @@ export class PhonebookViewComponent implements OnInit {
     }, error => {
       // handle error
         console.log(error)
-        this.success = false
-        this.error = error
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
     // get leads
@@ -40,6 +54,12 @@ export class PhonebookViewComponent implements OnInit {
     }, error => {
         // handle error
         console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   }

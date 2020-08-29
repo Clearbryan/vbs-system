@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="viewport-header">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb has-arrow">
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/dashboard'">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="'/user/audio'">Analytics</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">all</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-viewport">
+  <div class="row">
+    <div class="col-lg-12 equel-grid">
+      <div class="grid">
+        <div class="grid-body">
+          <div class="item-wrapper">
+            <div class="text-left mb-1">
+              <div class="mt-2" style="float: left;">
+                <label>Filter by</label>
+                <ul class="nav">
+                  <li class="ml-1 mb-1 mr-1 mt-1">
+                    <select class="form-control" [(ngModel)]="searchOption" name="searchOption">
+                      <option [value]="searchString" *ngFor="let searchString of searchStrings">{{searchString}}
+                      </option>
+                    </select>
+                  </li>
+                  <li class="ml-1 mb-1 mr-1 mt-1">
+                    <input type="search" (input)="search($event)" class="form-control" placeholder="search">
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table info-table table-striped">
+                <thead class="">
+                  <tr>
+                    <th>Name</th>
+                    <th>Date Created</th>
+                    <th>Progress</th>
+                    <th>Calls </th>
+                    <th>Minutes</th>
+                    <th>Cost</th>
+                    <th>Replies</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let report of reports | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{report.name}}</td>
+                    <td>{{report.start_date}}</td>
+                    <td>{{report.progress}}</td>
+                    <td>{{report.calls}}</td>
+                    <td>{{report.minutes}}</td>
+                    <td>cell</td>
+                    <td>{{report.replies}}</td>
+                    <td>
+                      <a [routerLink]="['/user/analytics/report/call-detail-record', report.id ]" [queryParams]="{name:report.name}"><i
+                          class="fas fa-eye mr-2 ml-2 text-primary" title="view"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <p class="text-right">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

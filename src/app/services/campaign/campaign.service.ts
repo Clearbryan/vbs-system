@@ -88,4 +88,30 @@ export class CampaignService {
   editCampaign(id, data) {
     return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, data, httpOptions)
   }
+
+   // duplicate
+  duplicateCampaign(id) {
+    let formData = new FormData()
+    formData.append('campaign', id)
+    return this.http.post(`http://102.130.121.230/api/duplicate/`, formData, httpOptions)
+  }
+
+  // recycle 
+  recycleCampaign(id, disposition) {
+    let formData = new FormData()
+    formData.append('campaign', id)
+    formData.append('disposition', disposition)
+    return this.http.post(`http://102.130.121.230/api/recycle/`, formData, httpOptions)
+  
+  }
+
+  // test call
+  testCall(id, number) {
+    let formData = new FormData()
+    formData.append('campaign', id)
+    formData.append('contact', number)
+    return this.http.post(`http://102.130.121.230/api/test/`, formData, httpOptions)
+  
+  }
+
 }

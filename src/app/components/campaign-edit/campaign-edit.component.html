@@ -11,11 +11,34 @@
           <li class="breadcrumb-item">
             <a [routerLink]="['/user/campaigns/edit', _campaign.id]">edit</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">{{_campaign.name}}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{_campaign.name | titlecase |  slice:0:25 }}</li>
         </ol>
       </nav>
     </div>
   </div>
+  <div class="row">
+    <div class="container-fluid">
+      <div class="col-md-5 offset-7">
+        <div class="ml-auto">
+          <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{successMessage}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+          <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{errorMessage}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   
   <div class="content-viewport">
     <div class="row">
@@ -62,7 +85,7 @@
                     <div class="form-group">
                       <label>Select lead file</label>
                       <select class="form-control" name="phonebook" [(ngModel)]="_campaign.phonebook">
-                        <option [value]="_campaign.phonebook" *ngFor="let contact of contacts">{{contact.name}}</option>
+                        <option [value]="_campaign.phonebook" *ngFor="let contact of contacts">{{contact.name | titlecase |  slice:0:25 }}</option>
                       </select>
                       <small id="lead" class="form-text">select lead file</small>
                     </div>
@@ -71,7 +94,7 @@
                     <div class="form-group">
                       <label>Select IVR menu</label>
                       <select class="form-control" name="survey" [(ngModel)]="_campaign.survey">
-                        <option [value]="_campaign.survey" *ngFor="let survey of surveys">{{survey.name}}</option>
+                        <option [value]="_campaign.survey" *ngFor="let survey of surveys">{{survey.name | titlecase |  slice:0:25 }}</option>
                       </select>
                       <small id="lead" class="form-text">select IVR menu</small>
                     </div>
@@ -80,7 +103,7 @@
                     <div class="form-group">
                       <label>DNC list</label>
                       <select class="form-control" name="dnc" [(ngModel)]="_campaign.dnc">
-                        <option [value]="_campaign.dnc" *ngFor="let dnc of dncList">{{dnc.name}}</option>
+                        <option [value]="_campaign.dnc" *ngFor="let dnc of dncList">{{dnc.name | titlecase |  slice:0:25 }}</option>
                       </select>
                       <small id="lead" class="form-text">select DNC List</small>
                     </div>

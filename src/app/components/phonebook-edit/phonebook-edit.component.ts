@@ -15,8 +15,8 @@ export class PhonebookEditComponent implements OnInit {
   file: any;
   success: Boolean = false;
   failure: Boolean = false;
+  errorMessage: String = ""
   successMessage: String = ""
-  failureMessage: String = ""
   phonebookId: Number = null
   phonebook: any = {}
 
@@ -27,13 +27,26 @@ export class PhonebookEditComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params: Params) => {
       this.phonebookId = Number(params.id)
+    }, error => {
+      this.failure = true
+      this.errorMessage = error.message
+      setTimeout(() => {
+        this.failure = false
+        this.errorMessage = ""
+      }, 2000)
     })
     this.contactsService.getPhonebook(this.phonebookId).subscribe((phonebook: any) => {
       console.log(phonebook)
       this.phonebook = phonebook
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   }
@@ -58,10 +71,10 @@ export class PhonebookEditComponent implements OnInit {
 
       console.log(error)
       this.failure = true;
-      this.failureMessage = `${error.message}`
+      this.errorMessage = `${error.message}`
       setTimeout(() => {
         this.failure = false
-        this.failureMessage = ""
+        this.errorMessage = ""
       }, 2000)
     })
   }

@@ -13,6 +13,27 @@
     </nav>
   </div>
 </div>
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="content-viewport">
   <div class="row">
@@ -38,11 +59,11 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let audio of audios | paginate: { itemsPerPage: 10, currentPage: p }">
-                    <td>{{audio.name}}</td>
+                    <td>{{audio.name | titlecase |  slice:0:25}}</td>
                     <td><audio controls="controls">
                         <source [src]="audio.audio_file" type="audio/mp3">
                       </audio></td>
-                    <td>{{audio.created_at}}</td>
+                    <td>{{audio.created_at | date}}</td>
                     <td>
                       <a [routerLink]="['/user/audio/edit', audio.id]"><i class="fas fa-edit mr-2 ml-2 text-primary"
                           title="edit"></i></a>

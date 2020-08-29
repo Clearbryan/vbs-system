@@ -10,6 +10,12 @@ import { Params, ActivatedRoute } from '@angular/router';
 export class DncViewComponent implements OnInit {
   dncId: Number = null
   dncContact: any = []
+  dnc: any = {}
+  errorMessage: String = ""
+  successMessage: String = ""
+  failure: Boolean
+  success: Boolean
+  p: number = 1
 
   constructor(private dncService: DncService, private activeRoute: ActivatedRoute) { }
 
@@ -17,6 +23,14 @@ export class DncViewComponent implements OnInit {
     this.activeRoute.params.subscribe((params: Params) => {
       console.log(params.id)
       this.dncId = Number(params.id)
+    }, error => {
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
     // get dnc contacts
@@ -25,11 +39,30 @@ export class DncViewComponent implements OnInit {
       this.dncContact = contacts
     }, error => {
       // handle error 
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
+    })
+
+    // get dnc details
+    this.dncService.getDnc(this.dncId).subscribe((dnc: any) => {
+      dnc.created_date = new Date(dnc.created_date).toDateString()
+      this.dnc = dnc
+    }, error => {
+        this.errorMessage = error.message
+        this.failure = true
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        })
     })
   }
-  // dncId(dncId: any) {
-  //   throw new Error('Method not implemented.');
-  // }
+  
+  // get dnc leads
+  
 
 }

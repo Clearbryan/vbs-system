@@ -8,9 +8,31 @@
         <li class="breadcrumb-item">
           <a [routerLink]="'/user/analytics'">Reports</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{{report.name}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{report.name | titlecase |  slice:0:25}}</li>
       </ol>
     </nav>
+  </div>
+</div>
+
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -25,16 +47,17 @@
     <p></p>
     <i class="fas fa-info-circle mr-2"></i> Call Detail Record
   </a>
-  <a class="btn btn-outline-primary" [routerLink]="['/user/campaigns']">
+  <a class="btn btn-outline-primary" [routerLink]="['/user/analytics/report/detail', report.id]" [queryParams]="{name:report.name}">
     <p></p>
-    <i class="fas fa-backward mr-2"></i> All Campaigns
+    <i class="fas fa-file-contract mr-2"></i> Detailed Report
   </a>
 </div>
+
 
 <div class="content-viewport">
   <div class="row">
     <div class="col-12 py-3">
-      <h5>Campaign name: {{report.name}}</h5>
+      <h5>Campaign name: {{report.name | titlecase |  slice:0:25}}</h5>
     </div>
   </div>
   <div class="row">
@@ -47,14 +70,12 @@
             </small><small>28 July 2020, 12:15
               pm</small></span>
           <br>
-          <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Cost: </b>
-          </small><small>R 1000</small></span>
-            <br>
-          <span><small><b>Total Calls: </b> </small><small></small> / <small><b>Total Answered Calls: </b>
-          </small><small></small></span>
-
+          <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Minutes: </b>
+            </small><small>{{report.minutes}}</small></span>
         </div>
+        
       </div>
+      
     </div>
     <div class="col-md-6">
       <div class="grid">

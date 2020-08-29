@@ -1,7 +1,7 @@
 import { PhonebookService } from './../../services/phonebook/phonebook.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-phonebook-add',
@@ -15,15 +15,36 @@ export class PhonebookAddComponent implements OnInit {
   file: any;
   success: Boolean = false;
   failure: Boolean = false;
+  errorMessage: String = ""
+  successMessage: String = ""
   uploading: Boolean
   uploaded: Boolean
-  progressResult: any  = {}
+  progressResult: any = {}
+  nextButton: Boolean
 
-  constructor(private router: Router, private http: HttpClient, private contactsService: PhonebookService) {
+  constructor(private router: Router, private http: HttpClient, private contactsService: PhonebookService, private activeRoute: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
+    this.activeRoute.queryParams.subscribe((params: Params) => {
+      if (params !== {}) {
+        if (params.action === 'quickstart') {
+          this.nextButton = true
+        } else {
+          this.nextButton = false
+        }
+      } else {
+        this.nextButton = false
+      }
+    }, error => {
+      this.failure = true
+      this.errorMessage = error.message
+      setTimeout(() => {
+        this.failure = false
+        this.errorMessage = ""
+      }, 2000)
+    })
 
 
   }
@@ -61,7 +82,13 @@ export class PhonebookAddComponent implements OnInit {
           }
        }, error => {
            // handle progress error
-           console.log(error)
+            console.log(error)
+            this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
        })
          
        }, 2000)
@@ -69,10 +96,12 @@ export class PhonebookAddComponent implements OnInit {
     }, error => {
 
       console.log(error)
-      this.failure = true;
-      setTimeout(() => {
-        this.failure = false
-      }, 2000)
+      this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
 
   }

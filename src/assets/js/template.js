@@ -27,6 +27,7 @@ MobileToggler.on("click", function () {
 });
 
 
+
 // CHECK FOR CURRENT PAGE AND ADDS AN ACTIVE CLASS FOR TO THE ACTIVE LINK
 var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
 $('.navigation-menu li a', TemplateSidebar).each(function () {

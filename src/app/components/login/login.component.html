@@ -5,18 +5,18 @@
         <div class="grid">
           <div class="grid-body">
             <div [hidden]="!loginSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
-              Success redirecting...
+              {{successMessage}}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div [hidden]="!loginFailure" class="alert alert-danger alert-dismissible fade show" role="alert">
-              Ooops...an error occured!
+              {{errorMessage}}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="form">
+            <div class="form authentication-theme auth-style_1">
               <form class="form-signin card shadow">
                 <div class="text-center mb-2">
                   <h4 class="h5 mb-1 font-weight-normal">Nexis Systems</h4>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group">
                   <div class="col-auto">
-                    <button class="btn btn-primary btn-block" (click)="login()"><i class="fas fa-lock-open"></i>
+                    <button class="btn btn-primary btn-block" (click)="login()"><i class="fas fa-lock-open mr-2"></i>
                       Log
                       in</button>
                   </div>

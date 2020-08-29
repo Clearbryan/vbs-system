@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, Pipe } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 
@@ -7,6 +7,8 @@ import { CampaignService } from 'src/app/services/campaign/campaign.service';
   templateUrl: './campaigns.component.html',
   styleUrls: ['./campaigns.component.css']
 })
+
+
 export class CampaignsComponent implements OnInit {
 
   @Input()campaigns: any = []
@@ -20,7 +22,7 @@ export class CampaignsComponent implements OnInit {
   green = 'green'
   noSearch: Boolean = true
   searchOption: String = "Search by"
-  searchStrings: any = ["Participants", "Name", "Date"]
+  searchStrings: any = ["Participants", "By Name", "Date"]
   status: any = null
   success: Boolean = false
   failure: Boolean = false
@@ -30,6 +32,12 @@ export class CampaignsComponent implements OnInit {
   test: any
   counter: Number
   active: Boolean = false
+  _testCall: Boolean
+  testCallNumber: String = ""
+  testcallId: Number = null
+  recycleId: Number = null
+  _recycle: Boolean
+  recycleOptions: String = ""
 
   styles: any = {}
 
@@ -38,6 +46,9 @@ export class CampaignsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.campaignService.getAllCampaigns().subscribe((campaigns: any) => { 
+      console.log(campaigns)
+    })
     
   }
 
@@ -46,6 +57,17 @@ export class CampaignsComponent implements OnInit {
 //       console.log(this.campaigns)
 //     }, 5000)
 //  }
+  
+  openForm(id) {
+    this._testCall = true
+    this.testcallId = Number(id)
+  }
+
+  openRecycleForm(id) {
+    this._recycle = true
+    this.recycleId = Number(id)
+
+  }
 
   ngDoCheck(): void {
     this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
@@ -114,15 +136,15 @@ export class CampaignsComponent implements OnInit {
       this.noSearch = false
       const filteredSearch = this.campaigns.filter((campaign) => {
         // search by name
-        if (this.searchOption === 'Name') {
+        if (this.searchOption === "By Name") {
           if (campaign.name.includes(searchString)) {
             return true
           }
-        } else if (this.searchOption === 'Date') {
+        } else if (this.searchOption === "Date") {
           if (campaign.start_date.includes(searchString)) {
             return true
           }
-        } else if (this.searchOption === 'Participants') {
+        } else if (this.searchOption === "Participants") {
           if (campaign.replies.includes(searchString)) {
             return true
           }
@@ -150,16 +172,16 @@ export class CampaignsComponent implements OnInit {
       //     this.counter = c
       //   }, 1000)
       // }
-      this.successMessage = `Just finishing up setting your campaign! Campaign will start in ${this.counter}.`
+      this.successMessage = `Just finishing up setting your campaign! Campaign will start in approximately 30 sec to 1 min.`
       setTimeout(() => {
         this.success = false
         this.successMessage = ""
-        this.router.navigate(['/user/campaigns/active', id])
-      }, 30000)
+        // this.router.navigate(['/user/campaigns/active', id])
+      }, 5000)
     }, error => {
       console.log(error)
       this.failure = true
-      this.failureMessage = "An error occured. Campaign not started"
+      this.failureMessage = error.message
       setTimeout(() => {
         this.failure = false
         this.failureMessage = ""
@@ -180,7 +202,7 @@ export class CampaignsComponent implements OnInit {
     }, error => {
       console.log(error)
       this.failure = true
-      this.failureMessage = "An error occured. Campaign not paused"
+      this.failureMessage = error.message
       setTimeout(() => {
         this.failure = false
         this.failureMessage = ""
@@ -202,7 +224,7 @@ export class CampaignsComponent implements OnInit {
     }, error => {
       console.log(error)
       this.failure = true
-      this.failureMessage = "An error occured. Campaign not stopped"
+      this.failureMessage = error.message
       setTimeout(() => {
         this.failure = false
         this.failureMessage = ""
@@ -224,7 +246,7 @@ export class CampaignsComponent implements OnInit {
     }, error => {
       console.log(error)
       this.failure = true
-      this.failureMessage = "An error occured. Campaign not deleted"
+      this.failureMessage = error.message
       setTimeout(() => {
         this.failure = false
         this.failureMessage = ""
@@ -232,6 +254,75 @@ export class CampaignsComponent implements OnInit {
     })
   }
 
+  duplicate(id) {
+    this.campaignService.duplicateCampaign(id).subscribe((duplicate: any) => {
+      // console.log(duplicate)
+      this.success = true
+      this.successMessage = "Campaign duplicate successful"
+      setTimeout(() => {
+        this.success = false
+        this.successMessage = ""
+      }, 1500)
+    }, error => {
+        // handle error
+        console.log(error)
+        this.failure = true
+        this.failureMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.failureMessage = ""
+        }, 2000)
+    })
+  }
+
+  // recycle
+  recycle() {
+    let rec = this.recycleOptions.split(',')
+    this.campaignService.recycleCampaign(this.recycleId, rec).subscribe((duplicate: any) => {
+      // console.log(duplicate)
+      this.success = true
+      this.successMessage = "Campaign recycle successful"
+      this._recycle = false
+      setTimeout(() => {
+        this.success = false
+        this.successMessage = ""
+      }, 1500)
+    }, error => {
+        // handle error
+        console.log(error)
+        this.failure = true
+        this.failureMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.failureMessage = ""
+        }, 2000)
+    })
+  }
+
+  // test call
+  testCall() {
+    this.campaignService.testCall(this.testcallId, this.testCallNumber).subscribe((sub: any) => {
+      console.log(sub)
+      this.success = true
+      this.successMessage = "Test call successs. You should receive a call shortly"
+      setTimeout(() => {
+        this._testCall = false
+        this.testcallId = null
+        this.success = false
+        this.successMessage = ""
+      }, 2000)
+    }, error => {
+        // handle error
+        console.log(error)
+        this.failure = true
+        this.failureMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.failureMessage = ""
+        }, 2000)
+    })
+  }
+ 
 
 
 

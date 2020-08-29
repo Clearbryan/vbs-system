@@ -22,6 +22,19 @@ export class DncService {
     return this.http.post('http://102.130.121.230/api/dnc/', JSON.stringify(body), httpOptions);
   }
 
+  // add dnc lead
+  addDncLead(id, lead) {
+    const body = {
+      phone_number: lead
+    }
+    return this.http.post(`http://102.130.121.230/api/dnc/${id}/append/`, JSON.stringify(body), httpOptions);
+  }
+
+  // get dnc leads
+  getDnc(id) {
+    return this.http.get(`http://102.130.121.230/api/dnc/${id}/`, httpOptions);
+  }
+
   // get all DNC 
   getAllDnc() {
     return this.http.get('http://102.130.121.230/api/dnc/', httpOptions)
@@ -29,6 +42,6 @@ export class DncService {
 
   // get dnc leads
   getDncContacts(id) {
-    return this.http.get(`http://102.130.121.230/api/dnc/${id}/`, httpOptions)
+    return this.http.get(`http://102.130.121.230/api/dnc/${id}/leads/`, httpOptions)
   }
 }

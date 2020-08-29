@@ -19,14 +19,14 @@
     <div class="col-md-5 offset-7">
       <div class="ml-auto">
         <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
-          <strong>Phonebook successfully! added</strong>
+          <strong>{{successMessage}}</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
         <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Ooops... an error occured!</strong>
+          <strong>{{errorMessage}}</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -85,8 +85,11 @@
               </div>
               <br>
               <div class="text-right mb-3 mr-1">
-                <button class="btn btn-primary" (click)="importContact()"> <i class="fas fa-save mr-2"></i> Import
+                <button [hidden]="nextButton" class="btn btn-primary" (click)="importContact()"> <i class="fas fa-save mr-2"></i> Import
                   contacts
+                </button>
+                <button [hidden]="!nextButton" class="btn btn-primary" (click)="importContact()"> next <i class="fas fa-arrow-right ml-2"></i> 
+                  
                 </button>
               </div>
             </form>

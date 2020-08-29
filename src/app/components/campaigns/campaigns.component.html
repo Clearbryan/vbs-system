@@ -54,6 +54,24 @@
                   <li class="ml-1 mb-1 mr-1 mt-1">
                     <input type="search" (input)="search($event)" class="form-control" placeholder="search">
                   </li>
+                  <li [hidden]="!_testCall" class="ml-1 mb-1 mr-1 mt-1">
+                    <input autofocus name="testcall" [(ngModel)]="testCallNumber"  type="text" class="form-control" placeholder="test number" aria-describedby="basic-addon2">
+                  </li>
+                  <li [hidden]="!_testCall" class="ml-1 mb-1 mr-1 mt-1">
+                    <button (click)="testCall()" class="btn btn-outline-primary btn-sm " type="button">
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      call..
+                    </button>
+                  </li>
+                  <li [hidden]="!_recycle" class="ml-1 mb-1 mr-1 mt-1">
+                    <input autofocus name="testcall" [(ngModel)]="recycleOptions"  type="text" class="form-control" placeholder="answer, busy" aria-describedby="basic-addon2">
+                  </li>
+                  <li [hidden]="!_recycle" class="ml-1 mb-1 mr-1 mt-1">
+                    <button (click)="recycle()" class="btn btn-outline-primary btn-sm " type="button">
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      recycle...
+                    </button>
+                  </li>
 
                 </ul>
               </div>
@@ -64,6 +82,7 @@
               </div>
             </div>
             <div class="table-responsive">
+              
               <table class="table info-table table-striped">
                 <thead class="text-center">
                   <tr>
@@ -81,10 +100,10 @@
                 </thead>
                 <tbody [hidden]="noSearch" class="text-center">
                   <tr *ngFor="let campaign of filteredCampaigns; trackBy:filteredCampaigns.progress | paginate: { itemsPerPage: 10, currentPage: p }">
-                    <td>{{campaign.name}}</td>
+                    <td>{{campaign.name | titlecase |  slice:0:25 }}</td>
                     <td>{{campaign.start_date}}</td>
-                    <td>{{campaign.phonebook}}</td>
-                    <td>{{campaign.survey}}</td>
+                    <td>{{campaign.phonebook | titlecase |  slice:0:25}}</td>
+                    <td>{{campaign.survey | titlecase |  slice:0:25}}</td>
                     <td>{{campaign.replies}}</td>
                     <td>{{campaign.contacts}}</td>
                     <td>
@@ -112,13 +131,14 @@
                           title="ended"></i></a>
                     </td>
                     <td>
+
                       <a [routerLink]="['/user/campaigns/edit', campaign.id]"><i
                           class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></i></a>
-                      <a [routerLink]=""><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
-                      <a [routerLink]=""><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
-                      <a [routerLink]=""><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
+                      <a (click)="duplicate(campaign.id)"  [routerLink]=""><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
+                      <a (click)="openRecycleForm(campaign.id)" [routerLink]=""><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
+                      <a (click)="openForm(campaign.id)" [routerLink]=""><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
                           title="send test call using this campaign"></i></a>
-                      <a [routerLink]="['/user/analytics/report', campaign.id ]" [queryParams]="{name:campaign.name}"><i
+                      <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"><i
                           class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
                       <a [routerLink]="" (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
                           title="delete campaign"></i></a>
@@ -127,10 +147,10 @@
                 </tbody>
                 <tbody [hidden]="!noSearch" class="text-center">
                   <tr *ngFor="let campaign of campaigns | paginate: { itemsPerPage: 10, currentPage: p }">
-                    <td>{{campaign.name}}</td>
+                    <td>{{campaign.name | titlecase |  slice:0:25 }}</td>
                     <td>{{campaign.start_date}}</td>
-                    <td>{{campaign.phonebook}}</td>
-                    <td>{{campaign.survey}}</td>
+                    <td>{{campaign.phonebook | titlecase |  slice:0:25}}</td>
+                    <td>{{campaign.survey | titlecase |  slice:0:25}}</td>
                     <td>{{campaign.replies}}</td>
                     <td>{{campaign.contacts}}</td>
                     <td>
@@ -158,24 +178,27 @@
                           title="ended"></i></a>
                     </td>
                     <td>
+                      
                       <a [routerLink]="['/user/campaigns/edit', campaign.id]"><i
                           class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></i></a>
-                      <a [routerLink]=""><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
-                      <a [routerLink]=""><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
-                      <a [routerLink]=""><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
+                      <a (click)="duplicate(campaign.id)" [routerLink]=""><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
+                      <a (click)="openRecycleForm(campaign.id)" [routerLink]=""><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
+                      <a (click)="openForm(campaign.id)" [routerLink]=""><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
                           title="send test call using this campaign"></i></a>
-                      <a [routerLink]="['/user/analytics/report', campaign.id ]" [queryParams]="{name:campaign.name}"><i
+                      <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"><i
                           class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
                       <a [routerLink]="" (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
                           title="delete campaign"></i></a>
                     </td>
+                    
+                    
                   </tr>
                 </tbody>
               </table>
             </div>
             <br>
             <p class="text-right">
-              <pagination-controls id="paginate" (pageChange)="p = $event"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </p>
           </div>
         </div>

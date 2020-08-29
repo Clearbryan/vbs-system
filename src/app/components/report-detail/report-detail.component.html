@@ -1,0 +1,193 @@
+<div class="row">
+    <div class="viewport-header">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb has-arrow">
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/user/dashboard'">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/user/analytics'">Reports</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{report.name | titlecase |  slice:0:25}}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div>
+  <div class="btn-group mb-0" data-toggle="buttons">
+    <a class="btn btn-outline-primary " [routerLink]="['/user/analytics/report', reportId]"
+      [queryParams]="{name:report.name}">
+      <p></p>
+      <i class="fas fa-chart-pie mr-2"></i> Summary
+    </a>
+    <a class="btn btn-outline-primary" [routerLink]="['/user/analytics/report/call-detail-record', reportId]"
+      [queryParams]="{name:report.name}">
+      <p></p>
+      <i class="fas fa-info-circle mr-2"></i> Call Detail Record
+    </a>
+    <a class="btn btn-outline-primary active" [routerLink]="['/user/analytics/report/detail', reportId]" [queryParams]="{name:report.name}">
+      <p></p>
+      <i class="fas fa-file-contract mr-2"></i> Detailed Report
+    </a>
+  </div>
+  
+  <div class="row">
+    <div class="container-fluid">
+      <div class="col-md-5 offset-7">
+        <div class="ml-auto">
+          <div [hidden]="!failure" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{errorMessage}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="content-viewport" id="content">
+    <div class="row">
+      <div class="col-12 py-3">
+        <h5>Campaign name: {{report.name | titlecase |  slice:0:25}}</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 equel-grid">
+        <div class="grid">
+          <div>
+            <div style="float: left;">
+              <span><small><b>First Call: </b> </small><small>{{report.start_date}}, {{report.calltime}}</small> -
+                <small><b>Last Call:
+                  </b>
+                </small><small>28 July 2020, 12:15
+                  pm</small></span>
+              <br>
+              <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Minutes: </b>
+                </small><small>{{report.minutes}}</small></span>
+            </div>
+            <div style="float: right;" class="mb-2">
+              <div class="mt-2" style="float: left;">
+                <ul class="nav">
+                  <li class="ml-1 mb-1 mr-1 mt-1">
+                    <button (click)="export()" class="btn btn-primary btn-sm"><i class="fas fa-file-download mr-2"></i> Download Report</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+  
+          <br>
+          <br>
+          <div class="grib-body">
+            <div class="item-wrapper">
+                <div class="col-lg-12 col-md-12 col-sm-12 equel-grid">
+                    <div class="grid">
+                      <div class="grid-body">
+                        <div class="split-header">
+                          <thead>
+                            <h5>Campaign Report</h5>
+                          </thead>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                          <table class="table info-table table-striped">
+                            <!-- <thead class="">
+                              <tr>
+                                <h4 class="py-2 px-2">Call Data</h4>
+                                </tr>
+                            </thead> -->
+                            <thead class="">
+                              <tr>
+                                <th>Busy</th>
+                                <th>Congested</th>
+                                <th>Failed</th>
+                                <th>Cancel</th>
+                                <th>No Answer</th>
+                                <th>Answered</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{report.busy}}</td>
+                                <td>{{report.congestion}}</td>
+                                <td>{{report.failed}}</td>
+                                <td>{{report.cancel}}</td>
+                                <td>{{report.noanswer}}</td>
+                                <td>{{report.answered}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <br>
+                        <h5>Details</h5>
+                        <hr>
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                          <p class="text-black"> Calls Below 5 Seconds</p>
+                          <p class="text-gray">{{belowFiveSec.length}}</p>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                          <p class="text-black">Calls Below 10 Seconds</p>
+                          <p class="text-gray">{{belowTenSec.length}}</p>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2">
+                          <p class="text-black">Calls Below 20 Seconds</p>
+                          <p class="text-gray">{{belowTwentySec.length}}</p>
+                        </div>
+                        <br>
+                        <h5>Campaign</h5>
+                        <hr>
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                          <p class="text-black"> Campaign Cost</p>
+                          <p class="text-gray">Cost</p>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                          <p class="text-black"> Total minutes</p>
+                          <p class="text-gray">{{report.minutes}}</p>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                          <table class="table info-table table-striped">
+                            <!-- <thead class="">
+                              <tr>
+                                <h4 class="py-2 px-2">Call Data</h4>
+                                </tr>
+                            </thead> -->
+                            <thead class="">
+                              <tr>
+                                <th>Contactability (Number of replies / number of calls made)</th>
+                                <th>Feedback (Number of replies / number of calls made)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{report.contactability | percent}}</td>
+                                <td>{{report.contactability | percent}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row text-center mt-5" [hidden]="active">
+      <div class="col-md-6 offset-3">
+          <div class="error_2">
+              <div class="container inner-wrapper">
+                <h1 class="display-1 error-heading">{{error.status}}</h1>
+                <h2 class="error-code">{{error.statusText}}</h2>
+                <p class="error-message">{{error.message}}</p>
+                <br>
+                <a [routerLink]="'/user/dashboard'" class="btn btn-primary"> <i class="fas fa-backward mr-2"></i> Back to dashboard</a>
+              </div>
+            </div>
+      </div>
+  </div> -->
+  </div>
+  </div>
+  

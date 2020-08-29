@@ -12,7 +12,8 @@ export class LoginComponent implements OnInit {
   password: String = ""
   loginSuccess: Boolean = false
   loginFailure: Boolean = false
-
+  errorMessage: String = "" 
+  successMessage: String = ""
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
@@ -24,17 +25,21 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('token');
       localStorage.setItem('token', response.token);
       this.loginSuccess = true;
+      this.successMessage = "Success...redirecting to dashboard."
       setTimeout(() => {
         this.loginSuccess = false;
+        this.successMessage = ""
         this.router.navigate(['/user/dashboard'])
       }, 2000)
     }, err => {
       // handle error
       console.log(err);
-      this.loginFailure = true
+        this.loginFailure = true
+        this.errorMessage = err.message
       setInterval(() => {
         this.loginFailure = false
-      }, 1000)
+        this.errorMessage = ""
+      }, 2000)
     })
 
   }

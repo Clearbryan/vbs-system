@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-transparent ">
   <div>
-    <!--{{platform.date}} | {{platform.time}}-->
+     
     <p>
-      <span class="sidebar-toggler"><a><i class="fas fa-bars mr-2"></i></a></span> |
-      Server Status: <span class="text-success"><b>status</b></span></p>
+      <span id="sidebarToggler" class=""><a><i class="fas fa-bars mr-2"></i></a></span> 
+      {{platform.date | date}} | <span class="text-primary"><b>{{platform.time}}</b></span></p>
   </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03"
     aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,11 +12,6 @@
 
   <div class="collapse navbar-collapse" id="navbarsExample03">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown px-3" title="buy credits">
-        <a class="fas fa-shopping-cart fa-1x text-primary" [routerLink]="['/user/accounts/purchase']" fragment="credits"
-          role="button">
-        </a>
-      </li>
       <li class="nav-item dropdown hidden-caret px-3" title="notifications">
         <span>
           <i class="fas fa-bell text-primary"></i>
@@ -35,6 +30,33 @@
         </ul>
         <!-- /.dropdown-user -->
       </li>
+      <li class="nav-item dropdown hidden-caret px-3" title="System help">
+        <span>
+          <a [routerLink]="'/user/system/help'" ><i class="fas fa-question-circle text-primary"></i></a>
+        </span>
+      </li>
     </ul>
   </div>
 </nav>
+
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <!-- <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

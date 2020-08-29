@@ -96,5 +96,16 @@ export class CampaignService {
     };
     return this.http.put(`http://102.130.121.230/api/campaign/${id}/`, formData, httpOptions);
   }
+  
+  // duplicate
+  duplicateCampaign(id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.post(`http://102.130.121.230/api/duplicate/${id}/`, httpOptions)
+  }
 
+  
 }

@@ -11,7 +11,10 @@ export class StatementsComponent implements OnInit {
   statements: any;
   isStatements: Boolean = false
   failure: Boolean = false
+  success: Boolean
   download: Boolean = false
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(private billingSerice: BillingService) { }
 
@@ -29,10 +32,12 @@ export class StatementsComponent implements OnInit {
     }, error => {
       // handle error
       console.log(error)
-      this.failure = true;
-      setTimeout(() => {
-        this.failure = false
-      }, 1500)
+      this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 }

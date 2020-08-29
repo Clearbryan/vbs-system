@@ -12,6 +12,9 @@ export class InvoicesComponent implements OnInit {
   isInvoices: Boolean = false
   failure: Boolean = false
   search: Boolean = false
+  success: Boolean
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(private billingService: BillingService) { }
 
@@ -30,10 +33,12 @@ export class InvoicesComponent implements OnInit {
     }, error => {
       // handle error
       console.log(error)
-      this.failure = true;
+      this.failure = true
+      this.errorMessage = error.message
       setTimeout(() => {
         this.failure = false
-      }, 1500)
+        this.errorMessage = ""
+      }, 2000)
     })
   }
 }

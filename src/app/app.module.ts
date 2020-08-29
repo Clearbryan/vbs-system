@@ -53,6 +53,16 @@ import { LandingComponent } from './landing/landing.component';
 import { CampaignCdrComponent } from './components/campaign-cdr/campaign-cdr.component';
 import { AccountCreateComponent } from './components/account-create/account-create.component';
 import { AddLeadsComponent } from './components/add-leads/add-leads.component';
+import { QuickstartComponent } from './components/quickstart/quickstart.component';
+import { AddDncLeadComponent } from './components/add-dnc-lead/add-dnc-lead.component';
+import { ReportDetailComponent } from './components/report-detail/report-detail.component';
+import { CampaignRecycleComponent } from './components/campaign-recycle/campaign-recycle.component';
+import { CampaignDuplicateComponent } from './components/campaign-duplicate/campaign-duplicate.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentStatusComponent } from './components/payment-status/payment-status.component';
+import { HelpComponent } from './components/help/help.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -93,7 +103,17 @@ import { AddLeadsComponent } from './components/add-leads/add-leads.component';
     LandingComponent,
     CampaignCdrComponent,
     AccountCreateComponent,
-    AddLeadsComponent
+    AddLeadsComponent,
+    QuickstartComponent,
+    AddDncLeadComponent,
+    ReportDetailComponent,
+    CampaignRecycleComponent,
+    CampaignDuplicateComponent,
+    CheckoutComponent,
+    PaymentComponent,
+    PaymentStatusComponent,
+    HelpComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -7,24 +7,14 @@ import { Component, Input, OnInit, AfterContentInit } from '@angular/core';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit, AfterContentInit {
+export class SidebarComponent implements OnInit {
   user: any = {}
   balanceColor: String = ''
   data: {} = {}
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngAfterContentInit(): void {
-    // get company info
-    this.userService.getCompanyInfo().subscribe((details: any) => {
-    
-      this.data = details[0]
-    }, error => {
-      // handle error
-      console.log(error)
-    })
-
-    console.log(this.data[0])
+  ngOnInit() {
     this.userService.getUserBalance().subscribe((response: any) => {
       console.log(response)
       response[0].minutes = (response[0].minutes / 60).toFixed(0)
@@ -35,10 +25,17 @@ export class SidebarComponent implements OnInit, AfterContentInit {
         this.balanceColor = 'display-income text-success'
       }
     })
-  }
+    // get company info
+    this.userService.getCompanyInfo().subscribe((details: any) => {
+    
+      this.data = details[0]
+    }, error => {
+      // handle error
+      console.log(error)
+    })
 
-  ngOnInit() {
-
+    console.log(this.data[0])
+    
   }
 
   // logout user

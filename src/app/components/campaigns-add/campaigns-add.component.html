@@ -65,7 +65,7 @@
                   <div class="form-group">
                     <label>Select lead file</label>
                     <select class="form-control" name="phonebook" [(ngModel)]="phonebook">
-                      <option [value]="contact.name" *ngFor="let contact of contacts">{{contact.name}}</option>
+                      <option [value]="contact.name" *ngFor="let contact of contacts">{{contact.name | titlecase |  slice:0:25}}</option>
                     </select>
                     <small id="lead" class="form-text">select lead file</small>
                   </div>
@@ -74,7 +74,7 @@
                   <div class="form-group">
                     <label>Select IVR menu</label>
                     <select class="form-control" name="survey" [(ngModel)]="survey">
-                      <option [value]="survey.name" *ngFor="let survey of surveys">{{survey.name}}</option>
+                      <option [value]="survey.name" *ngFor="let survey of surveys">{{survey.name | titlecase |  slice:0:25}}</option>
                     </select>
                     <small id="lead" class="form-text">select IVR menu</small>
                   </div>
@@ -83,7 +83,7 @@
                   <div class="form-group">
                     <label>DNC list</label>
                     <select class="form-control" name="dnc" [(ngModel)]="dnc">
-                      <option [value]="dnc.name" *ngFor="let dnc of dncList">{{dnc.name}}</option>
+                      <option [value]="dnc.name" *ngFor="let dnc of dncList">{{dnc.name | titlecase |  slice:0:25}}</option>
                     </select>
                     <small id="lead" class="form-text">select DNC List</small>
                   </div>
@@ -243,14 +243,14 @@
                   <div class="col-md-5 offset-7">
                     <div class="ml-auto">
                       <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Camapign successfully! addded</strong>
+                        <strong>{{successMessage}}</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
 
                       <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Ooops... an error occured!</strong>
+                        <strong>{{errorMessage}}</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>

@@ -11,7 +11,7 @@
           <li class="breadcrumb-item">
             <a [routerLink]="['/user/audio', audio.id]">edit</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">{{audio.name}}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{audio.name | titlecase |  slice:0:25}}</li>
         </ol>
       </nav>
     </div>
@@ -54,7 +54,7 @@
                 <div class="form-group">
                   <label>Audio file name</label>
                   <input type="text" required placeholder="File name" class="form-control" id="fileName" name="name"
-                    [(ngModel)]="audio.name">
+                    [(ngModel)]="audio.name ">
                   <small id="fileName" class="form-text">enter a file name</small>
                 </div>
                 <div class="form-group">

@@ -24,6 +24,14 @@ export class AudioEditComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params: Params) => {
       this.audioId = Number(params.id)
+    }, error => {
+      console.log(error)
+      this.failure = true;
+      this.failureMessage = `${error.message}`
+    setTimeout(() => {
+      this.failure = false
+      this.failureMessage = ""
+    }, 2000)
     })
 
     // get audio data
@@ -33,6 +41,12 @@ export class AudioEditComponent implements OnInit {
     }, error => {
         // handle error
         console.log(error)
+        this.failure = true;
+        this.failureMessage = `${error.message}`
+      setTimeout(() => {
+        this.failure = false
+        this.failureMessage = ""
+      }, 2000)
     })
   }
 

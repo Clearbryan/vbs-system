@@ -11,7 +11,7 @@
         <li class="breadcrumb-item">
           <a [routerLink]="['/user/ivr/edit', survey.id]">edit</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{{survey.name}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{survey.name | titlecase |  slice:0:25}}</li>
       </ol>
     </nav>
   </div>
@@ -22,14 +22,14 @@
     <div class="col-md-5 offset-7">
       <div class="ml-auto">
         <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
-          <strong>Ivr Menu successfully added!</strong>
+          <strong>{{successMessage}}</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
         <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Ooops... an error occured!</strong>
+          <strong>{{errorMessage}}</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

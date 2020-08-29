@@ -10,6 +10,10 @@ export class IvrComponent implements OnInit {
 
   surveys: any = []
   p: number = 1
+  failure: Boolean
+  success: Boolean
+  errorMessage: String = ""
+  successMessage: String = ""
 
   constructor(private ivrService: IvrService) { }
 
@@ -21,7 +25,13 @@ export class IvrComponent implements OnInit {
       this.surveys = survey
     }, error => {
       // handle error
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
   }
 

@@ -13,6 +13,27 @@
     </nav>
   </div>
 </div>
+<div class="row">
+  <div class="container-fluid">
+    <div class="col-md-5 offset-7">
+      <div class="ml-auto">
+        <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div [hidden]="!failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{errorMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="content-viewport">
   <div class="row">
     <div class="col-lg-12 equel-grid">
@@ -52,7 +73,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let report of reports | paginate: { itemsPerPage: 10, currentPage: p }">
-                    <td>{{report.name}}</td>
+                    <td>{{report.name | titlecase |  slice:0:25 }}</td>
                     <td>{{report.start_date}}</td>
                     <td>{{report.progress}}</td>
                     <td>{{report.calls}}</td>
@@ -60,7 +81,7 @@
                     <td>cell</td>
                     <td>{{report.replies}}</td>
                     <td>
-                      <a [routerLink]="['/user/analytics/report', report.id ]" [queryParams]="{name:report.name}"><i
+                      <a [routerLink]="['/user/analytics/report/call-detail-record', report.id ]" [queryParams]="{name:report.name}"><i
                           class="fas fa-eye mr-2 ml-2 text-primary" title="view"></i></a>
                     </td>
                   </tr>

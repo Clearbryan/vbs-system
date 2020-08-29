@@ -62,7 +62,7 @@ export class PhonebookService {
   // add lead
   addLead(id, lead) {
     let formData = new FormData()
-    formData.append('file', lead)
+    formData.append('contact', lead)
     return this.http.post(`http://102.130.121.230/api/phonebook/${id}/append/`, formData, httpOptions) 
   }
   
