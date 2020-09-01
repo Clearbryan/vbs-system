@@ -24,6 +24,7 @@
     "chart.js": "^2.9.3",
     "chartjs": "^0.3.24",
     "export-to-csv": "^0.2.1",
+    "html2canvas": "^1.0.0-rc.7",
     "jquery": "^3.5.1",
     "jspdf": "^2.1.0",
     "ngx-csv": "^0.3.2",

@@ -21,6 +21,7 @@ export class InvoicesComponent implements OnInit {
   ngOnInit(): void {
     // get all invoices
     this.billingService.getInvoices().subscribe((invoice: any) => {
+      console.log(invoice)
       this.invoices = invoice
       console.log(this.invoices.length)
       if (this.invoices.length <= 0) {

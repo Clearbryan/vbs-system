@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf'
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 
@@ -81,14 +82,20 @@ export class ReportDetailComponent implements OnInit {
   
   
   public export(): void {
-    let data = document.getElementById('content').innerText
-    const doc = new jsPDF()
-    doc.text(data, 10, 10, {
-      
-    })
-    
-    doc.save(`${this.report.name}.pdf`)
-     
+    const data = document.getElementById('content');  //Id of the table
+    html2canvas(data, {backgroundColor: null}).then(canvas => {  
+      // Few necessary setting options  
+      let imgWidth = 208;   
+      let pageHeight = 295;    
+      let imgHeight = canvas.height * imgWidth / canvas.width;  
+      let heightLeft = imgHeight;  
+
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      let position = 3;  
+      pdf.addImage(contentDataURL, 'PNG', 3, position, imgWidth, imgHeight)  
+      pdf.save(`${this.report.name}.pdf`); // Generated PDF   
+    });
   }  
 
 }

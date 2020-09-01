@@ -11,15 +11,116 @@
     </div>
     <br>
     <div class="row">
-        <h6><b>Help Guide to Creating Voice Broadcasts</b></h6>
-        <br>
-        <p class="text-muted">These instructions not meant as a full and complete handbook to the system, but as an Aide Memoire and quick start guide. Any questions, please contact <a [routerLink]="''">support</a> </p>
-        <br>
-
-        <h6><b>Basic Overview</b></h6>
-        <br>
-        <p class="text-muted">We will guide you on how to create your first voice campaign and get familiar with the solution.</p>
-      
+        <div class="col-12 py-3">
+            <section>
+                <div>
+                    <h6><b>Help Guide to Creating Voice Broadcasts</b></h6>
+                    <p>These instructions are not meant as a full and complete handbook to the system, but as an Aide Memoire and quick start guide. Any questions, please contact <a [routerLink]="''">support</a> 
+                    </p>
+                </div> 
+            </section>
+            <section>
+                <div>
+                    <h6><b>Basic Overview</b></h6>
+                    <p>We will guide you on how to create your first voice campaign and get familiar with the solution.
+                    </p>
+                    <p> * <b>Upload your contacts under Phonebook, Contacts.</b></p>
+                    <p> * <b>Create a DNC (Do not Call) list, if required under Phonebook, DNC.</b></p>
+                    <p> * <b>Upload audio file under Audio</b></p>
+                    <p> * <b>Create your voice application under Survey.</b></p>
+                    <p> * <b>Create a new campaign under Campaigns.</b></p>
+                    <p> * <b>Start campaign and check Reports under Analytics.</b></p>
+                </div> 
+            </section>
+            <hr>
+            <section>
+                <div>
+                    <a [routerLink]="" (click)="toggleLeads()"><h6><b>Add Contacts / Leads</b></h6></a>
+                    <div [hidden]="!showLeadsOption">
+                        <p><b>step 1</b>: In the Sidebar menu click <b>Phonebook > Contacts</b></p>
+                        <p><b>step 2</b>: In the Main area click the add button </p>
+                        <p><b>step 3</b>: Enter you Phonebook name, Description and choose Phonebook from your device. (<span class="text-danger">Please note file uploads must be in .csv format</span>) </p>
+                        <p><b>step 3</b>: Click on the import button </p>
+                        <p><small>Depending on how big your csv file is, you will see a progress bar while your contacts gets imported and when done you will be autoamtically redirected to the contacts page.</small></p>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section>
+                <div>
+                    <a [routerLink]="" (click)="toggleAudio()"><h6><b>Upload Audio</b></h6></a>
+                    <div [hidden]="!showAudioOption">
+                        <p><b>step 1</b>: In the Sidebar menu click <b>Audio</b></p>
+                        <p><b>step 2</b>: In the Main area click the add button </p>
+                        <p><b>step 3</b>: Enter you Audio name, Description and choose Audio file from your device. (<span class="text-danger">Please note audio file uploads must be in .mp3 or .wav format</span>) </p>
+                        <p><b>step 3</b>: Click on the Upload audio file button </p>
+                        <p><small>Your audio file will be uploaded and you will be autoamtically redirected to the audio page.</small></p>  
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section>
+                <div>
+                    <a [routerLink]="" (click)="toggleIvr()"><h6><b>Add IVR Survey</b></h6></a>
+                    <div [hidden]="!showIvrOption">
+                        <p><b>step 1</b>: In the Sidebar menu click <b>Survey</b></p>
+                        <p><b>step 2</b>: In the Main area click the add button </p>
+                        <p><b>step 3</b>: Enter you Ivr name, Description and choose Audio from the drop down list. (<span class="text-danger">Please note you have to complete the previous step (Uploading Audio) first, otherwise the Audio Dropdown Menu will be empty.</span>) </p><p><b>step 4</b>: Click on the Number Pad on the Phone Image to select the number you want eg(1).</p>
+                        <p><b>step 5</b>: Enter the meaning / response to use when the number is pressed in the Phone Screen (Repeat this process for all the numbers and responses you want to be in your IVR survey.)</p>
+                        
+                        <p><b>step 6</b>: Click on the Add Key Asociations button </p>
+                        <p><small>Your IVR will be added and you will be autoamtically redirected to the IVR Survey page.</small></p>  
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section>
+                <div>
+                    <a [routerLink]="" (click)="toggleCampaigns()"><h6><b>Campaigns</b></h6></a>
+                    <div [hidden]="!showCampaignsOption">
+                        <p><b>step 1</b>: In the Sidebar menu click <b>Campaigns</b></p>
+                        <p><b>step 2</b>: In the Main area click the add button </p>
+                        <p><b>step 3</b>: This step can be complex depending on the settings you want to use for in your campaign. Enter the details of your campaign here (<span class="text-danger">Please note: NOT all fields have to be filled in. You campaign will run using the default settings. The required fields which are mandatory for every campaign are the campaign name, description, caller Id, lead file, ivr menu, start date and end date  </span>) </p>
+                        <p><b>step 4</b>: Click on the Save campaign button </p>
+                        <p><small>Your campaign will be saved and you will be autoamtically redirected to the campaigns page.</small></p>
+                        <p><b>step 5</b>: Now that your campaign is saved, click on the play icon on your campaign and your campaign will start running. </p>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section>
+                <div>
+                    <a [routerLink]="" (click)="toggleAnalytics()"><h6><b>Analytics</b></h6></a>
+                    <div [hidden]="!showAnalyticsOption">
+                        <p><b>step 1</b>: In the Sidebar menu click <b>Analytics</b></p>
+                        <p><b>step 2</b>: In the Main area click eye icon on the campaign you want to view analytics on (You will be redirected to the analytics page)</p>
+                        <p>You can filter for the specific reporting you want and when done click the Export to csv to download a Csv file of the analytics </p>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section>
+                <div>
+                    <a [routerLink]="" (click)="togglePurchase()"><h6><b>Buy Credits</b></h6></a>
+                    <div [hidden]="!showPurchaseOption">
+                        <p><b>step 1</b>: Click on Buy Credit in the sidebar menu or Click on Top Up button on the dasboard main area </p>
+                        <p><b>step 2</b>: Enter the credit amount</p>
+                        <p><b>step 3</b>: Click on the Add to cart button</p>
+                        <p><b>step 4</b>: Click on the Checkout button</p>
+                        <p><b>You will be redirected to a secure Payment Portal (<a href="https://www.peachpayments.com/#/home" target="blank"></a>)</b></p>
+                        <p><b>step 5</b>: Enter you card details. Your payment will be processed and once successful, you will be redirected to the dashboard and your credits should reflect how much you have in your account. (If credits don't update, refresh your browser page)</p>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            
+        </div>
+       
+        
+       
+        
+        
+       
       
       
       

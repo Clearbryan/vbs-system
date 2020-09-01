@@ -13,6 +13,7 @@ export class PurchaseComponent implements OnInit {
   credit_cost: Number = 0;
   credits: Number = 0;
   creditCost: Number = 0;
+  vat: Number = 0
   total: Number = 0
   order_total: Number = 0;
   packageId: Number = null
@@ -27,7 +28,7 @@ export class PurchaseComponent implements OnInit {
   packages: any = []
   // disable proceed button if credits < 500
   get valid() {
-    if (this.credits <= 50 || this.credits > 30000 ) {
+    if (this.credits <= 0) {
       return false
     } else {
       return true
@@ -62,7 +63,7 @@ export class PurchaseComponent implements OnInit {
 
   // proceed to checkout
   order() {
-    
+
     this.orderService.order(this.order_total, this.credits, this.packageId).subscribe((order: any) => {
       const orderId = order.id
       this.success = true
@@ -96,16 +97,31 @@ export class PurchaseComponent implements OnInit {
         this.packageId = pack.id
         arr[i].bgcolor = '#7FB7EC'
         arr[i].textcolor = 'transparent'
-        let cost;
+        let cost, vat;
         cost = Number(val) * Number(arr[i].price)
         this.credit_cost = cost.toFixed(2)
+        vat = (15 / 100 * cost).toFixed(2)
+        this.vat = vat
         this.order_total = cost.toFixed(2)
-        console.log(this.credit_cost)
+        return
+      } if (this.credits > 30000) {
+        if (i % 2 == 0) {
+          arr[i].bgcolor = '#f1f1f1'
+          return
+        } else {
+          pack.bgcolor = 'transparent'
+        }
+        let cost, vat;
+        cost = Number(val) * 0.30
+        this.credit_cost = cost.toFixed(2)
+        vat = (15 / 100 * cost).toFixed(2)
+        this.vat = vat
+        this.order_total = cost.toFixed(2)
         return
       }
       else {
         if (i % 2 == 0) {
-          arr[i].bgcolor = '#d3d3d3'
+          arr[i].bgcolor = '#f1f1f1'
           return
         }
         else {

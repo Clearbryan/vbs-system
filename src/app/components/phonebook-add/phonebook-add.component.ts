@@ -58,9 +58,11 @@ export class PhonebookAddComponent implements OnInit {
     this.contactsService.addContact(this.filename, this.filedesc, this.file).subscribe((response: any) => {
       console.log(response)
       this.success = true;
+      this.successMessage = "Phonebook uploaded successfully"
       // check progress
       setInterval(() => {
         this.contactsService.progress(response.id).subscribe((progress: any) => {
+          console.log(progress)
           if (progress.status === 'PROGRESS') {
             this.uploading = true
             const res = JSON.parse(progress.result)
@@ -76,7 +78,6 @@ export class PhonebookAddComponent implements OnInit {
               this.success = false
               this.uploaded = false
               this.router.navigate(['user/phonebook'])
-   
             }, 3000)
             return
           }
@@ -91,7 +92,7 @@ export class PhonebookAddComponent implements OnInit {
         }, 2000)
        })
          
-       }, 2000)
+       }, 500)
 
     }, error => {
 

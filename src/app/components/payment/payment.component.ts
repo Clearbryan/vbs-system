@@ -28,7 +28,7 @@ export class PaymentComponent implements OnInit {
       resolve(true);
     });
     
-    this.actionLink = `http://localhost:4200/#/user/accounts/payment/status?orderId=${this.orderId}`
+    this.actionLink = `http:102.130.121.124/#/user/accounts/payment/status?orderId=${this.orderId}`
   }
 
 
@@ -41,7 +41,7 @@ export class PaymentComponent implements OnInit {
         }
     }
     if (!isFound) {
-      var dynamicScripts = [`http://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${this.checkoutId}`];
+      var dynamicScripts = [`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${this.checkoutId}`];
       for (var i = 0; i < dynamicScripts.length; i++) {
           let node = document.createElement('script');
           node.src = dynamicScripts [i];

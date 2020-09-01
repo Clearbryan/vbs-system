@@ -270,7 +270,7 @@
 
 /* Sidebar */
 .sidebar {
-  position: relative;
+  position: fixed;
   display: block;
   height: 100%;
   min-height: 100vh;
