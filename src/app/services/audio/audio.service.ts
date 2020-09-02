@@ -22,23 +22,23 @@ export class AudioService {
     formData.append('name', name)
     formData.append('description', desc)
 
-    return this.http.post('http://102.130.121.230/api/audio/', formData, httpOptions);
+    return this.http.post('http://102.130.123.3/api/audio/', formData, httpOptions);
   }
 
   // get all audio
   getAllAudiofiles() {
-    return this.http.get('http://102.130.121.230/api/audio/', httpOptions)
+    return this.http.get('http://102.130.123.3/api/audio/', httpOptions)
   }
 
   // get single audio file
   getSingleAudio(id) {
-    return this.http.get(`http://102.130.121.230/api/audio/${id}/`, httpOptions)
+    return this.http.get(`http://102.130.123.3/api/audio/${id}/`, httpOptions)
 
   }
 
   // delete audio file
   deleteAudio(id) {
-    return this.http.delete(`http://102.130.121.230/api/audio/${id}/`, httpOptions)
+    return this.http.delete(`http://102.130.123.3/api/audio/${id}/`, httpOptions)
   }
 
   // edit audio
@@ -47,7 +47,7 @@ export class AudioService {
     formData.append('audio_file', file)
     formData.append('name', name)
     formData.append('description', desc)
-    return this.http.put(`http://102.130.121.230/api/audio/${id}/`, formData, httpOptions)
+    return this.http.put(`http://102.130.123.3/api/audio/${id}/`, formData, httpOptions)
   }
 
 }

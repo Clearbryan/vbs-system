@@ -63,6 +63,7 @@ export class PhonebookAddComponent implements OnInit {
       setInterval(() => {
         this.contactsService.progress(response.id).subscribe((progress: any) => {
           console.log(progress)
+          localStorage.setItem('progressId', response.id)
           if (progress.status === 'PROGRESS') {
             this.uploading = true
             const res = JSON.parse(progress.result)

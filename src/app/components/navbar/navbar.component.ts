@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable, interval } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators'
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -9,8 +11,9 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  platform: any = {};
-  user: any = {};
+  @Input()platform: any = {};
+  @Input() user: any = {};
+  @Input()test: Observable<{}>
   failure: Boolean
   success: Boolean
   errorMessage: String = ""
@@ -22,8 +25,13 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.platform.date = new Date().toDateString()
-    this.platform.time = new Date().toLocaleTimeString()
+    interval(500).subscribe(() => {
+      this.platform.date = new Date().toDateString()
+      this.platform.time = new Date().toLocaleTimeString()
+    })
+
+
+   
 
   }
 

@@ -117,30 +117,27 @@
                     </td>
                     <td>{{campaign.calls}}</td>
                     <td>
-                      <a [routerLink]="" [hidden]="!campaign.paused"
-                        (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
-                          class="fas fa-play text-primary" title="start campaign"></i></a>
-                      <a [routerLink]="" [hidden]="!campaign.started"
-                        (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
-                          class="fas fa-pause mr-1 ml-1 text-warning" title="pause campaign"></i></a>
-                      <a [routerLink]="" [hidden]="!campaign.started"
-                        (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
-                          class="fas fa-stop mr-1 ml-1 text-danger" title="stop campaign"></i></a>
-                      <a [routerLink]="" [hidden]="!campaign_ended"><i class="fas fa-apple-alt mr-1 ml-1 text-dark"
-                          title="ended"></i></a>
+                      <a [hidden]="!campaign.paused"
+                      (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"
+                          class="fas fa-play mr-1 mr-1 mb-1 mt-1 text-primary" title="start campaign"></a>
+                      <a [hidden]="!campaign.started"
+                      (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"
+                          class="fas fa-pause mr-1 ml-1 text-warning" title="pause campaign"></a>
+                      <a [hidden]="!campaign.started"
+                      (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"
+                          class="fas fa-stop mr-1 ml-1 text-danger" title="stop campaign"></a>
                     </td>
                     <td>
-
-                      <a [routerLink]="['/user/campaigns/edit', campaign.id]"><i
-                          class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></i></a>
-                      <a (click)="duplicate(campaign.id)"  [routerLink]=""><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
-                      <a (click)="openRecycleForm(campaign.id)" [routerLink]=""><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
-                      <a (click)="openForm(campaign.id)" [routerLink]=""><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
-                          title="send test call using this campaign"></i></a>
-                      <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"><i
-                          class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
-                      <a [routerLink]="" (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
-                          title="delete campaign"></i></a>
+                      <a [routerLink]="['/user/campaigns/edit', campaign.id]"
+                          class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></a>
+                      <a (click)="duplicate(campaign.id)" class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></a>
+                      <a (click)="openRecycleForm(campaign.id)" class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></a>
+                      <a (click)="openForm(campaign.id)" class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
+                          title="send test call using this campaign"></a>
+                      <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"
+                          class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></a>
+                      <a (click)="deleteCampaign(campaign.id)" class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
+                          title="delete campaign"></a>
                     </td>
                   </tr>
                 </tbody>
@@ -164,30 +161,27 @@
                     </td>
                     <td>{{campaign.calls}}</td>
                     <td>
-                      <a [routerLink]="" [hidden]="!campaign.paused"
-                        (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
-                          class="fas fa-play mr-1 mr-1 mb-1 mt-1 text-primary" title="start campaign"></i></a>
-                      <a [routerLink]="" [hidden]="!campaign.started"
-                        (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
-                          class="fas fa-pause mr-1 ml-1 text-warning" title="pause campaign"></i></a>
-                      <a [routerLink]="" [hidden]="!campaign.started"
-                        (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"><i
-                          class="fas fa-stop mr-1 ml-1 text-danger" title="stop campaign"></i></a>
-                      <a [routerLink]="" [hidden]="!campaign_ended"><i class="fas fa-apple-alt mr-1 ml-1 text-dark"
-                          title="ended"></i></a>
+                      <a [hidden]="!campaign.paused"
+                      (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"
+                          class="fas fa-play mr-1 mr-1 mb-1 mt-1 text-primary" title="start campaign"></a>
+                      <a [hidden]="!campaign.started"
+                      (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"
+                          class="fas fa-pause mr-1 ml-1 text-warning" title="pause campaign"></a>
+                      <a [hidden]="!campaign.started"
+                      (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"
+                          class="fas fa-stop mr-1 ml-1 text-danger" title="stop campaign"></a>
                     </td>
                     <td>
-                      
-                      <a [routerLink]="['/user/campaigns/edit', campaign.id]"><i
-                          class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></i></a>
-                      <a (click)="duplicate(campaign.id)" [routerLink]=""><i class="fas fa-copy text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></i></a>
-                      <a (click)="openRecycleForm(campaign.id)" [routerLink]=""><i class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></i></a>
-                      <a (click)="openForm(campaign.id)" [routerLink]=""><i class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
-                          title="send test call using this campaign"></i></a>
-                      <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"><i
-                          class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></i></a>
-                      <a [routerLink]="" (click)="deleteCampaign(campaign.id)"><i class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
-                          title="delete campaign"></i></a>
+                      <a [routerLink]="['/user/campaigns/edit', campaign.id]"
+                          class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></a>
+                      <a (click)="duplicate(campaign.id)" class="fas fa-copy fa-1x text-danger mr-1 mr-1 mb-1 mt-1" title="duplicate this campaign"></a>
+                      <a (click)="openRecycleForm(campaign.id)" class="fas fa-recycle text-success mr-1 mr-1 mb-1 mt-1" title="recycle campaign"></a>
+                      <a (click)="openForm(campaign.id)" class="fas fa-phone-volume text-primary mr-1 mr-1 mb-1 mt-1"
+                          title="send test call using this campaign"></a>
+                      <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"
+                          class="fas fa-chart-bar text-info mr-1 mr-1 mb-1 mt-1" title="quick report"></a>
+                      <a (click)="deleteCampaign(campaign.id)" class="fas fa-trash text-danger mr-1 mr-1 mb-1 mt-1"
+                          title="delete campaign"></a>
                     </td>
                     
                     

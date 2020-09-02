@@ -19,6 +19,7 @@ export class IvrComponent implements OnInit {
 
   ngOnInit(): void {
     this.ivrService.getAllIvrMenus().subscribe((survey: any) => {
+      console.log(survey)
       survey.map((res: any) => {
         res.created_date = new Date(res.created_date).toDateString()
       })

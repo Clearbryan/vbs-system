@@ -19,7 +19,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.post('http:102.130.121.124/api/user/api/audio/', formData, httpOptions);
+    return this.http.post('http://102.130.123.3/api/user/api/audio/', formData, httpOptions);
   }
 
   // get all audio
@@ -30,7 +30,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.get('http:102.130.121.124/api/user/api/campaign/', httpOptions)
+    return this.http.get('http://102.130.123.3/api/user/api/campaign/', httpOptions)
   }
 
   // save campaign
@@ -55,7 +55,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.post('http:102.130.121.124/api/user/api/campaign/', formData, httpOptions);
+    return this.http.post('http://102.130.123.3/api/user/api/campaign/', formData, httpOptions);
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -68,7 +68,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.put(`http:102.130.121.124/api/user/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, httpOptions);
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -81,7 +81,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.put(`http:102.130.121.124/api/user/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, httpOptions);
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -94,7 +94,7 @@ export class CampaignService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.put(`http:102.130.121.124/api/user/api/campaign/${id}/`, formData, httpOptions);
+    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, httpOptions);
   }
   
  

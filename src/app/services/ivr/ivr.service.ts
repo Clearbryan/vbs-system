@@ -20,17 +20,17 @@ export class IvrService {
     formData.append('name', name)
     formData.append('desc', desc)
 
-    return this.http.post('http://102.130.121.230/api/survey/', formData, httpOptions);
+    return this.http.post('http://102.130.123.3/api/survey/', formData, httpOptions);
   }
 
   // get all contacts
   getAllIvrMenus() {
-    return this.http.get('http://102.130.121.230/api/survey/', httpOptions)
+    return this.http.get('http://102.130.123.3/api/survey/', httpOptions)
   }
 
   // get single ivr
   getIvrMenu(id) {
-    return this.http.get(`http://102.130.121.230/api/survey/${id}`, httpOptions)
+    return this.http.get(`http://102.130.123.3/api/survey/${id}`, httpOptions)
   }
 
   // edit ivr menu
@@ -41,7 +41,7 @@ export class IvrService {
     formData.append('description', description)
     formData.append('data', data)
 
-    return this.http.put(`http://102.130.121.230/api/survey/${id}/`, formData, httpOptions)
+    return this.http.put(`http://102.130.123.3/api/survey/${id}/`, formData, httpOptions)
   }
 
   // add ivr menu
@@ -52,7 +52,7 @@ export class IvrService {
     formData.append('description', desc)
     formData.append('data', data)
 
-    return this.http.post('http://102.130.121.230/api/survey/', formData, httpOptions);
+    return this.http.post('http://102.130.123.3/api/survey/', formData, httpOptions);
 
   }
 }

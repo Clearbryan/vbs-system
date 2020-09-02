@@ -48,10 +48,11 @@ export class ReportSingleComponent implements OnInit {
     })
 
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+      console.log(report)
       report.calltime = new Date(report.start_date).toLocaleString()
       report.start_date = new Date(report.start_date).toDateString()
       report.minutes = (report.minutes / 60).toFixed(0)
-      report.surveyId = 1
+      report.surveyId = 4
     
       const { answered, busy, calltime, cancel, congestion, machine, noanswer, notsure, person, progress, replies, id, failed } = report
 
@@ -59,9 +60,15 @@ export class ReportSingleComponent implements OnInit {
       this.ivrService.getIvrMenu(report.surveyId).subscribe((survey: any) => {
         // get ivr menu 
         let replies = []
-        survey.data.forEach((survey, i, arr) => {
-          replies.push(survey.value)
-        })
+        // console.log(survey)
+        for (const s in survey.data.values) {
+          console.log(s)
+          replies.push(s)
+          console.log(replies)
+        }
+        // survey.data.forEach((survey, i, arr) => {
+        //   replies.push(survey.value)
+        // })
         // const menus = ['Ignored']
         // const responses = []
         // let nines = []

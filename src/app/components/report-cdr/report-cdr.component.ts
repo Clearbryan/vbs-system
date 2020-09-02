@@ -39,11 +39,14 @@ export class ReportCdrComponent implements OnInit {
         this.errorMessage = ""
       }, 2000)
     })
-     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+    this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+       console.log(report)
        this.active = true
       if (report.id === this.reportId) {
         report._campaign.map((_report, i, arr) => {
+          _report.calltime = new Date(_report.calldate).toLocaleTimeString()
           _report.calldate = new Date(_report.calldate).toDateString()
+          
           report.start_date = new Date(report.start_date).toDateString()
         })
         this.report = report

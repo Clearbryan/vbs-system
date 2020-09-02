@@ -18,6 +18,7 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
   id: Number = null
   taskId: any = null
   uploading: Boolean
+  uploaded: Boolean
   progressResult: any = {}
 
   constructor(private router: Router, private contactsService: PhonebookService, private activeRoute: ActivatedRoute) { }
@@ -47,7 +48,7 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
     })
      // check progress
      this.contactsService.getAllContacts().subscribe((response: any) => {
-      console.log(response)
+       console.log(response)
       response.map((res: any) => {
         res.created_on = new Date(res.created_on).toDateString()
       })
@@ -61,7 +62,41 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
           this.failure = false
           this.errorMessage = ""
         }, 2000)
-    })
+     })
+    
+    
+      this.contactsService.progress(localStorage.getItem('progressId')).subscribe((progress: any) => {
+        // console.log(progress)
+        if (progress.status === 'PROGRESS') {
+          this.uploading = true
+          const res = JSON.parse(progress.result)
+          res.percent = `${res.percent}%`
+          this.progressResult = res
+          return
+          
+        } 
+        if (progress.status === 'SUCCESS') {
+          this.uploaded = true
+          this.uploading = false
+          setTimeout(() => {
+            this.success = false
+            this.uploaded = false
+            this.router.navigate(['user/phonebook'])
+          }, 3000)
+          return
+        }
+     }, error => {
+         // handle progress error
+          console.log(error)
+          // this.failure = true
+      this.errorMessage = error.message
+      setTimeout(() => {
+        this.failure = false
+        this.errorMessage = ""
+      }, 2000)
+     })
+       
+   
     
   }
 

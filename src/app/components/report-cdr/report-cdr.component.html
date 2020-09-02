@@ -99,6 +99,7 @@
                 <thead class="">
                   <tr>
                     <th>Call Date</th>
+                    <th>Call Time</th>
                     <th>Duration </th>
                     <th>Bill/sec </th>
                     <th>Caller Id</th>
@@ -111,6 +112,7 @@
                 <tbody [hidden]="!noSearch">
                   <tr *ngFor="let survey of report._campaign | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td>{{survey.calldate}}</td>
+                    <td>{{survey.calltime}}</td>
                     <td>{{survey.duration}}</td>
                     <td>{{survey.billsec}}</td>
                     <td>{{survey.callerid}}</td>
@@ -140,6 +142,7 @@
                 <tbody [hidden]="noSearch">
                   <tr *ngFor="let survey of filteredReports | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td>{{survey.calldate}}</td>
+                    <td>{{survey.calltime}}</td>
                     <td>{{survey.duration}}</td>
                     <td>{{survey.billsec}}</td>
                     <td>{{survey.callerid}}</td>

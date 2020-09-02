@@ -35,7 +35,7 @@
       <div class="grid _banner">
         <div class="grid-body text-gray">
           <h6 class="text-black">Completed</h6>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-center">
             <h4><strong>{{completedCampaigns.length}}</strong></h4>
           </div>
           <div class="wrapper w-50 mt-4">
@@ -48,7 +48,7 @@
       <div class="grid _banner">
         <div class="grid-body text-gray">
           <h6 class="text-black">Paused</h6>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-center">
             <h4><strong>{{pausedCampaigns.length}}</strong></h4>
           </div>
           <div class="wrapper w-50 mt-4">
@@ -61,7 +61,7 @@
       <div class="grid _banner">
         <div class="grid-body text-gray">
           <h6 class="text-black">Active</h6>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-center">
             <h4><strong>{{activeCampaigns.length}}</strong></h4>
           </div>
           <div class="wrapper w-50 mt-4">
@@ -74,7 +74,7 @@
       <div class="grid _banner">
         <div class="grid-body text-gray">
           <h6 class="text-black">Schedulled</h6>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-center">
             <h4><strong>{{schedulledCampaigns.length}}</strong></h4>
           </div>
           <div class="wrapper w-50 mt-4">
@@ -139,7 +139,7 @@
           </div>
           <div class="mt-auto">
             <!-- <canvas id="cpu-performance" height="80"></canvas> -->
-            <canvas [id]="lineChartId" width="300" height="200">{{linechart}}</canvas>
+            <canvas [id]="pieChartId" width="300" height="200">{{piechart}}</canvas>
             <h3 class="font-weight-medium mt-4">{{recentCampaign.progress}}</h3>
             <p class="text-gray">Progress </p>
             <div class="w-50">

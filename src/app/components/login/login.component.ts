@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.userLogin(this.username, this.password).subscribe((response: any) => {
       console.log(response);
-      localStorage.removeItem('token');
       localStorage.setItem('token', response.token);
       this.loginSuccess = true;
       this.successMessage = "Success...redirecting to dashboard."

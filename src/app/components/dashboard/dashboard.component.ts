@@ -22,8 +22,8 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
   success: Boolean
   errorMessage: String = ""
   successMessage: String = ""
-  linechart: any = []
-  lineChartId: String = "linechart"
+  piechart: any = []
+  pieChartId: String = "linechart"
 
 
   constructor(private userService: UserService, private campaignService: CampaignService) { 
@@ -55,9 +55,6 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-
-    
-
     // get campaigns
     this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
       campaigns.map((c) => {
@@ -86,14 +83,45 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
         }
   
       })
-      this.failure = true
-      // this.errorMessage = error.message
-      // setTimeout(() => {
-      //   this.failure = false
-      //   this.errorMessage = ""
-      // }, 2000)
+
+    /** TO DO
+     * // get survey name from backend
+     * retrieve campaign survey
+     * get survey meanins
+     * 
+     */
+    
+      // this.recentCampaign
       
       
+      // create piechart
+      this.piechart = new Chart(`${this.pieChartId}`, {
+        type: 'pie',
+        data: {
+          labels: ['Answered', 'Busy', 'No Answer', 'Congestion'],
+          datasets: [{
+            label: '# of Replies',
+            data: [90, 51, 21, 10],
+            backgroundColor: [
+              'green',
+              'blue',
+              'yellow',
+              'purple'
+              
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      })
     }, error => {
         // handle error 
         // console.log(error)
