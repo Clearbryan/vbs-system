@@ -8,7 +8,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  // refresh token
+  // refreshed token
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
