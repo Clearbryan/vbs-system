@@ -1,22 +1,26 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Token ${localStorage.getItem('token')}`
-  })
-};
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
+  // refreshed token
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }).set('Authorization', `Token ${localStorage.getItem('token')}`)
+    };
+  }
+
   constructor(private http: HttpClient) { }
 
   // get orders
   getProducts() {
-    return this.http.get('http://102.130.123.3/api/package/', httpOptions);
+    return this.http.get('http://102.130.123.3/api/package/', this.getHttpOptions());
   }
 
   // create order
@@ -26,7 +30,7 @@ export class OrderService {
       package: packageId,
       quantity: credits
     }
-    return this.http.post('http://102.130.123.3/api/order/', body, httpOptions)
+    return this.http.post('http://102.130.123.3/api/order/', body, this.getHttpOptions())
   }
 
   // // get checkout id
@@ -39,15 +43,15 @@ export class OrderService {
 
   // get single order
   getOrder(id) {
-    return this.http.get(`http://102.130.123.3/api/order/${id}/`, httpOptions)
+    return this.http.get(`http://102.130.123.3/api/order/${id}/`, this.getHttpOptions())
   }
 
   checkout(id) {
-    return this.http.post(`http://102.130.123.3/api/order/${id}/checkout/`, {}, httpOptions)
+    return this.http.post(`http://102.130.123.3/api/order/${id}/checkout/`, {}, this.getHttpOptions())
   }
 
   // payment 
   makePayment(id) {
-    return this.http.get(`http://102.130.123.3/api/order/${id}/payment/`, httpOptions)
+    return this.http.get(`http://102.130.123.3/api/order/${id}/payment/`, this.getHttpOptions())
   }
 }

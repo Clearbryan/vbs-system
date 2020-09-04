@@ -6,6 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class CampaignService {
 
+  // refreshed token
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }).set('Authorization', `Token ${localStorage.getItem('token')}`)
+    };
+  }
+
   constructor(private http: HttpClient) { }
 
   // upload audio file
@@ -14,23 +23,12 @@ export class CampaignService {
     formData.append('audio_file', file)
     formData.append('name', name)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.post('http://102.130.123.3/api/user/api/audio/', formData, httpOptions);
+    return this.http.post('http://102.130.123.3/api/user/api/audio/', formData, this.getHttpOptions());
   }
 
   // get all audio
   getAllCampaigns() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.get('http://102.130.123.3/api/user/api/campaign/', httpOptions)
+    return this.http.get('http://102.130.123.3/api/user/api/campaign/', this.getHttpOptions())
   }
 
   // save campaign
@@ -50,12 +48,8 @@ export class CampaignService {
     formData.append('retry_on', retry_on)
     formData.append('dnc', dnc)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.post('http://102.130.123.3/api/user/api/campaign/', formData, httpOptions);
+
+    return this.http.post('http://102.130.123.3/api/user/api/campaign/', formData, this.getHttpOptions());
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -63,12 +57,8 @@ export class CampaignService {
     formData.append('status', status)
     formData.append('name', name)
     formData.append('phonebook', phonebook)
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, httpOptions);
+
+    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -76,12 +66,8 @@ export class CampaignService {
     formData.append('status', status)
     formData.append('name', name)
     formData.append('phonebook', phonebook)
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, httpOptions);
+
+    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -89,12 +75,8 @@ export class CampaignService {
     formData.append('status', status)
     formData.append('name', name)
     formData.append('phonebook', phonebook)
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, httpOptions);
+
+    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
   
  
