@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  }).set('Authorization', `Token ${localStorage.getItem('token')}`)
-};
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +7,15 @@ const httpOptions = {
 export class UserService {
 
   constructor(private http: HttpClient) { }
+
+  // refreshed token
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }).set('Authorization', `Token ${localStorage.getItem('token')}`)
+    };
+  }
 
   // user login
   userLogin(username, password) {
@@ -29,16 +33,16 @@ export class UserService {
 
   // user logout
   logoutUser() {
-    return this.http.post('http://102.130.123.3/api/logout/', {}, httpOptions)
+    return this.http.post('http://102.130.123.3/api/logout/', {}, this.getHttpOptions())
   }
 
   // get user details
   getUserBalance() {
-    return this.http.get('http://102.130.123.3/api/balance/', httpOptions)
+    return this.http.get('http://102.130.123.3/api/balance/', this.getHttpOptions())
   }
 
   // get company info
   getCompanyInfo() {
-    return this.http.get('http://102.130.123.3/api/billing/', httpOptions)
+    return this.http.get('http://102.130.123.3/api/billing/', this.getHttpOptions())
   }
 }
