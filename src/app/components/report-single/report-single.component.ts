@@ -52,7 +52,7 @@ export class ReportSingleComponent implements OnInit {
       report.calltime = new Date(report.start_date).toLocaleString()
       report.start_date = new Date(report.start_date).toDateString()
       report.minutes = (report.minutes / 60).toFixed(0)
-      report.surveyId = 4
+      report.surveyId = 1
     
       const { answered, busy, calltime, cancel, congestion, machine, noanswer, notsure, person, progress, replies, id, failed } = report
 
@@ -166,10 +166,10 @@ export class ReportSingleComponent implements OnInit {
           labels: [`7:00 am`, '8:00 am', '9am:00 ', '10:00 am', '11:00 am'],
           datasets: [{
             label: '# of Replies',
-            data: [[10, 12, 34, 99, 29], [1, 10, 44, 19, 22]],
+            data: [10, 12, 34, 99, 29],
             backgroundColor: [
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 99, 132, 0.2)'
+              'rgba(54, 162, 235, 0.2)'
+              // 'rgba(255, 99, 132, 0.2)'
 
             ],
             borderWidth: 1

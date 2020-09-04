@@ -65,8 +65,12 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
      })
     
     
-      this.contactsService.progress(localStorage.getItem('progressId')).subscribe((progress: any) => {
-        // console.log(progress)
+    this.contactsService.progress(localStorage.getItem('progressId')).subscribe((progress: any) => {
+      let test = JSON.parse(progress.result)
+      // console.log(test)
+      if (typeof(test) === "string" && test.startsWith("message")) {
+       
+        console.log(progress)
         if (progress.status === 'PROGRESS') {
           this.uploading = true
           const res = JSON.parse(progress.result)
@@ -85,6 +89,10 @@ export class PhonebookComponent implements OnInit, AfterContentInit {
           }, 3000)
           return
         }
+      } else {
+        this.uploaded = false
+      }
+        
      }, error => {
          // handle progress error
           console.log(error)

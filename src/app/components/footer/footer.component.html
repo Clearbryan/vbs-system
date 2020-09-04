@@ -12,3 +12,27 @@
       </div>
     </div>
   </footer>
+
+  <!-- <td>
+    <a [hidden]="!campaign.paused"
+    [routerLink]="'#'" class="fas fa-play py-2 px-2 text-primary" title="start campaign" (click)="startCampaign(campaign.id, campaign.name, campaign.phonebook)"></a>
+    <a [hidden]="!campaign.started"
+    [routerLink]="'#'" class="fas fa-pause py-2 px-2 text-warning" title="pause campaign" (click)="pauseCampaign(campaign.id, campaign.name, campaign.phonebook)"></a>
+    <a [hidden]="!campaign.started"
+    [routerLink]="'#'" class="fas fa-stop py-2 px-2 text-danger" title="stop campaign" (click)="stopCampaign(campaign.id, campaign.name, campaign.phonebook)"></a>
+  </td>
+  <td>
+    <a [routerLink]="['/user/campaigns/edit', campaign.id]"
+        class="fas fa-edit text-primary mr-1 mr-1 mb-1 mt-1" title="update campaign"></a>
+    <a [routerLink]="'#'" class="fas fa-copy fa-1x text-danger py-2 px-2" title="duplicate this campaign" (click)="duplicate(campaign.id)"></a>
+    <a [routerLink]="'#'" class="fas fa-recycle text-success py-2 px-2" title="recycle campaign" (click)="openRecycleForm(campaign.id)"></a>
+    <a [routerLink]="'#'" class="fas fa-phone-volume text-primary py-2 px-2" (click)="openForm(campaign.id)"
+        title="send test call using this campaign"></a>
+    <a [routerLink]="['/user/analytics/report/call-detail-record', campaign.id ]" [queryParams]="{name:campaign.name}"
+        class="fas fa-chart-bar text-info" title="quick report"></a>
+    <a [routerLink]="'#'" class="fas fa-trash text-danger py-2 px-2"
+        title="delete campaign" (click)="deleteCampaign(campaign.id)"></a>
+
+         <a [routerLink]="''" class="fas fa-power-off fa-1x text-primary" (click)="logout()"> </a> -->
+        <!-- mr-1 mr-1 mb-1 mt-1 -->
+  <!-- </td>  -->

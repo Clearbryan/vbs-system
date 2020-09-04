@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, Pipe } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, Pipe, DoCheck, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 
@@ -41,22 +41,9 @@ export class CampaignsComponent implements OnInit {
 
   styles: any = {}
 
-  constructor(private campaignService: CampaignService, private router: Router, private activeRouter: ActivatedRoute) {
+  constructor(private campaignService: CampaignService, private router: Router, private activeRouter: ActivatedRoute, private zone: NgZone) {
 
   }
-
-  ngOnInit() {
-    this.campaignService.getAllCampaigns().subscribe((campaigns: any) => { 
-      console.log(campaigns)
-    })
-    
-  }
-
-//   ngOnChanges() {
-//     setTimeout(() => {
-//       console.log(this.campaigns)
-//     }, 5000)
-//  }
   
   openForm(id) {
     this._testCall = true
@@ -69,63 +56,66 @@ export class CampaignsComponent implements OnInit {
 
   }
 
-  ngDoCheck(): void {
-    this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
-      campaigns.map((res: any, i, arr) => {
-        //res.end_date = new Date(res.end_date).toDateString()
-        //res.expirationdate = new Date(res.expirationdate).toDateString()
-        res.start_date = new Date(res.start_date).toDateString()
-        //res.updated_date = new Date(res.updated_date).toDateString()
-        //res.created_date = new Date(res.created_date).toDateString()
-        campaigns.filter((state, i, arr) => {
-          if (arr[i].progress <= 25) {
-            arr[i].progress = `${arr[i].progress}%`
-            arr[i].color = 'progress-bar bg-danger'
-            return
-          } else if (arr[i].progress > 25 && arr[i].progress <= 50) {
-            arr[i].progress = `${arr[i].progress}%`
-            arr[i].color = 'progress-bar bg-success'
-            return
-          }
-          else if (arr[i].progress > 50) {
-            arr[i].progress = `${arr[i].progress}%`
-            arr[i].color = 'progress-bar bg-primary'
-            return
-          }
-          else {
-            arr[i].color = 'progress-bar -bg-transparent'
-
-          }
-        })
-
-        campaigns.filter((cam, i, arr) => {
-          if (arr[i].status === 2) {
-            arr[i].paused = true
-            return
-          } else if (arr[i].status === 1) {
-            if (arr[i].progress === `100%`) {
-              arr[i].paused = true
+  ngOnInit(): void {
+    this.zone.run(() => {
+      this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
+        campaigns.map((res: any, i, arr) => {
+          //res.end_date = new Date(res.end_date).toDateString()
+          //res.expirationdate = new Date(res.expirationdate).toDateString()
+          res.start_date = new Date(res.start_date).toDateString()
+          //res.updated_date = new Date(res.updated_date).toDateString()
+          //res.created_date = new Date(res.created_date).toDateString()
+          campaigns.filter((state, i, arr) => {
+            if (arr[i].progress <= 25) {
+              arr[i].progress = `${arr[i].progress}%`
+              arr[i].color = 'progress-bar bg-danger'
               return
-            } else {
-              arr[i].started = true
+            } else if (arr[i].progress > 25 && arr[i].progress <= 50) {
+              arr[i].progress = `${arr[i].progress}%`
+              arr[i].color = 'progress-bar bg-success'
               return
             }
-          } else if (arr[i].status === 3) {
-            arr[i].paused = true
-            return
-          }
-          else if (arr[i].status === 4) {
-            arr[i].paused = true
-          }
+            else if (arr[i].progress > 50) {
+              arr[i].progress = `${arr[i].progress}%`
+              arr[i].color = 'progress-bar bg-primary'
+              return
+            }
+            else {
+              arr[i].color = 'progress-bar -bg-transparent'
+  
+            }
+          })
+  
+          campaigns.filter((cam, i, arr) => {
+            if (arr[i].status === 2) {
+              arr[i].paused = true
+              return
+            } else if (arr[i].status === 1) {
+              if (arr[i].progress === `100%`) {
+                arr[i].paused = true
+                return
+              } else {
+                arr[i].started = true
+                return
+              }
+            } else if (arr[i].status === 3) {
+              arr[i].paused = true
+              return
+            }
+            else if (arr[i].status === 4) {
+              arr[i].paused = true
+            }
+          })
         })
+        this.campaigns = campaigns
+      }, error => {
+        // handle error
+          console.log(error)
+          this.failure = true
+          this.failureMessage = error.message
       })
-      this.campaigns = campaigns
-    }, error => {
-      // handle error
-        console.log(error)
-        this.failure = true
-        this.failureMessage = error.message
     })
+
     
   }
 

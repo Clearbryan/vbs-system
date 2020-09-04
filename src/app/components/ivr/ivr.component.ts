@@ -36,9 +36,26 @@ export class IvrComponent implements OnInit {
     })
   }
 
-  deleteIvr(i) {
+  deleteIvr(id) {
     // delete ivr
     alert('Ivr menu deleted')
+    this.ivrService.deleteIvr(id).subscribe(() => {
+      this.success = true
+      this.successMessage = "Ivr menu successfully deleted"
+      setTimeout(() => {
+        this.successMessage = ""
+        this.success = false
+      }, 2000)
+    }, error => {
+        // handle error
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
+    })
 
   }
 

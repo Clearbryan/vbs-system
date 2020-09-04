@@ -55,4 +55,8 @@ export class IvrService {
     return this.http.post('http://102.130.123.3/api/survey/', formData, httpOptions);
 
   }
+
+  deleteIvr(id) {
+    return this.http.delete(`http://102.130.123.3/api/survey/${id}/`, httpOptions)
+  }
 }
