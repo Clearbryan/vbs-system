@@ -30,8 +30,24 @@ export class ReportSingleComponent implements OnInit {
   errorMessage: String = ""
   successMessage: String = ""
 
+  chartLabels: any = []
+  chartData: any = []
+
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute, private router: Router, private ivrService: IvrService) {
 
+  }
+  chartReport(): void {
+    const map = new Map();
+    for (let i = 0; i < this.report._campaign.length; i++) {
+      const key = this.report._campaign[i].dst
+      if (map.get(key) == null){
+        map.set(key, 1)
+      } else {
+        map.set(key, map.get(key) + 1)
+      }
+    }
+    this.chartLabels = Array.from(map.keys())
+    this.chartData = Array.from(map.values())
   }
 
   ngOnInit(): void {
@@ -52,7 +68,14 @@ export class ReportSingleComponent implements OnInit {
       report.calltime = new Date(report.start_date).toLocaleString()
       report.start_date = new Date(report.start_date).toDateString()
       report.minutes = (report.minutes / 60).toFixed(0)
+<<<<<<< HEAD
       report.surveyId = 1
+=======
+      report.surveyId = 4
+
+      this.report = report;
+      this.chartReport()
+>>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
     
       const { answered, busy, calltime, cancel, congestion, machine, noanswer, notsure, person, progress, replies, id, failed } = report
 
@@ -134,16 +157,17 @@ export class ReportSingleComponent implements OnInit {
         this.piechart = new Chart(`${this.pieChartId}`, {
           type: 'pie',
           data: {
-            labels: replies,
+            labels: this.chartLabels,
             datasets: [{
               label: '# of Replies',
-              data: [90, 51, 21, 10],
+              data: this.chartData,
               backgroundColor: [
+                'purple',
                 'green',
-                'blue',
                 'yellow',
-                'purple'
-                
+                'brown',
+                'pink',
+                'blue'
               ],
               borderWidth: 1
             }]
