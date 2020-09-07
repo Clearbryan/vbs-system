@@ -123,10 +123,10 @@ export class ReportSingleComponent implements OnInit {
           this.doughnut = new Chart(`${this.doughnutChartId}`, {
             type: 'doughnut',
             data: {
-              labels: this.chartLabels,
+              labels: ['Answer', 'Busy', 'Congestion', 'Failed', 'No Answer', 'Cancelled'],
               datasets: [{
                 label: '# of Replies',
-                data: this.chartData,
+                data: [answered, busy, congestion, failed, noanswer, cancel ],
                 backgroundColor: [
                   'purple',
                   'green',

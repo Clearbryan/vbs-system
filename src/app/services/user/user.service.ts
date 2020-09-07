@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HostUrlService} from '../host-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private hostUrlService: HostUrlService) { }
 
   // refreshed token
   getHttpOptions() {
@@ -28,21 +29,21 @@ export class UserService {
       username: username,
       password: password
     }
-    return this.http.post('http://102.130.123.3/api/login/', JSON.stringify(body), options)
+    return this.http.post(this.hostUrlService.host + `/api/login/`, JSON.stringify(body), options)
   }
 
   // user logout
   logoutUser() {
-    return this.http.post('http://102.130.123.3/api/logout/', {}, this.getHttpOptions())
+    return this.http.post(this.hostUrlService.host + `/api/logout/`, {}, this.getHttpOptions())
   }
 
   // get user details
   getUserBalance() {
-    return this.http.get('http://102.130.123.3/api/balance/', this.getHttpOptions())
+    return this.http.get(this.hostUrlService.host + `/api/balance/`, this.getHttpOptions())
   }
 
   // get company info
   getCompanyInfo() {
-    return this.http.get('http://102.130.123.3/api/billing/', this.getHttpOptions())
+    return this.http.get(this.hostUrlService.host + `/api/billing/`, this.getHttpOptions())
   }
 }

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {HostUrlService} from '../host-url.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CampaignService {
     };
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private hostUrlService: HostUrlService) { }
 
   // upload audio file
   uploadAudio(name, desc, file) {
@@ -23,12 +24,12 @@ export class CampaignService {
     formData.append('audio_file', file)
     formData.append('name', name)
 
-    return this.http.post('http://102.130.123.3/api/user/api/audio/', formData, this.getHttpOptions());
+    return this.http.post(this.hostUrlService.host + '/api/user/api/audio/', formData, this.getHttpOptions());
   }
 
   // get all audio
   getAllCampaigns() {
-    return this.http.get('http://102.130.123.3/api/user/api/campaign/', this.getHttpOptions())
+    return this.http.get(this.hostUrlService.host + '/api/user/api/campaign/', this.getHttpOptions())
   }
 
   // save campaign
@@ -49,7 +50,7 @@ export class CampaignService {
     formData.append('dnc', dnc)
 
 
-    return this.http.post('http://102.130.123.3/api/user/api/campaign/', formData, this.getHttpOptions());
+    return this.http.post(this.hostUrlService.host + '/api/user/api/campaign/', formData, this.getHttpOptions());
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -58,7 +59,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
+    return this.http.put(this.hostUrlService.host + `/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -67,7 +68,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
+    return this.http.put(this.hostUrlService.host + `/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -76,7 +77,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
+    return this.http.put(this.hostUrlService.host + `/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
   
  
