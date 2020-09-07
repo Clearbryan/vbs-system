@@ -99,12 +99,12 @@
                             </thead> -->
                             <thead class="">
                               <tr>
-                                <th>Busy</th>
-                                <th>Congested</th>
-                                <th>Failed</th>
-                                <th>Cancel</th>
-                                <th>No Answer</th>
-                                <th>Answered</th>
+                                <th><b>Busy</b></th>
+                                <th><b>Congested</b></th>
+                                <th><b>Failed</b></th>
+                                <th><b>Cancel</b></th>
+                                <th><b>No Answer</b></th>
+                                <th><b>Answered</b></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,26 +123,26 @@
                         <h5>Details</h5>
                         <hr>
                         <div class="d-flex justify-content-between border-bottom py-2">
-                          <p class="text-black"> Calls Below 5 Seconds</p>
+                          <p class="text-black"> <b>Calls Below 5 Seconds</b></p>
                           <p class="text-gray">{{belowFiveSec.length}}</p>
                         </div>
                         <div class="d-flex justify-content-between border-bottom py-2">
-                          <p class="text-black">Calls Below 10 Seconds</p>
+                          <p class="text-black"><b>Calls Below 10 Seconds</b></p>
                           <p class="text-gray">{{belowTenSec.length}}</p>
                         </div>
                         <div class="d-flex justify-content-between pt-2">
-                          <p class="text-black">Calls Below 20 Seconds</p>
+                          <p class="text-black"><b>Calls Below 20 Seconds</b></p>
                           <p class="text-gray">{{belowTwentySec.length}}</p>
                         </div>
                         <br>
                         <h5>Campaign</h5>
                         <hr>
                         <div class="d-flex justify-content-between border-bottom py-2">
-                          <p class="text-black"> Campaign Cost</p>
-                          <p class="text-gray">Cost</p>
+                          <p class="text-black"> <b>Campaign Cost</b></p>
+                          <p class="text-gray"><b>Cost</b></p>
                         </div>
                         <div class="d-flex justify-content-between border-bottom py-2">
-                          <p class="text-black"> Total minutes</p>
+                          <p class="text-black"> <b>Total minutes</b></p>
                           <p class="text-gray">{{report.minutes}}</p>
                         </div>
                         <br>
@@ -155,16 +155,48 @@
                             </thead> -->
                             <thead class="">
                               <tr>
-                                <th>Contactability (Number of replies / number of calls made)</th>
-                                <th>Feedback (Number of replies / number of calls made)</th>
+                                <th><b>Feedback (Number of replies / number of calls made)</b></th>
                                 </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td>{{report.contactability | percent}}</td>
-                                <td>{{report.contactability | percent}}</td>
+                                <td>{{report.answerablity }}%</td>
                               </tr>
                             </tbody>
+                            <thead class="">
+                              <tr>
+                                <th><b>Feedback (Number of calls / number of leads in phonebook)</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{report.answerablity }}%</td>
+                              </tr>
+                            </tbody>
+                            <hr>
+                            <div class="split-header ml-1 mr-1">
+                              <p>Total leads in Phonebook</p>
+                              <div class="content-wrapper v-centered">
+                                <span class="btn action-btn btn-refresh btn-xs component-flat"></span>
+                                  <p>1000</p>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="split-header ml-1 mr-1">
+                              <p>Total calls made</p>
+                              <div class="content-wrapper v-centered">
+                                <span class="btn action-btn btn-refresh btn-xs component-flat"></span>
+                                  <p>1000</p>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="split-header ml-1 mr-1">
+                              <p>Total calls answered</p>
+                              <div class="content-wrapper v-centered">
+                                <span class="btn action-btn btn-refresh btn-xs component-flat"></span>
+                                  <p>1000</p>
+                              </div>
+                            </div>
                           </table>
                         </div>
                       </div>

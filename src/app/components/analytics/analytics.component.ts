@@ -45,6 +45,10 @@ export class AnalyticsComponent implements OnInit {
     
   }
 
+  // ngOnInit(): void {
+    
+  // }
+
   // search
   search(e) {
 

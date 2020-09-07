@@ -24,17 +24,17 @@ export class IvrService {
     formData.append('name', name)
     formData.append('desc', desc)
 
-    return this.http.post('http://102.130.123.3/api/survey/', formData, this.getHttpOptions());
+    return this.http.post('http://102.67.140.141/api/survey/', formData, this.getHttpOptions());
   }
 
   // get all contacts
   getAllIvrMenus() {
-    return this.http.get('http://102.130.123.3/api/survey/', this.getHttpOptions())
+    return this.http.get('http://102.67.140.141/api/survey/', this.getHttpOptions())
   }
 
   // get single ivr
   getIvrMenu(id) {
-    return this.http.get(`http://102.130.123.3/api/survey/${id}`, this.getHttpOptions())
+    return this.http.get(`http://102.67.140.141/api/survey/${id}`, this.getHttpOptions())
   }
 
   // edit ivr menu
@@ -45,7 +45,7 @@ export class IvrService {
     formData.append('description', description)
     formData.append('data', data)
 
-    return this.http.put(`http://102.130.123.3/api/survey/${id}/`, formData, this.getHttpOptions())
+    return this.http.put(`http://102.67.140.141/api/survey/${id}/`, formData, this.getHttpOptions())
   }
 
   // add ivr menu
@@ -56,11 +56,11 @@ export class IvrService {
     formData.append('description', desc)
     formData.append('data', data)
 
-    return this.http.post('http://102.130.123.3/api/survey/', formData, this.getHttpOptions());
+    return this.http.post('http://102.67.140.141/api/survey/', formData, this.getHttpOptions());
 
   }
 
   deleteIvr(id) {
-    return this.http.delete(`http://102.130.123.3/api/survey/${id}/`, httpOptions)
+    return this.http.delete(`http://102.67.140.141/api/survey/${id}/`, this.getHttpOptions())
   }
 }

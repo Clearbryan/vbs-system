@@ -11,7 +11,7 @@ export class CdrService {
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       }).set('Authorization', `Token ${localStorage.getItem('token')}`)
     };
   }
@@ -20,6 +20,6 @@ export class CdrService {
 
   // get single cdr
   getCdr() {
-    return this.http.get('http://102.130.123.3/api/cdr/', this.getHttpOptions())
+    return this.http.get('http://102.67.140.141/api/cdr/', this.getHttpOptions())
   }
 }

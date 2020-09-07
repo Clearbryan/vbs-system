@@ -493,6 +493,10 @@
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
+.sidebar_footer {
+  position: absolute;
+  bottom: 0px;
+}
 
 /* Footer */
 footer {

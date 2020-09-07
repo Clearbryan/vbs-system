@@ -47,29 +47,29 @@ export class PurchaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() => {
-      setInterval(() => {
+      this.zone.run(() => {
+        // setInterval(() => {
         this.orderService.getProducts().subscribe((order: any) => {
           // console.log(order)
           this.packages = order
         }, error => {
           // handle error
-            console.log(error)
-            this.failure = true
-            this.errorMessage = error.message
-            setTimeout(() => {
-              this.failure = false
-              this.errorMessage = ""
-            }, 2000)
+          console.log(error)
+          this.failure = true
+          this.errorMessage = error.message
+          setTimeout(() => {
+            this.failure = false
+            this.errorMessage = ""
+          }, 2000)
         })
       }, 1000)
+      // })
     })
-    
 
   }
 
   // proceed to checkout
   order() {
-
     this.orderService.order(this.order_total, this.credits, this.packageId).subscribe((order: any) => {
       const orderId = order.id
       this.success = true
@@ -108,7 +108,7 @@ export class PurchaseComponent implements OnInit {
         this.credit_cost = cost.toFixed(2)
         vat = (15 / 100 * cost).toFixed(2)
         this.vat = vat
-        this.order_total = cost.toFixed(2)
+        this.order_total = (Number(this.vat) + Number(this.credit_cost))
         return
       } if (this.credits > 30000) {
         if (i % 2 == 0) {
@@ -122,7 +122,7 @@ export class PurchaseComponent implements OnInit {
         this.credit_cost = cost.toFixed(2)
         vat = (15 / 100 * cost).toFixed(2)
         this.vat = vat
-        this.order_total = cost.toFixed(2)
+        this.order_total = (Number(this.vat) + Number(this.credit_cost))
         return
       }
       else {

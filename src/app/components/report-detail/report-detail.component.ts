@@ -44,7 +44,8 @@ export class ReportDetailComponent implements OnInit {
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
        // get total calls made
       let callsMade = report._campaign.length
-      report.contactability = ((report.answered / 100) * callsMade)
+
+      report.answerablity = ((report.answered / callsMade ) * 100 ).toFixed(0)
 
       //  this.active = true
       if (report.id === this.reportId) {
@@ -86,7 +87,7 @@ export class ReportDetailComponent implements OnInit {
     html2canvas(data, {backgroundColor: null}).then(canvas => {  
       // Few necessary setting options  
       let imgWidth = 208;   
-      let pageHeight = 295;    
+      let pageHeight = 350;    
       let imgHeight = canvas.height * imgWidth / canvas.width;  
       let heightLeft = imgHeight;  
 

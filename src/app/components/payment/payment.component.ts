@@ -28,21 +28,19 @@ export class PaymentComponent implements OnInit {
       resolve(true);
     });
     
-    this.actionLink = `http:102.130.121.124/#/user/accounts/payment/status?orderId=${this.orderId}`
+    this.actionLink = `http:102.67.140.142/#/user/accounts/payment/status?orderId=${this.orderId}`
   }
-
-
   public loadScript() { 
-    var isFound = false;
-    var scripts = document.getElementsByTagName("script")
-    for (var i = 0; i < scripts.length; ++i) {
+    let isFound = false;
+    let scripts = document.getElementsByTagName("script")
+    for (let i = 0; i < scripts.length; ++i) {
         if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes("loader")) {
             isFound = true;
         }
     }
     if (!isFound) {
-      var dynamicScripts = [`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${this.checkoutId}`];
-      for (var i = 0; i < dynamicScripts.length; i++) {
+      let dynamicScripts = [`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${this.checkoutId}`];
+      for (let i = 0; i < dynamicScripts.length; i++) {
           let node = document.createElement('script');
           node.src = dynamicScripts [i];
           node.type = 'text/javascript';

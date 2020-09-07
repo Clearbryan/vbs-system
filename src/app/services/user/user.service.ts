@@ -12,7 +12,7 @@ export class UserService {
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       }).set('Authorization', `Token ${localStorage.getItem('token')}`)
     };
   }
@@ -28,21 +28,21 @@ export class UserService {
       username: username,
       password: password
     }
-    return this.http.post('http://102.130.123.3/api/login/', JSON.stringify(body), options)
+    return this.http.post('http://102.67.140.141/api/login/', JSON.stringify(body), options)
   }
 
   // user logout
   logoutUser() {
-    return this.http.post('http://102.130.123.3/api/logout/', {}, this.getHttpOptions())
+    return this.http.post('http://102.67.140.141/api/logout/', {}, this.getHttpOptions())
   }
 
   // get user details
   getUserBalance() {
-    return this.http.get('http://102.130.123.3/api/balance/', this.getHttpOptions())
+    return this.http.get('http://102.67.140.141/api/balance/', this.getHttpOptions())
   }
 
   // get company info
   getCompanyInfo() {
-    return this.http.get('http://102.130.123.3/api/billing/', this.getHttpOptions())
+    return this.http.get('http://102.67.140.141/api/billing/', this.getHttpOptions())
   }
 }

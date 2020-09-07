@@ -11,7 +11,7 @@ export class OrderService {
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       }).set('Authorization', `Token ${localStorage.getItem('token')}`)
     };
   }
@@ -20,7 +20,7 @@ export class OrderService {
 
   // get orders
   getProducts() {
-    return this.http.get('http://102.130.123.3/api/package/', this.getHttpOptions());
+    return this.http.get('http://102.67.140.141/api/package/', this.getHttpOptions());
   }
 
   // create order
@@ -30,12 +30,12 @@ export class OrderService {
       package: packageId,
       quantity: credits
     }
-    return this.http.post('http://102.130.123.3/api/order/', body, this.getHttpOptions())
+    return this.http.post('http://102.67.140.141/api/order/', body, this.getHttpOptions())
   }
 
   // // get checkout id
   // checkout(id) {
-  //   return this.http.post(`http://102.130.123.3/api/order/${id}/checkout/`, {
+  //   return this.http.post(`http://102.67.140.141/api/order/${id}/checkout/`, {
   //     headers: {
   //     'Authorization': 'Token e0f2350e5051b8707959895e14eae7e7f67640b2ed13bdc1bd54cc0535bc687e'
   //   }})
@@ -43,15 +43,15 @@ export class OrderService {
 
   // get single order
   getOrder(id) {
-    return this.http.get(`http://102.130.123.3/api/order/${id}/`, this.getHttpOptions())
+    return this.http.get(`http://102.67.140.141/api/order/${id}/`, this.getHttpOptions())
   }
 
   checkout(id) {
-    return this.http.post(`http://102.130.123.3/api/order/${id}/checkout/`, {}, this.getHttpOptions())
+    return this.http.post(`http://102.67.140.141/api/order/${id}/checkout/`, {}, this.getHttpOptions())
   }
 
   // payment 
   makePayment(id) {
-    return this.http.get(`http://102.130.123.3/api/order/${id}/payment/`, this.getHttpOptions())
+    return this.http.get(`http://102.67.140.141/api/order/${id}/payment/`, this.getHttpOptions())
   }
 }

@@ -29,7 +29,29 @@ export class DashboardComponent {
   constructor(private userService: UserService, private campaignService: CampaignService, private zone: NgZone) { 
     // test async
     this.zone.runOutsideAngular(() => {
-      setInterval(() => {
+      if (this.activeCampaigns.length > 0) {
+        setInterval(() => {
+          this.userService.getUserBalance().subscribe((response: any) => {
+            // console.log(response)
+            response[0].minutes = (response[0].minutes / 60).toFixed(0)
+            this.user = response[0]
+            if (this.user.minutes <= 50) {
+              this.balanceColor = 'display-income text-danger'
+            } else {
+              this.balanceColor = 'display-income text-success'
+            }
+          }, error => {
+              // console.log(error)
+            // this.failure = true
+            // this.errorMessage = error.message
+            // setTimeout(() => {
+            //   this.failure = false
+            //   this.errorMessage = ""
+            // }, 2000)
+          })
+        }, 500)
+      }
+      else {
         this.userService.getUserBalance().subscribe((response: any) => {
           // console.log(response)
           response[0].minutes = (response[0].minutes / 60).toFixed(0)
@@ -48,8 +70,8 @@ export class DashboardComponent {
           //   this.errorMessage = ""
           // }, 2000)
         })
-      }, 1000)
-      
+      }
+   
       this.campaignService.getAllCampaigns().subscribe((campaigns: any) => {
         campaigns.map((c) => {
           c.calltime = new Date(c.start_date).toLocaleTimeString()

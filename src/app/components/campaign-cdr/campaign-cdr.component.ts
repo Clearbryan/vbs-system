@@ -15,6 +15,10 @@ export class CampaignCdrComponent implements OnInit {
   searchOption: String = "Search by"
   searchStrings: any = ["Number", "Date", "Disposition"]
   noSearch: Boolean = true
+  failure: Boolean
+  success: Boolean
+  errorMessage: String = ""
+  successMessage: String = ""
 
 
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute) { }
@@ -24,6 +28,13 @@ export class CampaignCdrComponent implements OnInit {
 
     this.activeRoute.params.subscribe((params: Params) => {
       this.reportId = Number(params.id)
+    }, error => {
+      this.failure = true
+      this.errorMessage = error.message
+      setTimeout(() => {
+        this.failure = false
+        this.errorMessage = ""
+      }, 2000)
     })
     // get single report data
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
@@ -36,7 +47,13 @@ export class CampaignCdrComponent implements OnInit {
       }
       // console.log(this.report._campaign)
     }, error => {
-      console.log(error)
+        console.log(error)
+        this.failure = true
+        this.errorMessage = error.message
+        setTimeout(() => {
+          this.failure = false
+          this.errorMessage = ""
+        }, 2000)
     })
     
   }

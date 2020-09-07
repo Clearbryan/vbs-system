@@ -10,7 +10,7 @@ export class CampaignService {
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       }).set('Authorization', `Token ${localStorage.getItem('token')}`)
     };
   }
@@ -23,12 +23,12 @@ export class CampaignService {
     formData.append('audio_file', file)
     formData.append('name', name)
 
-    return this.http.post('http://102.130.123.3/api/user/api/audio/', formData, this.getHttpOptions());
+    return this.http.post('http://102.67.140.141/api/user/api/audio/', formData, this.getHttpOptions());
   }
 
   // get all audio
   getAllCampaigns() {
-    return this.http.get('http://102.130.123.3/api/user/api/campaign/', this.getHttpOptions())
+    return this.http.get('http://102.67.140.141/api/user/api/campaign/', this.getHttpOptions())
   }
 
   // save campaign
@@ -49,7 +49,7 @@ export class CampaignService {
     formData.append('dnc', dnc)
 
 
-    return this.http.post('http://102.130.123.3/api/user/api/campaign/', formData, this.getHttpOptions());
+    return this.http.post('http://102.67.140.141/api/user/api/campaign/', formData, this.getHttpOptions());
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -58,7 +58,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
+    return this.http.put(`http://102.67.140.141/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -67,7 +67,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
+    return this.http.put(`http://102.67.140.141/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -76,7 +76,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-    return this.http.put(`http://102.130.123.3/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
+    return this.http.put(`http://102.67.140.141/api/user/api/campaign/${id}/`, formData, this.getHttpOptions());
   }
   
  

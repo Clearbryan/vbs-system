@@ -11,7 +11,7 @@ export class AnalyticsService {
   getHttpOptions() {
     return {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       }).set('Authorization', `Token ${localStorage.getItem('token')}`)
     };
   }
@@ -20,11 +20,11 @@ export class AnalyticsService {
 
   // get all audio
   getAllReports() {
-    return this.http.get('http://102.130.123.3/api/analytics/', this.getHttpOptions())
+    return this.http.get('http://102.67.140.141/api/analytics/', this.getHttpOptions())
   }
 
   // get single report 
   getSingleReport(id) {
-    return this.http.get(`http://102.130.123.3/api/analytics/${id}/`, this.getHttpOptions())
+    return this.http.get(`http://102.67.140.141/api/analytics/${id}/`, this.getHttpOptions())
   }
 }
