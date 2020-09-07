@@ -46,7 +46,13 @@ export class ReportSingleComponent implements OnInit {
         map.set(key, map.get(key) + 1)
       }
     }
-    this.chartLabels = Array.from(map.keys())
+    const dictionary = new Map(this.report.survey.data)
+    const meaning = []
+    const key = Array.from(map.keys())
+    for (let i = 0; i < Array.from(map.keys()).length; i++) {
+      meaning[i] = dictionary.get(key[i])
+    }
+    this.chartLabels = meaning
     this.chartData = Array.from(map.values())
   }
 
