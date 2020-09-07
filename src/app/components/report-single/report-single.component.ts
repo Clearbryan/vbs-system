@@ -1,9 +1,11 @@
+import { PhonebookService } from 'src/app/services/phonebook/phonebook.service';
 import { IvrService } from './../../services/ivr/ivr.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { Chart } from 'chart.js'
 import { newArray } from '@angular/compiler/src/util';
+import { type } from 'os';
 
 @Component({
   selector: 'app-report-single',
@@ -33,7 +35,7 @@ export class ReportSingleComponent implements OnInit {
   chartLabels: any = []
   chartData: any = []
 
-  constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute, private router: Router, private ivrService: IvrService) {
+  constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute, private router: Router, private ivrService: IvrService, private contactService: PhonebookService) {
 
   }
   chartReport(): void {
@@ -46,12 +48,19 @@ export class ReportSingleComponent implements OnInit {
         map.set(key, map.get(key) + 1)
       }
     }
+    let test = []
+    Array.from(map.keys()).map((i) => {
+      let data = this.report.survey.data
+    })
     this.chartLabels = Array.from(map.keys())
     this.chartData = Array.from(map.values())
+    
   }
+  
 
   ngOnInit(): void {
 
+    // get phonebook
     this.activeRoute.params.subscribe((params: Params) => {
       this.reportId = Number(params.id)
     }, error => {
@@ -68,62 +77,11 @@ export class ReportSingleComponent implements OnInit {
       report.calltime = new Date(report.start_date).toLocaleString()
       report.start_date = new Date(report.start_date).toDateString()
       report.minutes = (report.minutes / 60).toFixed(0)
-<<<<<<< HEAD
       report.surveyId = 1
-=======
-      report.surveyId = 4
-
-      this.report = report;
-      this.chartReport()
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
     
       const { answered, busy, calltime, cancel, congestion, machine, noanswer, notsure, person, progress, replies, id, failed } = report
 
-      
-      this.ivrService.getIvrMenu(report.surveyId).subscribe((survey: any) => {
-        // get ivr menu 
-        let replies = []
-        // console.log(survey)
-        for (const s in survey.data.values) {
-          console.log(s)
-          replies.push(s)
-          console.log(replies)
-        }
-        // survey.data.forEach((survey, i, arr) => {
-        //   replies.push(survey.value)
-        // })
-        // const menus = ['Ignored']
-        // const responses = []
-        // let nines = []
-        // const ignored = []
-        // let menuKey, key
-        // survey.data.forEach((menu, i, arr) => {
-        //   menuKey = `Pressed ${arr[i].key}`
-        //   menus.push(menuKey)
-        // })
-
-        // // filter responses
-        // const respos = report._campaign.map((res, i, arr) => {
-        //   return {'dst':arr[i].dst}
-        // })
-
-        // respos.forEach((respo, i, arr) => {
-        //   if (respo.dst === null) {
-        //     ignored.push(respo)
-        //   }
-        //   menus.filter((menu, i, arr) => {
-        //     if (arr[i].endsWith(respo.dst)) {
-        //       responses.push(respo)
-        //     } 
-        //   })
-        // })
-        
-    
-
-        // console.log(menus)
-        // console.log(respos)
-        
-        // create doughnut chart
+          // create doughnut chart
           this.doughnut = new Chart(`${this.doughnutChartId}`, {
             type: 'doughnut',
             data: {
@@ -153,14 +111,23 @@ export class ReportSingleComponent implements OnInit {
             }
           })
         
-        // create piechart
+      // create piechart
+      let chartLabels
+      let chartData = []
+      let responses = {}
+      
+      chartLabels = Object.values(report.survey.data)
+      chartData = Array.from(chartLabels)
+      
+     
+      
         this.piechart = new Chart(`${this.pieChartId}`, {
           type: 'pie',
           data: {
-            labels: this.chartLabels,
+            labels: chartLabels,
             datasets: [{
               label: '# of Replies',
-              data: this.chartData,
+              data: [],
               backgroundColor: [
                 'purple',
                 'green',
@@ -209,16 +176,29 @@ export class ReportSingleComponent implements OnInit {
           }
         }
       })
-      }, error => {
-        this.error = error
-        this.failure = true
-        this.errorMessage = error.message
-        setTimeout(() => {
-          this.failure = false
-          this.errorMessage = ""
-        }, 2000)
+
+      
+      // this.ivrService.getIvrMenu(report.surveyId).subscribe((survey: any) => {
+      //   // get ivr menu 
+      //   let replies = []
+      //   // console.log(survey)
+      //   for (const s in survey.data.values) {
+      //     console.log(s)
+      //     replies.push(s)
+      //     console.log(replies)
+      //   }
+        
+    
+      // }, error => {
+      //   this.error = error
+      //   this.failure = true
+      //   this.errorMessage = error.message
+      //   setTimeout(() => {
+      //     this.failure = false
+      //     this.errorMessage = ""
+      //   }, 2000)
           
-      })
+      // })
       
 
     

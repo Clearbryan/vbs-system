@@ -24,29 +24,17 @@ export class CampaignService {
     let formData = new FormData()
     formData.append('audio_file', file)
     formData.append('name', name)
-<<<<<<< HEAD
     return this.http.post('http://102.67.140.141/api/audio/', formData, this.getHttpOptions());
-=======
-    return this.http.post(this.hostUrlService.host + '/api/audio/', formData, this.getHttpOptions());
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // get all audio
   getAllCampaigns() {
-<<<<<<< HEAD
     return this.http.get('http://102.67.140.141/api/campaign/', this.getHttpOptions())
-=======
-    return this.http.get(this.hostUrlService.host + '/api/campaign/', this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // get single campaign
   getSinglecampaign(id) {
-<<<<<<< HEAD
     return this.http.get(`http://102.67.140.141/api/campaign/${id}/`, this.getHttpOptions())
-=======
-    return this.http.get(this.hostUrlService.host + `/api/campaign/${id}/`, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // save campaign
@@ -66,11 +54,7 @@ export class CampaignService {
     formData.append('retry_on', retry_on)
     formData.append('dnc', dnc)
 
-<<<<<<< HEAD
     return this.http.post('http://102.67.140.141/api/campaign/', formData, this.getHttpOptions());
-=======
-    return this.http.post(this.hostUrlService.host + '/api/campaign/', formData, this.getHttpOptions());
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   startCampaign(id, status, name, phonebook) {
@@ -79,11 +63,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-<<<<<<< HEAD
     return this.http.put(`http://102.67.140.141/api/campaign/${id}/`, formData, this.getHttpOptions());
-=======
-    return this.http.put(this.hostUrlService.host + `/api/campaign/${id}/`, formData, this.getHttpOptions());
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   pauseCampaign(id, status, name, phonebook) {
@@ -92,11 +72,7 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-<<<<<<< HEAD
     return this.http.put(`http://102.67.140.141/api/campaign/${id}/`, formData, this.getHttpOptions());
-=======
-    return this.http.put(this.hostUrlService.host + `/api/campaign/${id}/`, formData, this.getHttpOptions());
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   stopCampaign(id, status, name, phonebook) {
@@ -105,40 +81,24 @@ export class CampaignService {
     formData.append('name', name)
     formData.append('phonebook', phonebook)
 
-<<<<<<< HEAD
     return this.http.put(`http://102.67.140.141/api/campaign/${id}/`, formData, this.getHttpOptions());
-=======
-    return this.http.put(this.hostUrlService.host + `/api/campaign/${id}/`, formData, this.getHttpOptions());
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // delete campaign
   deleteCampaign(id) {
-<<<<<<< HEAD
     return this.http.delete(`http://102.67.140.141/api/campaign/${id}/`, this.getHttpOptions())
-=======
-    return this.http.delete(this.hostUrlService.host + `/api/campaign/${id}/`, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // edit campaign
   editCampaign(id, data) {
-<<<<<<< HEAD
     return this.http.put(`http://102.67.140.141/api/campaign/${id}/`, data, this.getHttpOptions())
-=======
-    return this.http.put(this.hostUrlService.host + `/api/campaign/${id}/`, data, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
    // duplicate
   duplicateCampaign(id) {
     let formData = new FormData()
     formData.append('campaign', id)
-<<<<<<< HEAD
     return this.http.post(`http://102.67.140.141/api/duplicate/`, formData, this.getHttpOptions())
-=======
-    return this.http.post(this.hostUrlService.host + `/api/duplicate/`, formData, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // recycle 
@@ -146,11 +106,7 @@ export class CampaignService {
     let formData = new FormData()
     formData.append('campaign', id)
     formData.append('disposition', disposition)
-<<<<<<< HEAD
     return this.http.post(`http://102.67.140.141/api/recycle/`, formData, this.getHttpOptions())
-=======
-    return this.http.post(this.hostUrlService.host + `/api/recycle/`, formData, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   
   }
 
@@ -159,11 +115,7 @@ export class CampaignService {
     let formData = new FormData()
     formData.append('campaign', id)
     formData.append('contact', number)
-<<<<<<< HEAD
     return this.http.post(`http://102.67.140.141/api/test/`, formData, this.getHttpOptions())
-=======
-    return this.http.post(this.hostUrlService.host + `/api/test/`, formData, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   
   }
 

@@ -21,19 +21,11 @@ export class AnalyticsService {
 
   // get all audio
   getAllReports() {
-<<<<<<< HEAD
     return this.http.get('http://102.67.140.141/api/analytics/', this.getHttpOptions())
-=======
-    return this.http.get(this.hostUrlService.host + '/api/analytics/', this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 
   // get single report 
   getSingleReport(id) {
-<<<<<<< HEAD
     return this.http.get(`http://102.67.140.141/api/analytics/${id}/`, this.getHttpOptions())
-=======
-    return this.http.get(this.hostUrlService.host + `/api/analytics/${id}/`, this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 }

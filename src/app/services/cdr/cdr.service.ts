@@ -21,10 +21,6 @@ export class CdrService {
 
   // get single cdr
   getCdr() {
-<<<<<<< HEAD
     return this.http.get('http://102.67.140.141/api/cdr/', this.getHttpOptions())
-=======
-    return this.http.get(this.hostUrlService.host + '/api/cdr/', this.getHttpOptions())
->>>>>>> 9c62390cad3ebd75da29560ceffdc9af77cb62b0
   }
 }
