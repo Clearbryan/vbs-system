@@ -72,7 +72,7 @@
                 </small><small>28 July 2020, 12:15
                   pm</small></span>
               <br>
-              <span><small><b>Total Reached: </b> </small><small>{{report.calls}}</small> / <small><b>Total Minutes: </b>
+              <span><small><b>Total Successfull Calls: </b> </small><small>{{report.successfullCalls}}</small> / <small><b>Total Minutes: </b>
                 </small><small>{{report.minutes}}</small></span>
             </div>
           </div>
@@ -155,7 +155,7 @@
                             </thead> -->
                             <thead class="">
                               <tr>
-                                <th><b>Feedback (Number of replies / number of calls made)</b></th>
+                                <th><b>Answerability Feedback (Number of replies / number of calls made)</b></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -165,12 +165,12 @@
                             </tbody>
                             <thead class="">
                               <tr>
-                                <th><b>Feedback (Number of calls / number of leads in phonebook)</b></th>
+                                <th><b>Contactability Feedback (Number of successfull calls / number of leads in phonebook)</b></th>
                                 </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td>{{report.answerablity }}%</td>
+                                <td>{{report.contactability }}%</td>
                               </tr>
                             </tbody>
                             <hr>
@@ -178,7 +178,7 @@
                               <p>Total leads in Phonebook</p>
                               <div class="content-wrapper v-centered">
                                 <span class="btn action-btn btn-refresh btn-xs component-flat"></span>
-                                  <p>1000</p>
+                                  <p>{{report.totalLeads}}</p>
                               </div>
                             </div>
                             <br>
@@ -186,7 +186,7 @@
                               <p>Total calls made</p>
                               <div class="content-wrapper v-centered">
                                 <span class="btn action-btn btn-refresh btn-xs component-flat"></span>
-                                  <p>1000</p>
+                                  <p>{{report._campaign.length}}</p>
                               </div>
                             </div>
                             <br>
@@ -194,7 +194,7 @@
                               <p>Total calls answered</p>
                               <div class="content-wrapper v-centered">
                                 <span class="btn action-btn btn-refresh btn-xs component-flat"></span>
-                                  <p>1000</p>
+                                  <p>{{report.answered}}</p>
                               </div>
                             </div>
                           </table>

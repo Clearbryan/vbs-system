@@ -40,7 +40,12 @@ export class ReportCdrComponent implements OnInit {
       }, 2000)
     })
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
-       console.log(report)
+      console.log(report)
+      report._campaign.map((res) => {
+        if (res.dst === null) {
+          res.dst = 'IGNORED'
+        }
+      })
        this.active = true
       if (report.id === this.reportId) {
         report._campaign.map((_report, i, arr) => {
@@ -100,7 +105,10 @@ export class ReportCdrComponent implements OnInit {
       this.noSearch = false
       // console.log(this.report)
       const filteredSearch = this.report._campaign.filter((report, i, arr) => {
-        if (this.searchOption === 'Number') {
+        if (this.searchOption === '') {
+          return true
+        }
+        else if (this.searchOption === 'Number') {
           if (arr[i].contact !== null) {
             if (arr[i].contact.includes(searchString)) {
               return true
@@ -127,6 +135,8 @@ export class ReportCdrComponent implements OnInit {
         else if (this.searchOption === 'Response') {
           if (arr[i].dst !== null) {
             if (Number(arr[i].dst) === Number(searchString)) {
+              return true
+            } else if (arr[i].dst.includes(searchString)) {
               return true
             } else {
               return false

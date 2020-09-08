@@ -1,3 +1,4 @@
+import { PhonebookService } from './../../services/phonebook/phonebook.service';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import html2canvas from 'html2canvas';
@@ -22,12 +23,13 @@ export class ReportDetailComponent implements OnInit {
   belowTenSec: any = []
   belowTwentySec: any = []
   dataId = "content"
+  phonebookLeads: any = []
   
 
   // @ViewChild('content') content: ElementRef; 
 
 
-  constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute) { }
+  constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute, private contactService: PhonebookService) { }
 
   ngOnInit(): void {
      // get single report data
@@ -42,10 +44,33 @@ export class ReportDetailComponent implements OnInit {
       }, 2000)
     })
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+      console.log(report)
+      report._campaign.map((res) => {
+        if (res.dst === null) {
+          res.dst = 'IGNORED'
+        }
+      })
+
+        // get phonebook leads
+        this.contactService.getLeads(report.phonebook.id).subscribe((leads: any) => {
+          report.totalLeads = leads.length
+          let successfullCalls = report._campaign.length - report.failed
+          report.successfullCalls = successfullCalls
+          report.contactability = ((successfullCalls / report.totalLeads) * 100).toFixed(0)
+          
+        }, error => {
+            // handle error
+            console.log( error)
+        })
        // get total calls made
       let callsMade = report._campaign.length
+      console.log(this.phonebookLeads)
+      // report.contactability = ((Number(callsMade) / Number(report.totalLeads)) * 100).toFixed(0)
 
-      report.answerablity = ((report.answered / callsMade ) * 100 ).toFixed(0)
+      
+
+      report.answerablity = ((report.answered / callsMade) * 100).toFixed(0)
+  
 
       //  this.active = true
       if (report.id === this.reportId) {

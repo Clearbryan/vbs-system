@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { Chart } from 'chart.js'
-import { newArray } from '@angular/compiler/src/util';
-import { type } from 'os';
+
 
 @Component({
   selector: 'app-report-single',
@@ -31,6 +30,7 @@ export class ReportSingleComponent implements OnInit {
   success: Boolean
   errorMessage: String = ""
   successMessage: String = ""
+  phonebookLeads: any = []
 
   chartLabels: any = []
   chartData: any = []
@@ -38,24 +38,10 @@ export class ReportSingleComponent implements OnInit {
   constructor(private reportService: AnalyticsService, private activeRoute: ActivatedRoute, private router: Router, private ivrService: IvrService, private contactService: PhonebookService) {
 
   }
-  chartReport(): void {
-    const map = new Map();
-    for (let i = 0; i < this.report._campaign.length; i++) {
-      const key = this.report._campaign[i].dst
-      if (map.get(key) == null){
-        map.set(key, 1)
-      } else {
-        map.set(key, map.get(key) + 1)
-      }
-    }
-    let test = []
-    Array.from(map.keys()).map((i) => {
-      let data = this.report.survey.data
-    })
-    this.chartLabels = Array.from(map.keys())
-    this.chartData = Array.from(map.values())
+
+  // chartReport(): void {
     
-  }
+  // }
   
 
   ngOnInit(): void {
@@ -73,11 +59,17 @@ export class ReportSingleComponent implements OnInit {
     })
 
     this.reportService.getSingleReport(this.reportId).subscribe((report: any) => {
+
+      report._campaign.map((res) => {
+        if (res.dst === null) {
+          res.dst = 'IGNORED'
+        }
+      })
       console.log(report)
       report.calltime = new Date(report.start_date).toLocaleString()
       report.start_date = new Date(report.start_date).toDateString()
       report.minutes = (report.minutes / 60).toFixed(0)
-      report.surveyId = 1
+      
     
       const { answered, busy, calltime, cancel, congestion, machine, noanswer, notsure, person, progress, replies, id, failed } = report
 
@@ -114,12 +106,12 @@ export class ReportSingleComponent implements OnInit {
       // create piechart
       let chartLabels
       let chartData = []
-      let responses = {}
       
       chartLabels = Object.values(report.survey.data)
       chartData = Array.from(chartLabels)
-      
      
+     
+      console.log(chartData)
       
         this.piechart = new Chart(`${this.pieChartId}`, {
           type: 'pie',
@@ -178,30 +170,6 @@ export class ReportSingleComponent implements OnInit {
       })
 
       
-      // this.ivrService.getIvrMenu(report.surveyId).subscribe((survey: any) => {
-      //   // get ivr menu 
-      //   let replies = []
-      //   // console.log(survey)
-      //   for (const s in survey.data.values) {
-      //     console.log(s)
-      //     replies.push(s)
-      //     console.log(replies)
-      //   }
-        
-    
-      // }, error => {
-      //   this.error = error
-      //   this.failure = true
-      //   this.errorMessage = error.message
-      //   setTimeout(() => {
-      //     this.failure = false
-      //     this.errorMessage = ""
-      //   }, 2000)
-          
-      // })
-      
-
-    
       // get disposition
       report._campaign.map((campaign, i, arr) => {
         arr[i].calltime = new Date(arr[i].calldate).toLocaleTimeString()
